@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "348509094816",
+    "project_id": "surveyist-b7fa6",
+    "storage_bucket": "surveyist-b7fa6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348509094816:android:a54460463b0ace5acb5ac5",
+        "android_client_info": {
+          "package_name": "com.example.surveyist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ12jtRcr1829H2RhpK5bHiUOPFSOc4EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348509094816:android:ce05d62ddafc9758cb5ac5",
+        "android_client_info": {
+          "package_name": "com.survey.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ12jtRcr1829H2RhpK5bHiUOPFSOc4EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

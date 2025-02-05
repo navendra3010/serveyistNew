@@ -1,0 +1,25 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "surveyist-b7fa6",
+                    "appId": "1:348509094816:android:a54460463b0ace5acb5ac5",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "surveyist-b7fa6",
+                    "configurations": {
+                        "android": "1:348509094816:android:a54460463b0ace5acb5ac5",
+                        "ios": "1:348509094816:ios:33176fc0e08188aecb5ac5",
+                        "macos": "1:348509094816:ios:33176fc0e08188aecb5ac5",
+                        "web": "1:348509094816:web:2e2ffd2ccf5778ddcb5ac5",
+                        "windows": "1:348509094816:web:572194e5e3cc6f3dcb5ac5"
+                    }
+                }
+            }
+        }
+    }
+}
