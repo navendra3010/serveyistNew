@@ -18,7 +18,10 @@ class CommanproviderAdmin extends ChangeNotifier {
   }
 
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser() {
+    
+    
     return frstr.getAllLoginUser();
+    
   }
   // admin logout------------------------------------------------------------------------------------
   Future<void> adminLogOut(context) async {

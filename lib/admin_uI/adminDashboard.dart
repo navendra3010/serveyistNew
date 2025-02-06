@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminProvider/adminHomeProvider.dart';
 import 'package:surveyist/adminProvider/adminoperationProvider.dart';
 import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
 import 'package:surveyist/admin_uI/createNewUsersUi.dart';
-import 'package:surveyist/userModel/userlogin.dart';
 
 import 'package:surveyist/utils/TextSyle.dart';
 
@@ -138,71 +138,30 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         List<dynamic> loc = data["location"] ?? [];
                         String add = loc[0]["address"];
                         String addtrim = add.substring(5, 15);
-                        //here i will count working hour------------------------------
-                        //convert time into second
-                        // String? userLogintime = data["Login_time"];
+                        int len=(users.length);
 
 
-                        // var timeparts=userLogintime?.split("");
+                        String calculateWorkingHour(
+                            String? logTime, String? outTime) {
+                          if (logTime == null || outTime == null) {
+                            return "invalid";
+                          }
+                          String? login = logTime.trim();
+                          String logut = outTime.trim();
+                          DateFormat format = DateFormat("hh:mm:s a");
 
-                        // var logintimeSplit = timeparts![0].split(":");
+                          // var convertFormate=format.format(DateTime.now());
 
-
-                        // int hour = int.parse(logintimeSplit![0]);
-                        // int minute = int.parse(logintimeSplit![1]);
-                        // int second = int.parse(logintimeSplit![2]);
-                        //  if(timeparts![1]=="pm" &&hour!=12)
-                        //  {
-                        //   hour+=12;
-                          
-                        //  }else if(timeparts[1]=="AM" && hour==12)
-                        //  {
-                        //   hour=0;
-                        //  }
-                        // int loginTimeInSecond =
-                        //     (hour * 3600) + minute * 60 + second;
-                        // print(
-                        //     " the total second into  hoour ${loginTimeInSecond}");
-                        // //convert logouttime into second-------------
-
-                        // String? userLogOuttime = data["LogOut_time"];
-                        // if(userLogOuttime==null)
-                        // {
-                        //   String? workingHour="00-00-00";
-                        // }
-                        // else
-                        // {
-                        //      var loOutparts=userLogOuttime?.split(" ");
-                        //      var logOutintimeSplit = loOutparts![0].split(":");
-                        // int h = int.parse(logOutintimeSplit![0]);
-                        // int m = int.parse(logOutintimeSplit![1]);
-                        // int s = int.parse(logOutintimeSplit![2]);
-                        // if(loOutparts[1]=="pm"&& h!=12)
-                        // {
-                        //   h+=12;
-                        // }else if(loOutparts[1]=="AM" && h==12)
-                        // {
-                        //   h=0;
-                        // }
-                        // int loginOutTimeInSecond = (h * 3600) + m * 60 + s;
-                        // int workingTimeInSecond=loginTimeInSecond-loginOutTimeInSecond;
-
-                        //  void convertSecondIntoTime( workingTimeInSecond)
-                        //  {
-                        //   double myHourIndouble=workingTimeInSecond/3600.round();
-                        //   int correctHour=myHourIndouble.toInt();
-                        //   int minute=workingTimeInSecond-correctHour*3600;
-                        //   double myDoubleInMinute=minute/60;
-                        //   int correctMinute=myDoubleInMinute.toInt();
-                        //   int second=minute-correctMinute*60;
-                        //   print("${correctHour}-${correctMinute}-${second}");
-
-
-                        //  }
-                        // }
-                      
-
-                        
+                          DateTime loginTime = format.parse(login);
+                          DateTime logOutTime = format.parse(logut);
+                          Duration difference =
+                              logOutTime.difference(loginTime);
+                          int hour = difference.inHours;
+                          int minutes = difference.inMinutes.remainder(60);
+                          int seconds = difference.inSeconds.remainder(60);
+                          // print("total working hour${hour}-${minutes}-${seconds}");
+                          return "${hour}H-${minutes}M-${seconds}S";
+                        }
 
                         return Container(
                           height: MediaQuery.of(context).size.height * 9 / 100,
@@ -218,37 +177,30 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  // crossAxisAlignment:CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Text(
-                                        "Name:----${data['full_name']}",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                    Text(
+                                      "${data['full_name']}",
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Text(
-                                        "Id--${data['employeId']}",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          5 /
+                                          100,
+                                    ),
+                                    Text(
+                                      "${data['employeId']}",
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
-                                //  Text("employeId:-${data['employeId']}"),
-                                //   Text("Login_time:-${data['Login_time']}"),
-                                //   Text("Login_time:-${data['Login_status']}"),
-                                //    //Text("Login_time:-${data['location']}"),
-                                //   Text(add),
-
-                                //Text(users[index].id)
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -301,7 +253,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                               fontWeight: FontWeight.w500),
                                         ),
                                         Text(
-                                          "${data["Login_time"]}",
+                                          "${calculateWorkingHour(data["Login_time"], data["LogOut_time"])}",
                                           style: TextStyle(
                                               fontSize: 10,
                                               color: Colors.black,

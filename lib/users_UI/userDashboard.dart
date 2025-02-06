@@ -99,7 +99,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 3 / 100,
+              height: MediaQuery.of(context).size.height * 6 / 100,
             ),
             Container(
               height: MediaQuery.of(context).size.height * 4 / 100,
@@ -119,7 +119,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             Center(
               child: Container(
                 height: MediaQuery.of(context).size.height * 42 / 100,
-                width: MediaQuery.of(context).size.width * 100 / 100,
+                width: MediaQuery.of(context).size.width * 95 / 100,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 228, 153, 41),
                     borderRadius: BorderRadius.all(Radius.circular(40))),

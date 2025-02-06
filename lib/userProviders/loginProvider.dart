@@ -571,7 +571,7 @@ class LoginProviderForUser extends ChangeNotifier {
         print(currentTimeInSecond1);
         int elapsedSecond = currentTimeInSecond1 - loginTimeInSecond;
         print(" different time in second  ${elapsedSecond}");
-        if (elapsedSecond < 10) {
+        if (elapsedSecond < 10000) {
           print(
               "---------------------------------------------------------------------------${sessointime}");
           int logOutTimeInSecond = sessointime - (elapsedSecond / 1000).round();

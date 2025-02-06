@@ -23,10 +23,14 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+    // Timer(
+    //     Duration(seconds: 3),
+    //     () => Navigator.pushReplacement(context,
+    //         MaterialPageRoute(builder: (context) => UserDashBoardScreen())));
 
-   _autoLogin();
- 
+     _autoLogin();
   }
+
   //future funtion for autologin...................
   Future<void> _autoLogin() async {
     Provider.of<LoginProviderForUser>(context, listen: false)
