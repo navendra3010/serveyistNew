@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -224,6 +225,14 @@ class LoginProviderForUser extends ChangeNotifier {
               MaterialPageRoute(builder: (context) => AdminDashboardPage()),
             );
           } else if (userRole == "user") {
+            bool previousSessionLogOut =
+                await checkAndLogOutPreviousSession(currentUser!.uid);
+            if (!previousSessionLogOut) {
+              print("no active session found.proceding with login");
+            } else {
+              print("previous session found active please logout");
+            }
+
             await getDeviceinfo();
             Position? position = await _determinePosition(context);
             if (position != null) {
@@ -285,6 +294,48 @@ class LoginProviderForUser extends ChangeNotifier {
         );
       }
     }
+  }
+
+  Future<bool> checkAndLogOutPreviousSession(id) async {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String formattedTime = DateFormat('hh:mm:ss a').format(now);
+    String dateKey = DateFormat('dd-MM-yyyy').format(now);
+    try {
+      FirebaseFirestore fb = await FirebaseFirestore.instance;
+
+      final QuerySnapshot = await fb
+          .collection("userLoginRecordPerDay")
+          .doc(id)
+          .collection("loginDates")
+          .doc(dateKey)
+          .collection("logins")
+          .where("LogOut_status", isNull: true)
+          .limit(1)
+          .get();
+
+      if (QuerySnapshot.docs.isNotEmpty) {
+        final loginDocs = QuerySnapshot.docs.first;
+        print(loginDocs);
+        await fb
+            .collection("userLoginRecordPerDay")
+            .doc(id)
+            .collection("loginDates")
+            .doc(dateKey)
+            .collection("logins")
+            .doc(loginDocs.id)
+            .update({
+          'LogOut_time': formattedTime,
+          'logOut_date': formattedDate,
+          'LogOut_status': true,
+        });
+        print("prevoius session logout");
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
   }
 
   //future type string..................................
@@ -386,7 +437,7 @@ class LoginProviderForUser extends ChangeNotifier {
     //UserLoginModel ul=UserLoginModel();
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-    String formattedTime = DateFormat(' hh:mm:ss a').format(now);
+    String formattedTime = DateFormat('hh:mm:ss a').format(now);
     String dateKey = DateFormat('dd-MM-yyyy').format(now);
 
     //  print("$model, $brand,$board,$address,$lat,$long");
@@ -519,98 +570,118 @@ class LoginProviderForUser extends ChangeNotifier {
   Future<void> autoLogin(BuildContext context) async {
     //------------------------here start new code
     final prefs = await SharedPreferences.getInstance();
-    String? id = prefs.getString("id");
+
     String? role = prefs.getString("role");
     if (role == "admin") {
-      if (role != null) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => AdminDashboardPage()));
-      } else {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreenForAll()));
-      }
-    } else {
-      //start------------------------
-
-      DateTime now = DateTime.now();
-      int sessointime =9*3600;
-
-      String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-      String formattedTime = DateFormat('hh:mm:ss').format(now);
-      String dateKey = DateFormat('dd-MM-yyyy').format(now);
-      await Future.delayed(Duration(seconds: 2));
-      //------------------------end code
-
-      if (id != null) {
-        //_startAutoLogOutTimer();
-        isloading = false;
-        notifyListeners();
-        print(
-            "auotlogin with id--------------------------------------------------------------------------------------------------");
-        String? dt1 = prefs.getString("loginTime");
-        print(" here irs login time-----------------------------------${dt1}");
-        var splited = dt1?.split(":");
-        int hour = int.parse(splited![0]);
-        int minute = int.parse(splited![1]);
-        int second = int.parse(splited![2]);
-        int loginTimeInSecond = (hour * 3600) + minute * 60 + second;
-        print(" the total second into  hoour ${loginTimeInSecond}");
-
-        String? time = dt1;
-        String? myHour = time!.substring(0, 2);
-        String? myMinute = time!.substring(2, 4);
-        String? mySecond = time!.substring(4, 6);
-        print("the current time${formattedTime}");
-
-        var splitedCurrentime = formattedTime.split(":");
-        int hour1 = int.parse(splitedCurrentime![0]);
-        int minute1 = int.parse(splitedCurrentime![1]);
-        int second1 = int.parse(splitedCurrentime![2]);
-        int currentTimeInSecond1 = (hour1 * 3600) + minute1 * 60 + second1;
-        //here its current time in second--------------------------------------------------
-        print(currentTimeInSecond1);
-        int elapsedSecond = currentTimeInSecond1 - loginTimeInSecond;
-        print(" different time in second  ${elapsedSecond}");
-        if (elapsedSecond < 10000) {
-          print(
-              "---------------------------------------------------------------------------${sessointime}");
-          int logOutTimeInSecond = sessointime - (elapsedSecond / 1000).round();
-
-          _startAutoLogOutTimer(logOutTimeInSecond);
-        } else {
-          userLogOut();
-          return;
-        }
-        notifyListeners();
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
-      } else {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreenForAll()));
-        notifyListeners();
-      }
-
-      //end-------------------------
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => AdminDashboardPage()));
+      return;
     }
+    //start------------------------
+
+    DateTime now = DateTime.now();
+    int sessointime = 9 * 3600;
+
+    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String formattedTime = DateFormat('hh:mm:ss a').format(now);
+    String dateKey = DateFormat('dd-MM-yyyy').format(now);
+    await Future.delayed(Duration(seconds: 2));
+    //------------------------end code
+    String? id = prefs.getString("id");
+    if (id != null) {
+      //_startAutoLogOutTimer();
+      isloading = false;
+      notifyListeners();
+
+      String? dt1 = prefs.getString("loginTime");
+      if (dt1 == null) {
+        userLogOut();
+        return;
+      }
+
+      List<String> splited = dt1.split(":");
+      if (splited.length < 3) {
+        userLogOut();
+        return;
+      }
+
+      // var splited = dt1?.split(":");
+      // int hour = int.parse(splited![0]);
+      // int minute = int.parse(splited![1]);
+      // int second = int.parse(splited![2]);
+      // int loginTimeInSecond = (hour * 3600) + minute * 60 + second;
+      // print(" the total second into  hoour ${loginTimeInSecond}");
+
+      // String? time = dt1;
+      // String? myHour = time!.substring(0, 2);
+      // String? myMinute = time!.substring(2, 4);
+      // String? mySecond = time!.substring(4, 6);
+      // print("the current time${formattedTime}");
+
+      // var splitedCurrentime = formattedTime.split(":");
+      // int hour1 = int.parse(splitedCurrentime![0]);
+      // int minute1 = int.parse(splitedCurrentime![1]);
+      // int second1 = int.parse(splitedCurrentime![2]);
+      // int currentTimeInSecond1 = (hour1 * 3600) + minute1 * 60 + second1;
+      //here its current time in second--------------------------------------------------
+      int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
+          (int.parse(splited[1]) * 60) +
+          (int.parse(splited[2]));
+      print(" ;.login time in second${loginTimeInSecond}");
+
+      List<String> splittedCurrentTime = formattedTime.split(":");
+      int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
+          (int.parse(splittedCurrentTime[1]) * 60) +
+          (int.parse(splittedCurrentTime[2]));
+
+      int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
+      print(" different time in second  ${elapsedSecond}");
+      int sessointime = 9 * 3600;
+      if (elapsedSecond < sessointime) {
+        print(
+            "---------------------------------------------------------------------------${sessointime}");
+        int logOutTimeInSecond = sessointime - elapsedSecond;
+
+        _startAutoLogOutTimer(logOutTimeInSecond);
+      } else {
+        userLogOut();
+        return;
+      }
+      notifyListeners();
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
+    } else {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => LoginScreenForAll()));
+      notifyListeners();
+    }
+
+    //end-------------------------
   }
   //---------------------------------------startLogOutTime-  funtion---------------------------------------------------------//
 
   void _startAutoLogOutTimer(
     int logOutTimeInSecond,
   ) {
+    if (logOutTimeInSecond <= 0) {
+      print("session exprire");
+      _logOutTimer?.cancel();
+      _logOutTimer = Timer(Duration(seconds: logOutTimeInSecond), userLogOut);
+    }
     print("startAutologout is working properly");
-    _logOutTimer?.cancel();
-    _logOutTimer = Timer(Duration(seconds: logOutTimeInSecond), userLogOut);
   }
   //-----------------------------------end   start logout time---------------------------------------------------------//
 
   //------------------------log out for checing logout status..........................
   Future<void> userLogOut() async {
     final sf = await SharedPreferences.getInstance();
-   
 
     //here i have to apply user auto logout with data base and manually..
     String? idForLogOut = await sf.getString("userId");
+
+    if (idForLogOut == null) {
+      print("user id not found .skipping logout process");
+    }
     DateTime now = DateTime.now();
 
     String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
@@ -620,7 +691,7 @@ class LoginProviderForUser extends ChangeNotifier {
     try {
       FirebaseFirestore fb = await FirebaseFirestore.instance;
 
-      final rf = await fb
+      final QuerySnapshot = await fb
           .collection("userLoginRecordPerDay")
           .doc(idForLogOut)
           .collection("loginDates")
@@ -630,8 +701,8 @@ class LoginProviderForUser extends ChangeNotifier {
           .limit(1)
           .get();
 
-      if (rf.docs.isNotEmpty) {
-        final loginDocs = rf.docs.first;
+      if (QuerySnapshot.docs.isNotEmpty) {
+        final loginDocs = QuerySnapshot.docs.first;
         print(loginDocs);
         await fb
             .collection("userLoginRecordPerDay")
@@ -644,18 +715,20 @@ class LoginProviderForUser extends ChangeNotifier {
           'LogOut_time': formattedTime,
           'logOut_date': formattedDate,
           'LogOut_status': true,
-        }).then((value){
-          print("your data has been updated");
         });
+        print(
+            "user logout details has been updated successsfully in firestore");
+      } else {
+        print("no active  login recond found at");
       }
-       await sf.remove("userId");
     } catch (e) {
       print(e);
     }
-    await FirebaseAuth.instance.signOut();
-    _logOutTimer?.cancel();
-    
+
     await sf.remove("loginTime");
+    await sf.remove("userId");
+    _logOutTimer?.cancel();
+    await FirebaseAuth.instance.signOut();
     notifyListeners();
 
     navigatorKey.currentState?.pushReplacement(

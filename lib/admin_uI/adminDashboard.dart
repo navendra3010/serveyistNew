@@ -148,7 +148,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                           }
                           String? login = logTime.trim();
                           String logut = outTime.trim();
-                          DateFormat format = DateFormat("hh:mm:s a");
+                          DateFormat format = DateFormat("hh:mm:ss a");
 
                           // var convertFormate=format.format(DateTime.now());
 
