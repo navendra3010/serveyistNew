@@ -18,6 +18,6 @@ class AppConstantClass
 
 }
 //this menu for admin panel dashboard
-enum ButtomMenu {home,users,createProject,profile,}
+enum ButtomMenu {home,users,ProjectOverView,profile,}
 //this emuns function for userdashboard panel
 enum ButtomMenu2 {userHome, UserWorkHistory,progess,userprofile,}

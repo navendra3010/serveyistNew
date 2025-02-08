@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:surveyist/UI_for_all/splashUI.dart';
 import 'package:surveyist/adminProvider/accountCreateprovider.dart';
 import 'package:surveyist/adminProvider/adminHomeProvider.dart';
+import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/adminProvider/adminoperationProvider.dart';
 import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
 import 'package:surveyist/userProviders/commanProvider.dart';
@@ -24,7 +25,7 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       
-
+     
       ChangeNotifierProvider(create: (context) => LoginProviderForUser()),
       ChangeNotifierProvider(create: (context) => LocationProviderr()),
       ChangeNotifierProvider(create: (context) => Adminhomeprovider()),
@@ -32,6 +33,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => Accountcreate()),
       ChangeNotifierProvider(create: (context) => CommanProviderForUser()),
       ChangeNotifierProvider(create: (context) => CommanproviderAdmin()),
+       ChangeNotifierProvider(create: (context) => Projectprovider()),
     ],
     child: MyApp(),
   ));

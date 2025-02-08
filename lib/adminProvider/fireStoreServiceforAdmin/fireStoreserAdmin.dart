@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
@@ -48,4 +50,29 @@ class FireStoreServiceForAdmin {
     }
     
   }
+// function for create team for project
+Future <void>createTeam()async
+{
+   List ids=[];
+  print("creeate team working");
+  QuerySnapshot snapshot=await _firestore.collection('allusers').get();
+ // print(snapshot.docs);
+  for (var element in snapshot.docs) {
+    //print(element.id);
+    ids.add(element.id);
+   
+    
+   
+
+    
+  }
+   print(ids[0]);
+   DocumentSnapshot<Map<String, dynamic>> documents=await _firestore.collection("allusers").doc(ids[0]).get();
+   print(documents.data());
+ 
+
+
+
+  
+}
 }

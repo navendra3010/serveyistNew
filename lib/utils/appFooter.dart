@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surveyist/admin_uI/adminDashboard.dart';
 import 'package:surveyist/admin_uI/adminProfile.dart';
-import 'package:surveyist/admin_uI/createProject.dart';
+import 'package:surveyist/admin_uI/projectOverViewUI.dart';
 import 'package:surveyist/admin_uI/viewAllUser.dart';
 import 'package:surveyist/utils/appConstant.dart';
 
@@ -50,13 +50,13 @@ class AppFooterUi extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              if (ButtomMenu.createProject != selectMenu)
+              if (ButtomMenu.ProjectOverView != selectMenu)
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CreateProjectPage()));
+                        builder: (context) => ProjectOverView()));
             },
-            child: Container(child: Icon(Icons.create,color:ButtomMenu.createProject!=selectMenu?Colors.black:Colors.grey)),
+            child: Container(child: Icon(Icons.create,color:ButtomMenu.ProjectOverView!=selectMenu?Colors.black:Colors.grey)),
           ),
           InkWell(
             onTap: () {

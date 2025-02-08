@@ -178,6 +178,7 @@ class _TasksubmitPageState extends State<TasksubmitPage> {
                             width: MediaQuery.of(context).size.height * 5 / 100,
                           ),
                           Container(
+                            
                             child: Text("${StartDate}".split(' ')[0]),
                           ),
                         ],
