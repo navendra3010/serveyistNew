@@ -1,19 +1,15 @@
-import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/UI_for_all/loginUI.dart';
-import 'package:surveyist/admin_uI/adminDashboard.dart';
+
 import 'package:surveyist/userProviders/commanProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
 import 'package:surveyist/users_UI/taskDetail.dart';
-import 'package:surveyist/utils/TextSyle.dart';
+
 import 'package:surveyist/utils/appConstant.dart';
 import 'package:surveyist/utils/appFont.dart';
 
 import 'package:surveyist/utils/appImage.dart';
-import 'package:surveyist/utils/app_Language.dart';
+
 import 'package:surveyist/utils/footerForUsers.dart';
 
 class UserDashBoardScreen extends StatefulWidget {

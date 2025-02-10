@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/createUserAccountModel.dart';
 import 'package:surveyist/adminProvider/accountCreateprovider.dart';
-import 'package:surveyist/admin_uI/adminDashboard.dart';
+
 import 'package:surveyist/utils/appButton.dart';
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appImage.dart';
@@ -34,9 +34,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
 
   @override
   Widget build(BuildContext context) {
-
-      final createProvider = Provider.of<Accountcreate>(context);
-
+    final createProvider = Provider.of<Accountcreate>(context);
 
     return Scaffold(
       body: Padding(
@@ -334,30 +332,33 @@ class _CreateNewUsState extends State<CreateNewUs> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 4 / 100,
             ),
-          createProvider.isAccountCreate==true? CircularProgressIndicator(): MyButton(
-              text: "Create_Account",
-              color: Colors.black,
-              onPressed: () {
-                UserAccount obj = UserAccount();
-                obj.fullName = createFullName.text.toString().trim();
-                obj.dob = createDataOfBirth.text.toString().trim();
-                obj.gender = createGender.text.toString().trim();
-                obj.email = createEmail.text.toString().trim();
-                obj.address = createAddres.text.toString().trim();
-                obj.employeId = createEmployeId.text.toString().trim();
-                obj.mobileNumber = createPhoneNumber.text.toString().trim();
-                obj.loginId = crateLoginID.text.toString().trim();
-                obj.loginPassword = crateLoginPassword.text.toString().trim();
-                obj.isAdmin=true;
-                createProvider.userNewAccount(obj,context);
-                
+            createProvider.isAccountCreate == true
+                ? CircularProgressIndicator()
+                : MyButton(
+                    text: "Create_Account",
+                    color: Colors.black,
+                    onPressed: () {
+                      UserAccount obj = UserAccount();
+                      obj.fullName = createFullName.text.toString().trim();
+                      obj.dob = createDataOfBirth.text.toString().trim();
+                      obj.gender = createGender.text.toString().trim();
+                      obj.email = createEmail.text.toString().trim();
+                      obj.address = createAddres.text.toString().trim();
+                      obj.employeId = createEmployeId.text.toString().trim();
+                      obj.mobileNumber =
+                          createPhoneNumber.text.toString().trim();
+                      obj.loginId = crateLoginID.text.toString().trim();
+                      obj.loginPassword =
+                          crateLoginPassword.text.toString().trim();
+                      obj.isAdmin = true;
+                      createProvider.userNewAccount(obj, context);
 
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AdminDashboardPage()),
-                // );
-              },
-            )
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+                      // );
+                    },
+                  )
           ],
         ),
       ),

@@ -218,11 +218,11 @@ class _MyNewProjectUI extends State<Newproject> {
                   pm.projectLocation =
                       projectNameController.text.toString().trim();
                  // pm.startDate = newProject.dateStartcontroller();
-                  pm.endDate = newProject.dateEndcontroller.text
-                      .toString()
-                      .trim() as DateTime?;
-                  pm.projectDiscription =
-                      projectDiscriptionControlller.text.toString().trim();
+                  // pm.endDate = newProject.dateEndcontroller.text
+                  //     .toString()
+                  //     .trim() as DateTime?;
+                  // pm.projectDiscription =
+                  //     projectDiscriptionControlller.text.toString().trim();
                 },
               ),
               //submit buttom-------------------------------------------------------------------------end`

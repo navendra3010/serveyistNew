@@ -1,29 +1,25 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:math';
-
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/UI_for_all/loginUI.dart';
 
 import 'package:surveyist/admin_uI/adminDashboard.dart';
-import 'package:surveyist/controller/fireStoreCollection.dart';
+
 import 'package:surveyist/fireStoreServiceForUser.dart/firestoreServiceUser.dart';
 import 'package:surveyist/localization/deviceInformation.dart';
-import 'package:surveyist/localization/location.dart';
+
 import 'package:surveyist/main.dart';
-import 'package:surveyist/repositry/firebaseAuthentication.dart';
+
 import 'package:surveyist/userModel/deviceInfomodel.dart';
 import 'package:surveyist/userModel/deviceLocatioModel.dart';
-import 'package:surveyist/userModel/userProfilemodel.dart';
+
 import 'package:surveyist/userModel/userlogin.dart';
-import 'package:surveyist/userProviders/commanProvider.dart';
+
 import 'package:surveyist/users_UI/userDashboard.dart';
 
 import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';

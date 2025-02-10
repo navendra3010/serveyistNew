@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:surveyist/adminModel/createUserAccountModel.dart';
 import 'package:surveyist/admin_uI/adminDashboard.dart';
-import 'package:surveyist/userProviders/sighUpProvider.dart';
+
 import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 import 'package:surveyist/utils/app_Language.dart';
 
@@ -70,7 +70,7 @@ class Accountcreate extends ChangeNotifier {
             .then((value) {
           String userId = value.user!.uid;
           obj.role = userRole;
-          obj.unique_Id=userId;
+          obj.unique_Id = userId;
           UserAccount obj1 = UserAccount();
           isAccountCreate = false;
           notifyListeners();
@@ -84,7 +84,6 @@ class Accountcreate extends ChangeNotifier {
           MaterialPageRoute(builder: (context) => AdminDashboardPage()),
         );
 
-        
         print(
             "--------------------------hello--------------------------------");
         // print(obj1.toFireStore());

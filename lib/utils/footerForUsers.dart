@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:surveyist/admin_uI/adminDashboard.dart';
-import 'package:surveyist/admin_uI/adminProfile.dart';
-import 'package:surveyist/admin_uI/projectOverViewUI.dart';
-import 'package:surveyist/admin_uI/viewAllUser.dart';
+
 import 'package:surveyist/users_UI/UserWorkHistory.dart';
 import 'package:surveyist/users_UI/userDashboard.dart';
-import 'package:surveyist/users_UI/userWorkProgess.dart';
+
 import 'package:surveyist/users_UI/usersProfileUi.dart';
 import 'package:surveyist/utils/appConstant.dart';
-import 'package:surveyist/utils/appImage.dart';
+
 
 class footerUiForUsers extends StatelessWidget {
    footerUiForUsers(
@@ -58,18 +55,18 @@ class footerUiForUsers extends StatelessWidget {
                         ? Colors.black
                         : Colors.grey)),
           ),
-          InkWell(
-            onTap: () {
-              if (ButtomMenu2.progess != selectMenu2)
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => WorkProgess()));
-            },
-            child: Container(
-                child: Icon(Icons.create,
-                    color: ButtomMenu.ProjectOverView != selectMenu2
-                        ? Colors.black
-                        : Colors.grey)),
-          ),
+          // InkWell(
+          //   onTap: () {
+          //     if (ButtomMenu2.progess != selectMenu2)
+          //       Navigator.pushReplacement(context,
+          //           MaterialPageRoute(builder: (context) => WorkProgess()));
+          //   },
+          //   child: Container(
+          //       child: Icon(Icons.create,
+          //           color: ButtomMenu.ProjectOverView != selectMenu2
+          //               ? Colors.black
+          //               : Colors.grey)),
+          // ),
           InkWell(
             onTap: () {
               if (ButtomMenu2.userprofile != selectMenu2)

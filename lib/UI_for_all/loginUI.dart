@@ -1,18 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:provider/provider.dart';
 import 'package:surveyist/UI_for_all/signUp_Ui.dart';
-import 'package:surveyist/admin_uI/adminDashboard.dart';
-import 'package:surveyist/localization/location.dart';
-import 'package:surveyist/managerUI/managerDashboard.dart';
 import 'package:surveyist/userProviders/locationProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
-import 'package:surveyist/repositry/firebaseAuthentication.dart';
-import 'package:surveyist/users_UI/userDashboard.dart';
 
 import 'package:surveyist/utils/appButton.dart';
-import 'package:surveyist/utils/appConstant.dart';
+
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appImage.dart';
 
@@ -28,8 +22,6 @@ class LoginScreenForAll extends StatefulWidget {
 class _LoginScreenForAllState extends State<LoginScreenForAll> {
   TextEditingController userEmailController = TextEditingController();
   TextEditingController userPasswordController = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +166,6 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                               //           ..trim());
 
                               // if (user!=null) {
-                               
 
                               //   Navigator.pushReplacement(
                               //     context,
@@ -184,14 +175,11 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                               //   );
                               // }
                               loginProvider.login(
-                                      context,
-                                      userEmailController.text
-                                          .toString()
-                                          .trim(),
-                                      userPasswordController.text
-                                        ..toString()
-                                        ..trim());
-
+                                  context,
+                                  userEmailController.text.toString().trim(),
+                                  userPasswordController.text
+                                    ..toString()
+                                    ..trim());
                             }),
                       ),
                 SizedBox(

@@ -1,13 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/UI_for_all/loginUI.dart';
+
 import 'package:surveyist/userModel/userRegistrationModel.dart';
 import 'package:surveyist/userProviders/sighUpProvider.dart';
 import 'package:surveyist/utils/appButton.dart';
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appImage.dart';
-import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 
 import '../utils/app_Language.dart';
 
@@ -27,13 +25,15 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
       appBar: AppBar(
         title: Text("sigh_in"),
       ),
-      body: GestureDetector(onTap: (){
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
         child: SingleChildScrollView(
           child: ChangeNotifierProvider<Sighupprovider>(
             create: (context) => Sighupprovider(),
-            child: Consumer<Sighupprovider>(builder: (context, Provider, child) {
+            child:
+                Consumer<Sighupprovider>(builder: (context, Provider, child) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -43,7 +43,8 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                       children: [
                         Center(
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 15 / 100,
+                            height:
+                                MediaQuery.of(context).size.height * 15 / 100,
                             width: MediaQuery.of(context).size.width * 50 / 100,
                             // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
                             decoration: BoxDecoration(
@@ -67,7 +68,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                             controller: userEmailSignController,
                             decoration: InputDecoration(
                                 hintText: "Email",
-        
+
                                 // icon:Icon(Icons.person)
                                 prefixIcon: Icon(
                                   Icons.person,
@@ -84,7 +85,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                             controller: userPasswordSignController,
                             decoration: InputDecoration(
                                 hintText: "password",
-        
+
                                 // icon:Icon(Icons.person)
                                 prefixIcon: Icon(
                                   Icons.person,
@@ -116,33 +117,39 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                         //         ),
                         //       ),
                         //here i will user registration with fire store also..
-                       Provider.isloading==true?CircularProgressIndicator(): Container(
-                          child: MyButton(
-                            text: "Sigh_up",
-                            color: const Color.fromARGB(255, 228, 153, 41),
-                            onPressed: () {
-                              //  Provider.sighupAthuntication(
-                              //      userEmailSignController.text
-                              //          .toString()
-                              //          .trim(),
-                              //      userPasswordSignController.text
-                              //          .toString()
-                              //          .trim(),
-                              //      context);
-                              UserRegistrationmodel userReg = UserRegistrationmodel();
-        
-                              userReg.email =
-                                  userEmailSignController.text.toString().trim();
-                              userReg.password = userPasswordSignController.text
-                                  .toString()
-                                  .trim();
-                              userReg.isAdmin =true;
-                            
-                              Provider.createNewUser(userReg, context);
-                            },
-                          ),
-                        ),
-        
+                        Provider.isloading == true
+                            ? CircularProgressIndicator()
+                            : Container(
+                                child: MyButton(
+                                  text: "Sigh_up",
+                                  color:
+                                      const Color.fromARGB(255, 228, 153, 41),
+                                  onPressed: () {
+                                    //  Provider.sighupAthuntication(
+                                    //      userEmailSignController.text
+                                    //          .toString()
+                                    //          .trim(),
+                                    //      userPasswordSignController.text
+                                    //          .toString()
+                                    //          .trim(),
+                                    //      context);
+                                    UserRegistrationmodel userReg =
+                                        UserRegistrationmodel();
+
+                                    userReg.email = userEmailSignController.text
+                                        .toString()
+                                        .trim();
+                                    userReg.password =
+                                        userPasswordSignController.text
+                                            .toString()
+                                            .trim();
+                                    userReg.isAdmin = true;
+
+                                    Provider.createNewUser(userReg, context);
+                                  },
+                                ),
+                              ),
+
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 4 / 100,
                         ),

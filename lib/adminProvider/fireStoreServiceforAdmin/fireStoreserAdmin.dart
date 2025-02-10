@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:intl/intl.dart';
 import 'package:surveyist/adminModel/allUsersModel.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/userModel/userlogin.dart';
 
 class FireStoreServiceForAdmin {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -71,9 +68,7 @@ class FireStoreServiceForAdmin {
 
   Future<ProjectModel?> addProject() async {
     try {
-
-
-      ProjectModel p=ProjectModel();
+      ProjectModel p = ProjectModel();
       print(p.projectName);
     } catch (e) {}
   }

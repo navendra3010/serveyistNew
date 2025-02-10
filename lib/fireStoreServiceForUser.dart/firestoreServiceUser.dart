@@ -1,12 +1,11 @@
-import 'dart:math';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:surveyist/main.dart';
+
 import 'package:surveyist/userModel/userProfilemodel.dart';
-import 'package:surveyist/userModel/userlogin.dart';
 
 class FireStoreSerivcesForUser {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
