@@ -4,13 +4,13 @@ import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fireStoreserAdm
 
 class Projectprovider extends ChangeNotifier {
   TextEditingController dateStartcontroller = TextEditingController();
-   TextEditingController dateEndcontroller = TextEditingController();
-   FireStoreServiceForAdmin fireser=FireStoreServiceForAdmin();
+  TextEditingController dateEndcontroller = TextEditingController();
+  FireStoreServiceForAdmin fireser = FireStoreServiceForAdmin();
   DateTime startDate = DateTime.now();
 
   DateTime endDate = DateTime.now();
- 
-   //set project start date provider start---------------------------------------------------
+
+  //set project start date provider start---------------------------------------------------
   void setDate(context) async {
     DateTime now = await selectprojectStartDate(context);
     String selectDate = DateFormat('dd-MM-yyyy').format(now);
@@ -33,7 +33,7 @@ class Projectprovider extends ChangeNotifier {
 
   //end----------------------------
   //set project starend date provider end---------------------------------------------------
-   void setEndDate(context) async {
+  void setEndDate(context) async {
     DateTime now = await selectprojectStartDate(context);
     String selectDate = DateFormat('dd-MM-yyyy').format(now);
     print(selectDate);
@@ -50,15 +50,22 @@ class Projectprovider extends ChangeNotifier {
 
     endDate = picked!;
     return endDate;
-    
   }
+
   // provider for all team
-  Future<void> getTeam()async
-  {
+  List<dynamic>? team = [];
+
+  Future<void> getTeam() async {
     print("working------------");
-    await fireser.createTeam();
+    List<dynamic> items = await fireser.createTeam();
+    for (var element in items) {
+      print(element);
+    }
+    team = items;
   }
-
-
-
+  //function provider for add project......
+  Future<void> addProjectProvider()async
+  {
+    fireser.addProject();
+  }
 }

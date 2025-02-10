@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/utils/TextSyle.dart';
 import 'package:surveyist/utils/appButton.dart';
@@ -12,18 +13,20 @@ class Newproject extends StatefulWidget {
 }
 
 class _MyNewProjectUI extends State<Newproject> {
+  TextEditingController projectNameController = TextEditingController();
+  TextEditingController projectLocationController = TextEditingController();
+  TextEditingController projectDiscriptionControlller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final newProject = Provider.of<Projectprovider>(context);
-    return Container(
-      child: GestureDetector(
+    return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
-            body: SingleChildScrollView(
-          child: Column( mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * 5 / 100,
@@ -60,7 +63,7 @@ class _MyNewProjectUI extends State<Newproject> {
                       width: 200.0, // Fixed width
                       height: 45.0, // Fixed height
                       child: TextField(
-                        //controller:
+                        controller: projectNameController,
                         decoration: InputDecoration(
                           hintText: 'Enter_Project_Name',
                         ),
@@ -89,7 +92,7 @@ class _MyNewProjectUI extends State<Newproject> {
                       width: 200.0, // Fixed width
                       height: 45.0, // Fixed height
                       child: TextField(
-                          //  controller: createFullName,
+                          controller: projectLocationController,
                           // keyboardType:TextInputType.name,
                           decoration: InputDecoration(
                               hintText: 'Enter_Project_Location')),
@@ -102,7 +105,7 @@ class _MyNewProjectUI extends State<Newproject> {
               //start date select--------------------------------------------
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
+                children: [
                   SizedBox(
                     width: 125.0,
                     child: TextButton(
@@ -161,57 +164,70 @@ class _MyNewProjectUI extends State<Newproject> {
                   )
                 ],
               ),
-                SizedBox(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 5 / 100,
               ),
               //-----------------start----------project description------container-----------------------------
               Center(
                 child: Container(
-                    height: MediaQuery.of(context).size.height * 10 / 100,
-                    width: MediaQuery.of(context).size.width * 90 / 100,
-                    //color: Colors.amber,
-                    child: TextFormField(
-                      maxLines: 15,
-                      maxLength: 1000,
-                      decoration: InputDecoration(
-                          hintText: "Project_Discription....",
-                          hintStyle: TextStyle(
-                              fontSize: 12, fontFamily: AppFont.fontFamily),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10)))),
-                    ),
-                  ),
-              ),
-              //-----------------end----------project description----------container-------------------------
-                TextButton(onPressed: () {
-                  newProject.getTeam();
-                },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 3 / 100,
-                    width: MediaQuery.of(context).size.width * 30 / 100,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 221, 187, 138),
-                        borderRadius: BorderRadius.all(Radius.circular(80))),
-                    child: Center(
-                        child: Text(
-                      "Create_Team",
-                      style: CustomText.nameOfTextStyle,
-                    )),
+                  height: MediaQuery.of(context).size.height * 10 / 100,
+                  width: MediaQuery.of(context).size.width * 90 / 100,
+                  //color: Colors.amber,
+                  child: TextFormField(
+                    controller: projectDiscriptionControlller,
+                    maxLines: 15,
+                    maxLength: 1000,
+                    decoration: InputDecoration(
+                        hintText: "Project_Discription....",
+                        hintStyle: TextStyle(
+                            fontSize: 12, fontFamily: AppFont.fontFamily),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10)))),
                   ),
                 ),
-                  SizedBox(
-                height: MediaQuery.of(context).size.height * 20 / 100,
               ),
-              //submit buttom-------------------------------------------------------------------------start
-                MyButton(text:"create_project",  color: const Color.fromARGB(255, 221, 187, 138), onPressed: () {
-                  print("create projec working");
-                  
-                },)
-                 //submit buttom-------------------------------------------------------------------------end`
+              //-----------------end----------project description----------container-------------------------
+              TextButton(
+                onPressed: () {
+                  newProject.getTeam();
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 3 / 100,
+                  width: MediaQuery.of(context).size.width * 30 / 100,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 221, 187, 138),
+                      borderRadius: BorderRadius.all(Radius.circular(80))),
+                  child: Center(
+                      child: Text(
+                    "Create_Team",
+                    style: CustomText.nameOfTextStyle,
+                  )),
+                ),
+              ),
+
+              MyButton(
+                text: "create_project",
+                color: const Color.fromARGB(255, 221, 187, 138),
+                onPressed: () {
+                  // print(
+                  //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
+
+                  ProjectModel pm = ProjectModel();
+                  pm.projectName = projectNameController.text.toString().trim();
+                  pm.projectLocation =
+                      projectNameController.text.toString().trim();
+                 // pm.startDate = newProject.dateStartcontroller();
+                  pm.endDate = newProject.dateEndcontroller.text
+                      .toString()
+                      .trim() as DateTime?;
+                  pm.projectDiscription =
+                      projectDiscriptionControlller.text.toString().trim();
+                },
+              ),
+              //submit buttom-------------------------------------------------------------------------end`
             ],
           ),
-        )),
-      ),
-    );
+        ));
   }
 }
