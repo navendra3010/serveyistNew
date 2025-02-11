@@ -32,15 +32,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          //child: ChangeNotifierProvider<LoginProviderForUser>(
-          //create: (context) => LoginProviderForUser(),
-          //child: Consumer<LoginProviderForUser>(
-          //  builder: (context, provider, child) {
-          //return
-          // child:MultiProvider(providers: [
-
-          //child:Consumer<LoginProviderForUser>(builder: (context, value, child) {} ,)),
-          //],
+       
 
           child: Column(children: [
             //this column for login logo image and login name

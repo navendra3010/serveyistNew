@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProjectModel {
@@ -8,7 +10,7 @@ class ProjectModel {
   String? projectDiscription;
   DateTime? startDate;
   DateTime? endDate;
-  List<String>? team;
+  List<Map<String,dynamic>>? team;
   double? progress;
   int? totalTask;
 
@@ -49,7 +51,7 @@ class ProjectModel {
       projectDiscription: data["projectDiscription"] ?? '',
       startDate: data["startDate"] ?? '',
       endDate: data["endDate"] ?? '',
-      team: List<String>.from(data["team"] ?? []),
+      team: List<Map<String,dynamic>>.from(data["team"] ?? []),
       progress: data["progress"] ?? '',
       totalTask:data["totalTask"]?? '',
     );

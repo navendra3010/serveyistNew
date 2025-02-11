@@ -64,12 +64,17 @@ class FireStoreServiceForAdmin {
     return ids;
   }
 
-  ///function for create project........................................
+  Map<String, String> userIdToName = {};
 
-  Future<ProjectModel?> addProject() async {
-    try {
-      ProjectModel p = ProjectModel();
-      print(p.projectName);
-    } catch (e) {}
+  ///function for fatch user for team and display them........................................
+  Stream<List<Map<String, dynamic>>> getTeam() {
+    return _firestore.collection("allusers").snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        var data = doc.data();
+        data['id'] = doc.id!;
+        //data[doc.id]=doc["full_name"];
+                return data;
+      }).toList();
+    });
   }
 }

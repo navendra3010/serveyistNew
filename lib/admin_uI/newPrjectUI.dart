@@ -110,7 +110,7 @@ class _MyNewProjectUI extends State<Newproject> {
                     width: 125.0,
                     child: TextButton(
                       onPressed: () {
-                        newProject.setDate(context);
+                        newProject.selectprojectStartDate(context);
                       },
                       child: Column(
                         children: [
@@ -141,7 +141,7 @@ class _MyNewProjectUI extends State<Newproject> {
                     width: 120.0,
                     child: TextButton(
                       onPressed: () {
-                        newProject.setEndDate(context);
+                        newProject.selectprojectEndDate(context);
                       },
                       child: Column(
                         children: [
@@ -190,7 +190,8 @@ class _MyNewProjectUI extends State<Newproject> {
               //-----------------end----------project description----------container-------------------------
               TextButton(
                 onPressed: () {
-                  newProject.getTeam();
+                  // newProject.getTeam();
+                  // newProject.showData();
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 3 / 100,
@@ -205,6 +206,97 @@ class _MyNewProjectUI extends State<Newproject> {
                   )),
                 ),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5 / 100,
+              ),
+
+              StreamBuilder<List<Map<String, dynamic>>>(
+                stream: newProject.userStream, // Replace with actual stream
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator(); // Loading indicator
+                  }
+
+                  if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error}");
+                  }
+                  final userList = snapshot.data ?? [];
+                  return SizedBox(
+                    height: 50.0, // Set a fixed height for the ListView
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: userList.length,
+                      itemBuilder: (context, index) {
+                        var uid = userList[index];
+                       // print(uid);
+                        return Container(
+                          width:
+                              100.0, // Set a fixed width for each item (optional)
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 2.0), // Optional margin for spacing
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color.fromARGB(255, 221, 187, 138),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment
+                                .center, // Vertically center the text
+                            children: [
+                              Text(uid["name"] ?? "no"),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5 / 100,
+              ),
+
+              StreamBuilder<List<Map<String, dynamic>>>(
+                stream: newProject.teamUser(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text("no data"),
+                    );
+                  }
+                  var userData = snapshot.data!;
+                  // print(userData);
+                  return Expanded(
+                      child: ListView.builder(
+                    itemCount: userData!.length,
+                    itemBuilder: (context, index) {
+                      var us = userData[index];
+                      // String userId=us.id;
+                      String userId = us["id"];
+                      String userName = us["full_name"];
+                      String emplpoyeId = us["employeId"];
+                      return CheckboxListTile(
+                        title: Text(us["full_name"]),
+                        subtitle: Text(us["employeId"]),
+                        // value:
+                        //     newProject.selectUserIdForTeam.contains(us["full_name"]),
+                        // onChanged: (bool? selected) {
+                        //   newProject.toggleUserId(us["full_name"]);
+                        value: newProject.selectUserIdForTeam
+                            .any((us) => us["userId"] == userId),
+                        onChanged: (bool? selected) {
+                          newProject.toggleUserId(
+                              userId, us["full_name"], us["employeId"]);
+                        },
+                      );
+                    },
+                  ));
+                },
+              ),
 
               MyButton(
                 text: "create_project",
@@ -214,20 +306,23 @@ class _MyNewProjectUI extends State<Newproject> {
                   //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
 
                   ProjectModel pm = ProjectModel();
-                  pm.projectName = projectNameController.text.toString().trim();
-                  pm.projectLocation =
-                      projectNameController.text.toString().trim();
-                 // pm.startDate = newProject.dateStartcontroller();
-                  // pm.endDate = newProject.dateEndcontroller.text
-                  //     .toString()
-                  //     .trim() as DateTime?;
-                  // pm.projectDiscription =
-                  //     projectDiscriptionControlller.text.toString().trim();
+                  pm.projectName = projectNameController.text.trim();
+                  pm.projectLocation = projectNameController.text.trim();
+                  pm.startDate = parseDate(newProject.dateStartcontroller.text);
+                  pm.endDate = parseDate(newProject.dateEndcontroller.text);
+                  pm.projectDiscription =
+                      projectDiscriptionControlller.text.trim();
+                      pm.team=newProject.selectUserIdForTeam;
+                  newProject.addProjectProvider(pm);
                 },
               ),
               //submit buttom-------------------------------------------------------------------------end`
             ],
           ),
         ));
+  }
+
+  DateTime? parseDate(String date) {
+    return DateTime.parse(date);
   }
 }
