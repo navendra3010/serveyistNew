@@ -60,11 +60,9 @@ class FireStoreServiceForAdmin {
       // print(element.data());
       ids.add(element.id);
     }
-    // print("unqiue data-------------------------------------------------------------------------${ids[0]}");
+    // print("unqiue data----------------------------     ---------------------------------------------${ids[0]}");
     return ids;
   }
-
-  Map<String, String> userIdToName = {};
 
   ///function for fatch user for team and display them........................................
   Stream<List<Map<String, dynamic>>> getTeam() {
@@ -73,8 +71,94 @@ class FireStoreServiceForAdmin {
         var data = doc.data();
         data['id'] = doc.id!;
         //data[doc.id]=doc["full_name"];
-                return data;
+        return data;
       }).toList();
     });
   }
+
+  //this function for create mainProject................................................
+  Future<ProjectModel?> createProject(Map<String, dynamic> json) async {
+    bool? status = await creteProjectWithCollectionRefrance(json);
+    if (status == true) {
+      print("data has been save");
+    }
+  }
+
+//another function bases on prevoius funacatiion for project----------
+  Future<bool?> creteProjectWithCollectionRefrance(
+      Map<String, dynamic> json) async {
+    try {
+      FirebaseFirestore frbs = FirebaseFirestore.instance;
+      DocumentReference df = frbs.collection("Project").doc();
+      DocumentSnapshot snapshot = await df.get();
+      if (!snapshot.exists) {
+        await df.set({
+          'created_AT': DateTime.now(),
+        });
+        print("project collection has been created");
+      }
+      DocumentReference df1 = df.collection("P_Name").doc();
+      DocumentSnapshot ds = await df1.get();
+      if (!ds.exists) {
+        await df1.set({
+          'created_AT': DateTime.now(),
+        });
+      }
+
+      await df1.set(json);
+      return true;
+    } catch (e) {
+      print("${e}");
+    }
+  }
+
+  Future<void> getAllProjectFireStore() async {
+    try {
+      // Get all projects
+      QuerySnapshot projectSnapshot =
+          await FirebaseFirestore.instance.collection("Project").get();
+
+      if (projectSnapshot.docs.isEmpty) {
+        print("No projects found!");
+        return;
+      }
+
+      // Loop through each project
+      for (var projectDoc in projectSnapshot.docs) {
+        String projectId = projectDoc.id;
+        print("Project ID: $projectId");
+
+        // Get all P_Name documents inside the project
+        QuerySnapshot pNameSnapshot = await FirebaseFirestore.instance
+            .collection("Project")
+            .doc(projectId)
+            .collection("P_Name")
+            .get();
+
+        if (pNameSnapshot.docs.isEmpty) {
+          print("No P_Name documents found in project $projectId");
+        } else {
+          for (var pNameDoc in pNameSnapshot.docs) {
+            print(
+                "P_Name Document ID: ${pNameDoc.id}, Data: ${pNameDoc.data()}");
+          }
+        }
+      }
+    } catch (e) {
+      print("Error fetching projects: $e");
+    }
+  }
+
+  Stream<List<QuerySnapshot<Map<String, dynamic>>>> allProjectByStream() {
+    return _firestore.collection("Project").snapshots().map((snpShot) {
+      final loadData = snpShot.docs.map((doc) {
+        return _firestore.collection("P_Name").doc(doc.id).get();
+      }).toList();
+      return [];
+    }
+    
+    );
+    
+  }
+
 }

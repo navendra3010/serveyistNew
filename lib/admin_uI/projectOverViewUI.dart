@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 
 import 'package:surveyist/admin_uI/newPrjectUI.dart';
 import 'package:surveyist/utils/TextSyle.dart';
@@ -14,8 +16,10 @@ class ProjectOverView extends StatefulWidget {
 }
 
 class _CreateProjectPageState extends State<ProjectOverView> {
+    
   @override
   Widget build(BuildContext context) {
+    final overViewProvider = Provider.of<Projectprovider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -35,6 +39,13 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                 style: CustomText.nameOfTextStyle,
               )),
             ),
+          ),
+          Center(
+            child:TextButton(onPressed: () {
+              overViewProvider.getAllProjectProvider();
+              
+              
+            }, child: Text("get_users")),
           ),
         ],
       ),
