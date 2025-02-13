@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fireStoreserAdmin.dart';
+
 import 'package:surveyist/admin_uI/projectOverViewUI.dart';
-import 'package:surveyist/utils/app_Language.dart';
+
 
 import '../utils/appSnackBarOrToastMessage.dart';
 
@@ -117,4 +119,13 @@ class Projectprovider extends ChangeNotifier {
     print("providr calling");
     await fireser.getAllProjectFireStore();
   }
+
+  Stream<List<Map<String, dynamic>>> getAllStreamProjects() {
+    return fireser.getAllproject();
+  }
+  //this stream for new typw load projecrt
+  // Stream <List<ProjectModel>> getLoadProject()
+  // {
+  //   return fireser.loadProject();
+  // }
 }

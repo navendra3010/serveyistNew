@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProjectModel {
@@ -41,19 +39,20 @@ class ProjectModel {
     };
   }
   // convert firestor document to model class..............for show data on ui..................
-  factory ProjectModel.FromJson(DocumentSnapshot doc) {
+  factory ProjectModel.fromJson(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+   // print("parsing document id${doc.id}");
     return ProjectModel(
       id: doc.id,
       tittle: data["tittle"] ?? '',
       projectName: data["projectName"] ?? '',
       projectLocation: data["projectLocation"] ?? '',
       projectDiscription: data["projectDiscription"] ?? '',
-      startDate: data["startDate"] ?? '',
-      endDate: data["endDate"] ?? '',
+      startDate: data[DateTime],
+      endDate: data[DateTime],
       team: List<Map<String,dynamic>>.from(data["team"] ?? []),
-      progress: data["progress"] ?? '',
-      totalTask:data["totalTask"]?? '',
+    //  progress: data["progress"] ?? '',
+     // totalTask:data["totalTask"]?? '',
     );
   }
 }

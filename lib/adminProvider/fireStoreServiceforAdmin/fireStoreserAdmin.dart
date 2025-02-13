@@ -149,16 +149,35 @@ class FireStoreServiceForAdmin {
     }
   }
 
-  Stream<List<QuerySnapshot<Map<String, dynamic>>>> allProjectByStream() {
-    return _firestore.collection("Project").snapshots().map((snpShot) {
-      final loadData = snpShot.docs.map((doc) {
-        return _firestore.collection("P_Name").doc(doc.id).get();
-      }).toList();
-      return [];
+  Stream<List<Map<String, dynamic>>> getAllproject() {
+    try {
+      return _firestore
+          .collection("Project")
+          .snapshots()
+          .asyncMap((snapshot) async {
+        List<Map<String, dynamic>> projectList = [];
+
+        for (var userdoc in snapshot.docs) {
+          // Fetch each project's details
+          print(userdoc.id);
+          var projectDoc = await _firestore
+              .collection("Project")
+              .doc(userdoc.id)
+              .collection("P_Name")
+              .get();
+          for (var element in projectDoc.docs) {
+            print(element.data());
+            projectList.add(element.data());
+          }
+        }
+
+        return projectList;
+      });
+    } catch (e) {
+      print("Error fetching projects: $e");
+      return Stream.value([]);
     }
-    
-    );
-    
   }
 
+  
 }
