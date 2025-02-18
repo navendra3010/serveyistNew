@@ -179,5 +179,46 @@ class FireStoreServiceForAdmin {
     }
   }
 
-  
+//Date 18-2-2025 show project details and when click on button show another details of project........................
+  Stream<List<Map<String, dynamic>>> allProject() {
+    return _firestore
+        .collection("Project")
+        .snapshots()
+        .asyncMap((proShanoshot) async {
+      List<Map<String, dynamic>> allprojets = [];
+      for (var projectDoc in proShanoshot.docs) {
+        var pNameCollection =
+            await projectDoc.reference.collection("P_Name").get();
+        for (var pNameDoc in pNameCollection.docs) {
+          allprojets.add({
+            "projectId": pNameDoc.id,
+            "docId": projectDoc.id,
+            "data": ProjectModel.fromJson(pNameDoc),
+          });
+        }
+      }
+      return allprojets;
+    });
+  }
+
+//date 18-2-2025 allprojectDetails............................
+  Stream<ProjectModel?> allprojectDetails(String projectId, String documentId) {
+    return _firestore
+        .collection('Project')
+        .doc(documentId)
+        .collection('P_Name')
+        .doc(projectId)
+        .snapshots()
+        
+        .map((snapshot)=>
+         
+          
+      snapshot.exists ? ProjectModel.fromJson(snapshot) : null
+      //print(ProjectModel.fromJson(snapshot).projectName);
+    
+    
+    
+    );
+    
+  }
 }

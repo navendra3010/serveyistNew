@@ -128,4 +128,45 @@ class Projectprovider extends ChangeNotifier {
   // {
   //   return fireser.loadProject();
   // }
+
+
+//date project details...18-2-2025..................................................................
+// final fetch project  name only.......................................................................
+List<Map<String,dynamic>> _project=[];
+ProjectModel? _selectedProject;
+
+List<Map<String,dynamic>> get project=>_project;
+ProjectModel? get selectedProject=>_selectedProject;
+//listen to all project...........
+ void listenProject()
+ {
+  fireser.allProject().listen((projectList){
+    _project=projectList;
+    notifyListeners();
+  });
+ }
+ //Date 18-2-2025------------------------------------------------
+ /// this funtion fatch project complete details................
+ 
+
+ void listenAllProjectDetail(String projectId, String documentId)
+ {
+     fireser.allprojectDetails(projectId,documentId).listen((projectItems){
+      print(projectItems);
+      _selectedProject=projectItems;
+      notifyListeners();
+     });
+ }
+ //show team when admin click on view team...........................\
+ bool isViewTeam=false;
+  void showTeam()
+  {
+   isViewTeam=!isViewTeam;
+   notifyListeners();
+  }
+
+
+
+
+
 }
