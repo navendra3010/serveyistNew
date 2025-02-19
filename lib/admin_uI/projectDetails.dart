@@ -86,9 +86,11 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.green)),
-                                        SizedBox(
-                height: MediaQuery.of(context).size.height * 1 / 100,
-              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height *
+                                    1 /
+                                    100,
+                              ),
                               Text(
                                 "${pdprovider.projectDiscription}",
                                 style: TextStyle(
@@ -101,10 +103,8 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 1 / 100,
               ),
-              TextButton(onPressed: () {
-                
-                
-              },
+              TextButton(
+                onPressed: () {},
                 child: Text("View_Team",
                     style: TextStyle(
                         fontSize: 15,
@@ -158,19 +158,21 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                 width: MediaQuery.of(context).size.width * 100 / 100,
                 color: const Color.fromARGB(255, 218, 217, 216),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 1 / 100,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Createnewtask(),
+                        ));
+                  },
+                  child: Text("Create_Task"))
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Createnewtask(),
-              ));
-        },
       ),
     );
   }
