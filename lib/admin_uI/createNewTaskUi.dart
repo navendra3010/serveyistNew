@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/admin_uI/excellFile.dart';
 import 'package:surveyist/localization/Camera&gallery.dart';
 import 'package:surveyist/utils/TextSyle.dart';
 import 'package:surveyist/utils/appButton.dart';
@@ -15,12 +16,11 @@ class Createnewtask extends StatefulWidget {
 class MycreateUi extends State<Createnewtask> {
   TextEditingController taskNameController = TextEditingController();
   TextEditingController selectItemController = TextEditingController();
+  // String? selectedTaskType;
+  // String? selectedFile; // this will hold selected file
+  // List<List<dynamic>> excelData = []; // this will excel preview....
+  final List<String> taskType = ["Excel Sheet", "PDF", "Image", "Form"];
 
-  var selectItem = [
-    'Male',
-    'Female',
-    'other',
-  ];
   @override
   Widget build(BuildContext context) {
     final newTaskProvider = Provider.of<Projectprovider>(context);
@@ -156,53 +156,150 @@ class MycreateUi extends State<Createnewtask> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 150,
-                  child: Text("SELECT_TASK_TYPE",
-                      style: TextStyle(
-                          fontFamily: AppFont.fontFamily,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12)),
-                ),
-                Flexible(
-                  child: SizedBox(
-                      width: 200.0, // Fixed width
-                      height: 45.0, // Fixed height
-                      child: TextField(
-                        controller: selectItemController,
-                        decoration: InputDecoration(
-                          suffixIcon: PopupMenuButton<String>(
-                            icon: const Icon(Icons.arrow_drop_down),
-                            onSelected: (String value) {
-                              selectItemController.text = value;
-                            },
-                            itemBuilder: (BuildContext context) {
-                              return selectItem
-                                  .map<PopupMenuItem<String>>((String value) {
-                                return new PopupMenuItem(
-                                    child: new Text(value), value: value);
-                              }).toList();
-                            },
-                          ),
-                        ),
-                      )),
-                ),
-              ],
+            Container(
+              child: Column(
+                children: [
+                  DropdownButton<String>(
+                      value: newTaskProvider.selectedTaskType,
+                      hint: Text("select_task_type"),
+                      items: taskType.map((type) {
+                        return DropdownMenuItem(value: type, child: Text(type));
+                      }).toList(),
+                      onChanged: (value) =>
+                          newTaskProvider.setTaskType(value!)),
+                  ElevatedButton(
+                      onPressed: () {
+                        newTaskProvider.pickFile();
+                      },
+                      child: Text("Select_file"))
+                ],
+              ),
             ),
+            if (newTaskProvider.selectedFile != null) ...[
+              Text("Selected File:${newTaskProvider.selectedFile!.path.split('/').last}"),
+              const SizedBox(
+                height: 10,
+              ),
+              if (newTaskProvider.selectedTaskType == 'Excel Sheet' &&
+                  newTaskProvider.excelData.isNotEmpty)
+                Expanded(
+                    child: SingleChildScrollView(
+                  child: DataTable(
+                      columns: newTaskProvider.excelData.first
+                          .map((e) => DataColumn(label: Text(e.toString())))
+                          .toList(),
+                      rows: List<DataRow>.generate(newTaskProvider.excelData.length,(index)=>DataRow(selected:newTaskProvider.selectedRow.contains(index),
+                      onSelectChanged: (isSelected){
+                        newTaskProvider.toggleRowAndColumn(index);
+                      },
+                      cells:newTaskProvider.excelData[index].map((cell)=>DataCell(Text(cell.toString()))).toList(),
+                      )
+                      )),
+                ))
+            ],
+            // if (newTaskProvider.selectedFile != null)
+            //   Text("Selected File: ${newTaskProvider.selectedFile!.path.split('/').last}"),
+            // const SizedBox(height: 10),
+
+            // // Show Excel Data Preview with Row Selection
+            // if (newTaskProvider.selectedTaskType == 'Excel Sheet' &&
+            //     newTaskProvider.excelData.isNotEmpty)
+            //   Expanded(
+            //     child: SingleChildScrollView(
+            //       scrollDirection: Axis.horizontal,
+            //       child: DataTable(
+            //         columns: newTaskProvider.excelData.first
+            //             .map((e) => DataColumn(label: Text(e.toString())))
+            //             .toList(),
+            //         rows: List<DataRow>.generate(
+            //           newTaskProvider.excelData.length,
+            //           (index) => DataRow(
+            //             selected: newTaskProvider.selectedRow.contains(index),
+            //             onSelectChanged: (isSelected) {
+            //               newTaskProvider.toggleRowAndColumn(index);
+            //             },
+            //             cells: newTaskProvider.excelData[index]
+            //                 .map((cell) => DataCell(Text(cell.toString())))
+            //                 .toList(),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+
             SizedBox(
               height: MediaQuery.of(context).size.height * 2 / 100,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ImageSelect(),
-                      ));
-                },
-                child: Text("image_select")),
+            if(newTaskProvider.selectedRow.isNotEmpty)
+            ElevatedButton(onPressed: () {
+              final selectedData=newTaskProvider.getSelectedData();
+              showDialog(context: context, builder: (_)=>AlertDialog(
+                title:Text("selectRow"),
+                content: SingleChildScrollView(
+                  child: Column(
+                    children:selectedData.map((row){
+                      return Text(row.join(","));
+                    }).toList(),
+
+                  ),
+                ),
+                actions: [
+                  TextButton(onPressed: () {
+                    Navigator.pop(context);
+                  }, child: Text("close"))
+                ],
+              ));
+              
+              
+            }, child:Text("view selected row")),
+            // if (newTaskProvider.selectedRow.isNotEmpty)
+            //   ElevatedButton(
+            //     onPressed: () {
+            //       final selectedData = newTaskProvider.getSelectedData();
+            //       showDialog(
+            //         context: context,
+            //         builder: (_) => AlertDialog(
+            //           title: const Text("Selected Rows"),
+            //           content: SingleChildScrollView(
+            //             child: Column(
+            //               children: selectedData
+            //                   .map((row) => Text(row.join(", ")))
+            //                   .toList(),
+            //             ),
+            //           ),
+            //           actions: [
+            //             TextButton(
+            //               onPressed: () => Navigator.pop(context),
+            //               child: const Text("Close"),
+            //             ),
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //     child: const Text("View Selected Rows"),
+            //   ),
+
+            //------------------------hide date 20-2-2025 image picker function implement here------------
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => ImageSelect(),
+            //           ));
+            //     },
+            //     child: Text("image_select")),
+
+
+            ElevatedButton(onPressed: () {
+              
+              Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExcelReaderPage(),
+                        ));
+              
+            }, child: Text("pick excell file")),
 
             MyButton(
               text: "Create_Task",

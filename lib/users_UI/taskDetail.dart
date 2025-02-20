@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:surveyist/users_UI/tasksubmitUI.dart';
 import 'package:surveyist/utils/appButton.dart';
 import 'package:surveyist/utils/appFont.dart';
-import 'package:surveyist/utils/appImage.dart';
+
 import 'package:surveyist/utils/app_Language.dart';
 
 class TaskDetails extends StatelessWidget {
