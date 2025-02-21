@@ -4,8 +4,8 @@ import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/admin_uI/createNewTaskUi.dart';
 
 class ProjectDetailui extends StatefulWidget {
-  final String projectId;
-  final String documentId;
+  String projectId;
+  String documentId;
 
   ProjectDetailui(
       {super.key, required this.projectId, required this.documentId});
@@ -157,7 +157,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                 height: MediaQuery.of(context).size.height * 0.3 / 100,
                 width: MediaQuery.of(context).size.width * 100 / 100,
                 color: const Color.fromARGB(255, 218, 217, 216),
-              ),
+              ), 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 1 / 100,
               ),
@@ -166,7 +166,9 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Createnewtask(),
+                          builder: (context) => Createnewtask(
+                              projectId: widget.projectId,
+                              documentId: widget.documentId),
                         ));
                   },
                   child: Text("Create_Task"))

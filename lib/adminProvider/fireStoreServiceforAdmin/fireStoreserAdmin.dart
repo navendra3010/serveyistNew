@@ -7,7 +7,7 @@ import 'package:surveyist/adminModel/projectModel.dart';
 class FireStoreServiceForAdmin {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   DateTime now = DateTime.now();
-
+  //all  user ................................................
   Stream<List<ViewAllUsers>> getAllUsers() {
     return _firestore.collection("allusers").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -19,6 +19,7 @@ class FireStoreServiceForAdmin {
     });
   }
 
+//all login on admin dasghbord.............................................
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> getAllLoginUser() {
     String dateKey = DateFormat('dd-MM-yyyy').format(now);
 
@@ -49,20 +50,20 @@ class FireStoreServiceForAdmin {
   }
 
 // function for create team for project
-  Future<List> createTeam() async {
-    List ids = [];
-    print("creeate team working");
-    QuerySnapshot snapshot = await _firestore.collection('allusers').get();
-    // print(snapshot.docs);
-    for (var element in snapshot.docs) {
-      //print(element.id);
-      // ids.add(element.data());
-      // print(element.data());
-      ids.add(element.id);
-    }
-    // print("unqiue data----------------------------     ---------------------------------------------${ids[0]}");
-    return ids;
-  }
+  // Future<List> createTeam() async {
+  //   List ids = [];
+  //   print("creeate team working");
+  //   QuerySnapshot snapshot = await _firestore.collection('allusers').get();
+  //   // print(snapshot.docs);
+  //   for (var element in snapshot.docs) {
+  //     //print(element.id);
+  //     // ids.add(element.data());
+  //     // print(element.data());
+  //     ids.add(element.id);
+  //   }
+  //   // print("unqiue data----------------------------     ---------------------------------------------${ids[0]}");
+  //   return ids;
+  // }
 
   ///function for fatch user for team and display them........................................
   Stream<List<Map<String, dynamic>>> getTeam() {
@@ -112,72 +113,72 @@ class FireStoreServiceForAdmin {
     }
   }
 
-  Future<void> getAllProjectFireStore() async {
-    try {
-      // Get all projects
-      QuerySnapshot projectSnapshot =
-          await FirebaseFirestore.instance.collection("Project").get();
+  // Future<void> getAllProjectFireStore() async {
+  //   try {
+  //     // Get all projects
+  //     QuerySnapshot projectSnapshot =
+  //         await FirebaseFirestore.instance.collection("Project").get();
 
-      if (projectSnapshot.docs.isEmpty) {
-        print("No projects found!");
-        return;
-      }
+  //     if (projectSnapshot.docs.isEmpty) {
+  //       print("No projects found!");
+  //       return;
+  //     }
 
-      // Loop through each project
-      for (var projectDoc in projectSnapshot.docs) {
-        String projectId = projectDoc.id;
-        print("Project ID: $projectId");
+  //     // Loop through each project
+  //     for (var projectDoc in projectSnapshot.docs) {
+  //       String projectId = projectDoc.id;
+  //       print("Project ID: $projectId");
 
-        // Get all P_Name documents inside the project
-        QuerySnapshot pNameSnapshot = await FirebaseFirestore.instance
-            .collection("Project")
-            .doc(projectId)
-            .collection("P_Name")
-            .get();
+  //       // Get all P_Name documents inside the project
+  //       QuerySnapshot pNameSnapshot = await FirebaseFirestore.instance
+  //           .collection("Project")
+  //           .doc(projectId)
+  //           .collection("P_Name")
+  //           .get();
 
-        if (pNameSnapshot.docs.isEmpty) {
-          print("No P_Name documents found in project $projectId");
-        } else {
-          for (var pNameDoc in pNameSnapshot.docs) {
-            print(
-                "P_Name Document ID: ${pNameDoc.id}, Data: ${pNameDoc.data()}");
-          }
-        }
-      }
-    } catch (e) {
-      print("Error fetching projects: $e");
-    }
-  }
+  //       if (pNameSnapshot.docs.isEmpty) {
+  //         print("No P_Name documents found in project $projectId");
+  //       } else {
+  //         for (var pNameDoc in pNameSnapshot.docs) {
+  //           print(
+  //               "P_Name Document ID: ${pNameDoc.id}, Data: ${pNameDoc.data()}");
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching projects: $e");
+  //   }
+  // }
 
-  Stream<List<Map<String, dynamic>>> getAllproject() {
-    try {
-      return _firestore
-          .collection("Project")
-          .snapshots()
-          .asyncMap((snapshot) async {
-        List<Map<String, dynamic>> projectList = [];
+  // Stream<List<Map<String, dynamic>>> getAllproject() {
+  //   try {
+  //     return _firestore
+  //         .collection("Project")
+  //         .snapshots()
+  //         .asyncMap((snapshot) async {
+  //       List<Map<String, dynamic>> projectList = [];
 
-        for (var userdoc in snapshot.docs) {
-          // Fetch each project's details
-          print(userdoc.id);
-          var projectDoc = await _firestore
-              .collection("Project")
-              .doc(userdoc.id)
-              .collection("P_Name")
-              .get();
-          for (var element in projectDoc.docs) {
-            print(element.data());
-            projectList.add(element.data());
-          }
-        }
+  //       for (var userdoc in snapshot.docs) {
+  //         // Fetch each project's details
+  //         print(userdoc.id);
+  //         var projectDoc = await _firestore
+  //             .collection("Project")
+  //             .doc(userdoc.id)
+  //             .collection("P_Name")
+  //             .get();
+  //         for (var element in projectDoc.docs) {
+  //           print(element.data());
+  //           projectList.add(element.data());
+  //         }
+  //       }
 
-        return projectList;
-      });
-    } catch (e) {
-      print("Error fetching projects: $e");
-      return Stream.value([]);
-    }
-  }
+  //       return projectList;
+  //     });
+  //   } catch (e) {
+  //     print("Error fetching projects: $e");
+  //     return Stream.value([]);
+  //   }
+  // }
 
 //Date 18-2-2025 show project details and when click on button show another details of project........................
   Stream<List<Map<String, dynamic>>> allProject() {
@@ -209,16 +210,33 @@ class FireStoreServiceForAdmin {
         .collection('P_Name')
         .doc(projectId)
         .snapshots()
-        
-        .map((snapshot)=>
-         
-          
-      snapshot.exists ? ProjectModel.fromJson(snapshot) : null
-      //print(ProjectModel.fromJson(snapshot).projectName);
-    
-    
-    
-    );
-    
+        .map((snapshot) =>
+                snapshot.exists ? ProjectModel.fromJson(snapshot) : null
+            //print(ProjectModel.fromJson(snapshot).projectName);
+
+            );
+  }
+  // assigh task to user..................................
+
+  Future<List<Map<String, dynamic>>> getTaskAssignToUser(
+      String? documentId, String? projectId) async {
+    try {
+      print("${projectId} project id.............");
+      print("${documentId} document id-----------------");
+      DocumentSnapshot snapshot = await _firestore
+          .collection("Project")
+          .doc(documentId)
+          .collection("P_Name")
+          .doc(projectId)
+          .get();
+      if (snapshot.exists) {
+        List<dynamic> teamData = snapshot["team"];
+        return teamData.map((e) => Map<String, dynamic>.from(e)).toList();
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return [];
   }
 }

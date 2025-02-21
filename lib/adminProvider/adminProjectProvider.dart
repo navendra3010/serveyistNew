@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
+import 'package:surveyist/adminModel/taskModel.dart';
 import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fireStoreserAdmin.dart';
 
 import 'package:surveyist/admin_uI/projectOverViewUI.dart';
@@ -117,20 +118,15 @@ class Projectprovider extends ChangeNotifier {
   }
 
   //this function for show all project from project over view page.....................................
-  Future<void> getAllProjectProvider() async {
-    print("providr calling");
-    await fireser.getAllProjectFireStore();
-  }
-
-  Stream<List<Map<String, dynamic>>> getAllStreamProjects() {
-    return fireser.getAllproject();
-  }
-  //this stream for new typw load projecrt
-  // Stream <List<ProjectModel>> getLoadProject()
-  // {
-  //   return fireser.loadProject();
+  // Future<void> getAllProjectProvider() async {
+  //   print("providr calling");
+  //   await fireser.getAllProjectFireStore();
   // }
 
+  // Stream<List<Map<String, dynamic>>> getAllStreamProjects() {
+  //   return fireser.getAllproject();
+  // }
+ 
 //date project details...18-2-2025..................................................................
 // final fetch project  name only.......................................................................
   List<Map<String, dynamic>> _project = [];
@@ -138,7 +134,7 @@ class Projectprovider extends ChangeNotifier {
 
   List<Map<String, dynamic>> get project => _project;
   ProjectModel? get selectedProject => _selectedProject;
-//listen to all project...........
+//listen to all project. final fatch name and progresss ..........
   void listenProject() {
     fireser.allProject().listen((projectList) {
       _project = projectList;
@@ -157,7 +153,6 @@ class Projectprovider extends ChangeNotifier {
   }
 
   //show team when admin click on view team...........................\
-  final List<String> taskType = ["Excel Sheet", "PDF", "Image", "Form"];
 
   bool isViewTeam = false;
   void showTeam() {
@@ -165,91 +160,54 @@ class Projectprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? _selectedTaskType;
-  File? _selectedFile; // this will hold selected file
+  String? selectedTaskType;
+  File? selectedFile; // this will hold selected file
   bool _isuploading = false;
 
-  List<List<dynamic>> _excelData = [];
-  String? get selectedTaskType => _selectedTaskType;
-  File? get selectedFile => _selectedFile;
-  bool get isuploading => _isuploading;
-  List<List<dynamic>> get excelData => _excelData;
-
   void setTaskType(String taskType) {
-    _selectedTaskType = taskType;
-  }
-
-  Future<void> pickFile() async {
-    FilePickerResult? result;
-
-    if (_selectedTaskType == 'Excel Sheet') {
-      print("excelll shet");
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['xlsx', 'xls'],
-      );
-    } else if (_selectedTaskType == "PDF") {
-      print("pdf");
-      result = await FilePicker.platform
-          .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
-    } else if (_selectedTaskType == "Image") {
-      print("iamge");
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-      );
-    } else if (_selectedTaskType == "Form") {
-      print("from");
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['doc', 'docx'],
-      );
-    }
-
-    if (result!= null) {
-      print("reslut noy nulll-------------------------------------");
-      _selectedFile = File(result.files.single.path!);
-
-      print("selected file type is${_selectedFile}-------------------------");
-      // if (_selectedTaskType =='Excel Sheet') {
-      //   print("excel file selected-------------------------------------");
-      //   await readExcel(_selectedFile!);
-      // }
-      notifyListeners();
-    }
-  }
-
-  Future<void> readExcel(File file) async {
-    print("this function is working---------------------");
-    final bytes = await file.readAsBytes();
-    final excel = Excel.decodeBytes(bytes);
-    _excelData = [];
-    for (var table in excel.tables.keys) {
-      print("table dta are==============================${table}");
-      for (var row in excel.tables[table]!.rows) {
-        _excelData.add(row.map((cell) => cell?.value ?? '').toList());
-        print(_excelData);
-      }
-    }
-    //notifyListeners();
-  }
-  Set<int>_selectedRows={};
-
-  Set<int> get selectedRow=>_selectedRows;
-  void toggleRowAndColumn(int index)
-  {
-    if(_selectedRows.contains(index))
-    {
-      _selectedRows.remove(index);
-    }
-    else
-    {
-      _selectedRows.add(index);
-    }
+    selectedTaskType = taskType;
     notifyListeners();
   }
 
-  List<List<dynamic>> getSelectedData()
-  {
-    return _selectedRows.map((index)=>_excelData[index]).toList();
+  Future<void> pickFile() async {
+    print("this pickup function fine--------------------------------------");
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: selectedTaskType == "Excel Sheet"
+            ? ['xlsx', 'xls']
+            : selectedTaskType == "PDF"
+                ? ["pdf"]
+                : selectedTaskType == "Image"
+                    ? ['jpg', 'jpeg', 'png']
+                    : null);
+
+    if (result != null) {
+      print("reslut noy nulll-------------------------------------");
+      selectedFile = File(result.files.single.path!);
+
+      notifyListeners();
+    } 
   }
+/// this function for assigh task to user..
+/// 
+List<Map<String,dynamic>> _teamList=[];
+List<Map<String,dynamic>> get teamList=>_teamList;
+Future<void>  taskAssignToUser(String? documentId, String? projectId)async
+{
+   _teamList= await fireser.getTaskAssignToUser(documentId,projectId);
+   notifyListeners();
+}
+
+  void createTask(TaskModel tmodel) {
+     print("${tmodel.taskName}");
+                print("${tmodel.taskDescription}");
+                print("${tmodel.taskStartDate}");
+                print("${tmodel.taskEndDate}");
+                print(" this id null-------------${tmodel.selectedFile}");
+               // print("${newTaskProvider.selectedFile!.path.split('/').last}");
+
+
+  }
+
+
 }

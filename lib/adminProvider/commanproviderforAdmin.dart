@@ -19,14 +19,11 @@ class CommanproviderAdmin extends ChangeNotifier {
   Stream<List<ViewAllUsers>> get allUsersStream {
     return frstr.getAllUsers();
   }
-  
 
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser() {
-    
-    
     return frstr.getAllLoginUser();
-    
   }
+
   // admin logout------------------------------------------------------------------------------------
   Future<void> adminLogOut(context) async {
     final sf = await SharedPreferences.getInstance();
@@ -38,58 +35,35 @@ class CommanproviderAdmin extends ChangeNotifier {
   //date 19-2-2025.............................................................
 
   File? image;
-  final picker=ImagePicker();
+  final picker = ImagePicker();
 
-
-  Future getImageFromGallery()async
-  {
- final pickfile=await picker.pickImage(source: ImageSource.gallery);
- if(pickfile!=null)
- {
-  image=File(pickfile.path);
-  print("imagae path is ----------------------${image!.path}");
-  notifyListeners();
- }
+  Future getImageFromGallery() async {
+    final pickfile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickfile != null) {
+      image = File(pickfile.path);
+      print("imagae path is ----------------------${image!.path}");
+      notifyListeners();
+    }
   }
- //pick imaage from camera...............................................
- Future getImageFromCamera()async
- {
 
-  final picImageCamera=await picker.pickImage(source: ImageSource.camera);
-   if(picImageCamera!=null)
-   {
-    image=File(picImageCamera.path);
-    
-    notifyListeners();
-   }
- }
- // date 19-2-2025 select multiple images from galttery
-   List<XFile> imageFileList=[];
-   Future selectMultipleImage()async
-   {
+  //pick imaage from camera...............................................
+  Future getImageFromCamera() async {
+    final picImageCamera = await picker.pickImage(source: ImageSource.camera);
+    if (picImageCamera != null) {
+      image = File(picImageCamera.path);
 
-    final List<XFile>? selectImage=await picker.pickMultiImage();
-    if(selectImage!.isNotEmpty)
-    {
+      notifyListeners();
+    }
+  }
+
+  // date 19-2-2025 select multiple images from galttery
+  List<XFile> imageFileList = [];
+  Future selectMultipleImage() async {
+    final List<XFile>? selectImage = await picker.pickMultiImage();
+    if (selectImage!.isNotEmpty) {
       imageFileList!.addAll(selectImage);
-
     }
     print(" image length -------------${imageFileList.length}");
     notifyListeners();
-   }
-
-   // select task type.................date 20-2-2025........................................
-
-  
-
- 
-  
-
-
-
-
-
+  }
 }
-
-
-
