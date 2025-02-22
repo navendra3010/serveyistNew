@@ -240,24 +240,12 @@ class MycreateUi extends State<Createnewtask> {
               text: "Create_Task",
               color: const Color.fromARGB(255, 221, 187, 138),
               onPressed: () {
-                // print("${taskNameController.text}");
-                // print("${taskDescription.text}");
-                // print("${newTaskProvider.dateStartcontroller.text}");
-                // print("${newTaskProvider.dateEndcontroller.text}");
-                // print("${selectedUserId}");
-                // print("${newTaskProvider.selectedFile!.path.split('/').last}");
-
-                TaskModel tmodel = TaskModel();
-                tmodel.taskName = taskNameController.text.toString().trim();
-                tmodel.taskDescription = taskDescription.text.toString().trim();
-                tmodel.taskStartDate =
-                    dateFormate(newTaskProvider.dateStartcontroller.text);
-                    tmodel.taskEndDate=dateFormate(newTaskProvider.dateEndcontroller.text);
-                  //  tmodel.selectedFile=newTaskProvider.selectedFile!.path.split('/').
-                   // tmodel.assignTo=selectedUserId;
-
-
-                    newTaskProvider.createTask(tmodel);
+                newTaskProvider.createNewTask(
+                    taskNameController.text,
+                    taskDescription.text,
+                    dateFormate(newTaskProvider.dateStartcontroller.text),
+                    dateFormate(newTaskProvider.dateEndcontroller.text),
+                    selectedUserId,widget.projectId,widget.documentId);
               },
             )
           ],

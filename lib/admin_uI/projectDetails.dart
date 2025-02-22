@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surveyist/adminModel/taskModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/admin_uI/createNewTaskUi.dart';
 
@@ -19,13 +20,18 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
     super.initState();
     Provider.of<Projectprovider>(context, listen: false)
         .listenAllProjectDetail(widget.projectId, widget.documentId);
-    print(widget.projectId);
-    print(widget.documentId);
+    // print(widget.projectId);
+    // print(widget.documentId);
+    Provider.of<Projectprovider>(context, listen: false)
+        .listenTask(widget.projectId, widget.documentId);
   }
 
   @override
   Widget build(BuildContext context) {
     final pdprovider = Provider.of<Projectprovider>(context).selectedProject;
+    final thisPageProvider =
+        Provider.of<Projectprovider>(context, listen: false);
+
     if (pdprovider == null) {
       return Scaffold(
         body: Center(
@@ -157,7 +163,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                 height: MediaQuery.of(context).size.height * 0.3 / 100,
                 width: MediaQuery.of(context).size.width * 100 / 100,
                 color: const Color.fromARGB(255, 218, 217, 216),
-              ), 
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 1 / 100,
               ),
@@ -171,7 +177,52 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                               documentId: widget.documentId),
                         ));
                   },
-                  child: Text("Create_Task"))
+                  child: Text("Create_Task")),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 1 / 100,
+              ),
+              thisPageProvider.task.isEmpty
+                  ? Center(
+                      child: Text("Dont_Have_Any_Task"),
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Container(
+                              height:
+                                  MediaQuery.of(context).size.height * 40 / 100,
+                              width: MediaQuery.of(context).size.width * 90 / 100,
+                              child: ListView.builder(
+                                itemCount: thisPageProvider.task.length,
+                                shrinkWrap: true,
+                                primary: true,
+                                itemBuilder: (context, index) {
+                                  final taskData = thisPageProvider.task;
+                                  print(taskData.length);
+                            
+                                  return InkWell(
+                                    child: Card(
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              //  Text("TasK_Name"),
+                                              Text(
+                                                  "${taskData[index]['data']["taskName"]}"),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
             ],
           ),
         ),

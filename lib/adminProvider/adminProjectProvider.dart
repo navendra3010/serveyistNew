@@ -126,7 +126,7 @@ class Projectprovider extends ChangeNotifier {
   // Stream<List<Map<String, dynamic>>> getAllStreamProjects() {
   //   return fireser.getAllproject();
   // }
- 
+
 //date project details...18-2-2025..................................................................
 // final fetch project  name only.......................................................................
   List<Map<String, dynamic>> _project = [];
@@ -186,28 +186,59 @@ class Projectprovider extends ChangeNotifier {
       selectedFile = File(result.files.single.path!);
 
       notifyListeners();
-    } 
+    }
   }
-/// this function for assigh task to user..
-/// 
-List<Map<String,dynamic>> _teamList=[];
-List<Map<String,dynamic>> get teamList=>_teamList;
-Future<void>  taskAssignToUser(String? documentId, String? projectId)async
-{
-   _teamList= await fireser.getTaskAssignToUser(documentId,projectId);
-   notifyListeners();
-}
+
+  /// this function for assigh task to user..
+  ///
+  List<Map<String, dynamic>> _teamList = [];
+  List<Map<String, dynamic>> get teamList => _teamList;
+  Future<void> taskAssignToUser(String? documentId, String? projectId) async {
+    _teamList = await fireser.getTaskAssignToUser(documentId, projectId);
+    notifyListeners();
+  }
 
   void createTask(TaskModel tmodel) {
-     print("${tmodel.taskName}");
-                print("${tmodel.taskDescription}");
-                print("${tmodel.taskStartDate}");
-                print("${tmodel.taskEndDate}");
-                print(" this id null-------------${tmodel.selectedFile}");
-               // print("${newTaskProvider.selectedFile!.path.split('/').last}");
-
-
+    print("${tmodel.taskName}");
+    print("${tmodel.taskDescription}");
+    print("${tmodel.taskStartDate}");
+    print("${tmodel.taskEndDate}");
+    print(" this id null-------------${tmodel.selectedFile}");
+    // print("${newTaskProvider.selectedFile!.path.split('/').last}");
   }
 
+  //date 22-2-2025 this function will create new task....................................
 
+  Future<void> createNewTask(
+      String taskName,
+      String taskDescription,
+      DateTime? taskStart,
+      DateTime? taskEnd,
+      String? selectedUserId,
+      String? projectId,
+      String? documentId) async {
+    print(taskName);
+    print(taskDescription);
+    print(taskStart);
+    print(taskEnd);
+    print(selectedUserId);
+
+    fireser.getCreatedNewTask(taskName, taskDescription, taskStart, taskEnd,
+        selectedUserId, projectId, documentId);
+    notifyListeners();
+  }
+
+  //date 22-2-2025 this function will  fatch all task of per project  show on project detials page....................................
+  List<Map<String, dynamic>> task = [];
+  void listenTask(String projectId, String documentId) {
+    fireser.getListenTask(projectId, documentId).listen((pro) {
+      task = pro;
+      notifyListeners();
+    //  / print(task);
+
+      // for (var element in pro) {
+      //   print(element);
+      // }
+    });
+  }
 }

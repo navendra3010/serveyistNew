@@ -1,8 +1,11 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:intl/intl.dart';
 import 'package:surveyist/adminModel/allUsersModel.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
+import 'package:surveyist/adminModel/taskModel.dart';
 
 class FireStoreServiceForAdmin {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -239,4 +242,52 @@ class FireStoreServiceForAdmin {
 
     return [];
   }
+  //date 22-2-2025 this function will create new task....................................
+
+  Future<void> getCreatedNewTask(
+      String taskName,
+      String taskDescription,
+      DateTime? taskStart,
+      DateTime? taskEnd,
+      String? selectedUserId,
+      String? projectId,
+      String? documentId) async {
+    TaskModel tobject = TaskModel(
+      taskName: taskName,
+      taskDescription: taskDescription,
+      taskStartDate: taskStart,
+      taskEndDate: taskEnd,
+      assignTo: selectedUserId,
+      status: "pending",
+      taskProgress: 0,
+    );
+    final crateTask = _firestore
+        .collection("Project")
+        .doc(documentId)
+        .collection("task")
+        .doc()
+        .set(tobject.toJson());
+    if (crateTask != null) {
+      print("upload_Task");
+    }
+  }
+
+  //date 22-2-2025 this function will fatch all tasl real time when oer task new task....................................
+
+   Stream<List<Map<String,dynamic>>> getListenTask(String projectId, String documentId)
+   {
+    print("this functin working");
+    return _firestore.collection("Project").doc(documentId).collection("task").snapshots().asyncMap((snapshot){
+
+      List<Map<String, dynamic>> allTask = [];
+      for (var element in snapshot.docs) {
+        // final dt=element.data();
+        allTask.add({
+          "taskId":element.id,
+          "data":element.data(),
+        });
+               }
+       return allTask;
+    });
+}
 }
