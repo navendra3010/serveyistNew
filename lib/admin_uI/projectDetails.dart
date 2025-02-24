@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/taskModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/admin_uI/createNewTaskUi.dart';
+import 'package:surveyist/admin_uI/taskDetails.dart';
 
 class ProjectDetailui extends StatefulWidget {
   String projectId;
@@ -192,24 +193,39 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                             child: Container(
                               height:
                                   MediaQuery.of(context).size.height * 40 / 100,
-                              width: MediaQuery.of(context).size.width * 90 / 100,
+                              width:
+                                  MediaQuery.of(context).size.width * 90 / 100,
                               child: ListView.builder(
-                                itemCount: thisPageProvider.task.length,
                                 shrinkWrap: true,
                                 primary: true,
+                                itemCount: thisPageProvider.task.length,
                                 itemBuilder: (context, index) {
-                                  final taskData = thisPageProvider.task;
-                                  print(taskData.length);
-                            
+                                  final taskData = thisPageProvider.task[index]
+                                      ["data"] as TaskModel;
+                                  final taskId =
+                                      thisPageProvider.task[index]["taskId"];
+
                                   return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => TaskDetailsUi(
+                                                projectID: widget.projectId,
+                                                documentID: widget.documentId,
+                                                taskID: taskId),
+                                          ));
+                                    },
                                     child: Card(
                                       child: Column(
                                         children: [
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
                                               //  Text("TasK_Name"),
-                                              Text(
-                                                  "${taskData[index]['data']["taskName"]}"),
+                                              Text("${taskData.taskName}"),
+                                              Text("${taskData.taskProgress}")
                                             ],
                                           )
                                         ],

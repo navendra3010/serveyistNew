@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:surveyist/userProviders/commanProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
 import 'package:surveyist/users_UI/taskDetail.dart';
+import 'package:surveyist/users_UI/userAllProjectUi.dart';
 
 import 'package:surveyist/utils/appConstant.dart';
 import 'package:surveyist/utils/appFont.dart';
@@ -354,7 +355,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Container(
-                child: Text("Task_Updates",
+                child: Text("All_Projects",
                     style: TextStyle(
                         fontFamily: AppFont.fontFamily,
                         fontSize: 15,
@@ -365,102 +366,111 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 4 / 100,
-              width: MediaQuery.of(context).size.width * 20 / 100,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(Appimage.next_arrow),
-                      fit: BoxFit.fill)),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 1 / 100,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height *
-                  8 /
-                  100, // Set the height directly
-              width: MediaQuery.of(context)
-                  .size
-                  .width, // Set the width to full width
-
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: taskList.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height *
-                            7 /
-                            100, // Height for each item
-                        width: MediaQuery.of(context).size.width *
-                            38 /
-                            100, // Width for each item
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          color: const Color.fromARGB(255, 228, 153, 41),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Text(
-                                "${taskList[index]["TaskName"]}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontFamily: AppFont.fontFamily,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    "${taskList[index]["TaskAssignDate"]}",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    "${taskList[index]["status"]}",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width *
-                            40 /
-                            100, // Spacing between items
-                      ),
-                    ],
-                  );
-                },
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserAllProject(),
+                    ));
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.height * 4 / 100,
+                width: MediaQuery.of(context).size.width * 20 / 100,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(Appimage.next_arrow),
+                        fit: BoxFit.fill)),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 6 / 100,
-            ),
-            TextButton(
-                onPressed: () {
-                  loginpro.autoLogin(context);
-                },
-                child: Text("check funtion current  time"))
+
+            // date hide code 24-2-2025--------------------------------------------------------------hide---------------------------------------
+
+            // Container(
+            //   height: MediaQuery.of(context).size.height *
+            //       8 /
+            //       100, // Set the height directly
+            //   width: MediaQuery.of(context)
+            //       .size
+            //       .width, // Set the width to full width
+
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: taskList.length,
+            //     itemBuilder: (context, index) {
+            //       return Column(
+            //         children: [
+            //           Container(
+            //             height: MediaQuery.of(context).size.height *
+            //                 7 /
+            //                 100, // Height for each item
+            //             width: MediaQuery.of(context).size.width *
+            //                 38 /
+            //                 100, // Width for each item
+            //             decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.all(Radius.circular(15)),
+            //               color: const Color.fromARGB(255, 228, 153, 41),
+            //             ),
+            //             child: Column(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Container(
+            //                   child: Text(
+            //                     "${taskList[index]["TaskName"]}",
+            //                     maxLines: 1,
+            //                     overflow: TextOverflow.ellipsis,
+            //                     style: TextStyle(
+            //                         fontSize: 12,
+            //                         color: Colors.white,
+            //                         fontFamily: AppFont.fontFamily,
+            //                         fontWeight: FontWeight.w600),
+            //                   ),
+            //                 ),
+            //                 Container(
+            //                   child: Row(
+            //                     mainAxisAlignment:
+            //                         MainAxisAlignment.spaceEvenly,
+            //                     children: [
+            //                       Text(
+            //                         "${taskList[index]["TaskAssignDate"]}",
+            //                         style: TextStyle(
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w600,
+            //                           color: Colors.white,
+            //                         ),
+            //                       ),
+            //                       Text(
+            //                         "${taskList[index]["status"]}",
+            //                         style: TextStyle(
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w600,
+            //                           color: Colors.red,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //           SizedBox(
+            //             width: MediaQuery.of(context).size.width *
+            //                 40 /
+            //                 100, // Spacing between items
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   ),
+            // ),
+
+            // TextButton(
+            //     onPressed: () {
+            //       loginpro.autoLogin(context);
+            //     },
+            //     child: Text("check funtion current  time"))
+
+            //date hide code 24-2-2025--------------------------------------------------------------hide--- end ------------------------------------
           ],
         ),
       ),

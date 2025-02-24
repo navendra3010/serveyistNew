@@ -9,6 +9,7 @@ import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
 import 'package:surveyist/userProviders/commanProvider.dart';
 import 'package:surveyist/userProviders/locationProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
+import 'package:surveyist/userProviders/userProjectProvider.dart';
 import 'package:surveyist/utils/appFont.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -32,6 +33,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => CommanProviderForUser()),
       ChangeNotifierProvider(create: (context) => CommanproviderAdmin()),
        ChangeNotifierProvider(create: (context) => Projectprovider()),
+       ChangeNotifierProvider(create: (context) => UserProjectProviderClass()),
     ],
     child: MyApp(),
   ));

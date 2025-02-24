@@ -130,10 +130,10 @@ class Projectprovider extends ChangeNotifier {
 //date project details...18-2-2025..................................................................
 // final fetch project  name only.......................................................................
   List<Map<String, dynamic>> _project = [];
-  ProjectModel? _selectedProject;
+
 
   List<Map<String, dynamic>> get project => _project;
-  ProjectModel? get selectedProject => _selectedProject;
+
 //listen to all project. final fatch name and progresss ..........
   void listenProject() {
     fireser.allProject().listen((projectList) {
@@ -143,7 +143,8 @@ class Projectprovider extends ChangeNotifier {
   }
   //Date 18-2-2025------------------------------------------------
   /// this funtion fatch project complete details................
-
+     ProjectModel? _selectedProject;
+  ProjectModel? get selectedProject => _selectedProject;
   void listenAllProjectDetail(String projectId, String documentId) {
     fireser.allprojectDetails(projectId, documentId).listen((projectItems) {
       print(projectItems);
@@ -229,16 +230,26 @@ class Projectprovider extends ChangeNotifier {
   }
 
   //date 22-2-2025 this function will  fatch all task of per project  show on project detials page....................................
-  List<Map<String, dynamic>> task = [];
+  List<Map<String, dynamic>> _task = [];
+
+  List<Map<String,dynamic>> get task=>_task;
   void listenTask(String projectId, String documentId) {
     fireser.getListenTask(projectId, documentId).listen((pro) {
-      task = pro;
+      _task = pro;
       notifyListeners();
-    //  / print(task);
+  
+    });
+  }
+TaskModel? _selectTaskModel; 
+TaskModel? get selectTaskModel=>_selectTaskModel;
 
-      // for (var element in pro) {
-      //   print(element);
-      // }
+//date 24-2-2025 this provider funcation will fatch task details..............................................................
+  void taskDetails(String projectID, String documentID, String taskID) {
+
+    fireser.getTaskDetails(documentID,taskID).listen((taskDe){
+      _selectTaskModel=taskDe;
+      notifyListeners();
+
     });
   }
 }

@@ -284,10 +284,19 @@ class FireStoreServiceForAdmin {
         // final dt=element.data();
         allTask.add({
           "taskId":element.id,
-          "data":element.data(),
+          "projectId":projectId,
+          "documentId":documentId,
+          "data":TaskModel.FormJson(element)
         });
                }
        return allTask;
     });
 }
+//date 24-2-2025 this functoin will fatch all the task details......................................................
+
+ Stream<TaskModel?> getTaskDetails(String documentID, String taskID)
+ {
+  return _firestore.collection("Project").doc(documentID).collection("task").doc(taskID).snapshots().asyncMap((snapshot)=>snapshot.exists?TaskModel.FormJson(snapshot):null);
+  
+ }
 }
