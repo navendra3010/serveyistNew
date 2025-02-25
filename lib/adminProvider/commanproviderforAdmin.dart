@@ -8,12 +8,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/UI_for_all/loginUI.dart';
 import 'package:surveyist/adminModel/allUsersModel.dart';
 import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fireStoreserAdmin.dart';
+import 'package:surveyist/userModel/userProfilemodel.dart';
 import 'package:surveyist/userModel/userlogin.dart';
 
 class CommanproviderAdmin extends ChangeNotifier {
   ViewAllUsers? viewuser;
   UserLoginModel? userLoginModel;
   FireStoreServiceForAdmin frstr = FireStoreServiceForAdmin();
+
+
+Future<Userprofilemodel?> getAdminInfo() async {
+    SharedPreferences sff = await SharedPreferences.getInstance();
+    String? profileID = await sff.getString('userId');
+    if (profileID != null) {
+      // print("got profile id      ${profileID}");
+      return await frstr.getAdminProfile(profileID);
+    } else {
+      print("not getting profile id");
+    }
+    return null;
+  }
+
+
 
 // all users yet -------------------------------------------------------------------------------------
   Stream<List<ViewAllUsers>> get allUsersStream {

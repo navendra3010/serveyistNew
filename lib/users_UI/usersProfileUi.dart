@@ -20,19 +20,7 @@ class UsersprofilePage extends StatefulWidget {
 class _UsersprofilePageState extends State<UsersprofilePage> {
   late Future<Userprofilemodel?> _userProfileFuture;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _fetchUserProfile();
-  // }
-
-  // void _fetchUserProfile() {
-  //   final authService =
-  //       Provider.of<CommanProviderForUser>(context, listen: false);
-  //   setState(() {
-  //     //_userProfileFuture = authService.getUserInfo();
-  //   });
-  // }
+  
 
   void _showAlertDialog(BuildContext context, String name) {
     showDialog(
@@ -60,13 +48,7 @@ class _UsersprofilePageState extends State<UsersprofilePage> {
     );
   }
 
-//   @override
-//  void initState()
-//  {
-//   super.initState();
-//     Provider.of<CommanProviderForUser>(context, listen: false)
-//        .getUserInfo();
-//  }
+
   @override
   Widget build(BuildContext context) {
     final profileProvider = Provider.of<CommanProviderForUser>(context);

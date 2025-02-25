@@ -21,8 +21,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
     super.initState();
     Provider.of<Projectprovider>(context, listen: false)
         .listenAllProjectDetail(widget.projectId, widget.documentId);
-    // print(widget.projectId);
-    // print(widget.documentId);
+    
     Provider.of<Projectprovider>(context, listen: false)
         .listenTask(widget.projectId, widget.documentId);
   }
@@ -238,7 +237,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                           ),
                         ],
                       ),
-                    )
+                    ),
             ],
           ),
         ),

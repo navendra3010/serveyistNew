@@ -209,7 +209,7 @@ class Projectprovider extends ChangeNotifier {
   }
 
   //date 22-2-2025 this function will create new task....................................
-
+ bool isTaskCreated=false;
   Future<void> createNewTask(
       String taskName,
       String taskDescription,
@@ -226,6 +226,9 @@ class Projectprovider extends ChangeNotifier {
 
     fireser.getCreatedNewTask(taskName, taskDescription, taskStart, taskEnd,
         selectedUserId, projectId, documentId);
+        isTaskCreated=true;
+         
+
     notifyListeners();
   }
 

@@ -1,16 +1,24 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/adminModel/allUsersModel.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/adminModel/taskModel.dart';
+import 'package:surveyist/userModel/userProfilemodel.dart';
 
 class FireStoreServiceForAdmin {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   DateTime now = DateTime.now();
   //all  user ................................................
+
+
+
+
+
+
+
+
   Stream<List<ViewAllUsers>> getAllUsers() {
     return _firestore.collection("allusers").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -274,29 +282,55 @@ class FireStoreServiceForAdmin {
 
   //date 22-2-2025 this function will fatch all tasl real time when oer task new task....................................
 
-   Stream<List<Map<String,dynamic>>> getListenTask(String projectId, String documentId)
-   {
+  Stream<List<Map<String, dynamic>>> getListenTask(
+      String projectId, String documentId) {
     print("this functin working");
-    return _firestore.collection("Project").doc(documentId).collection("task").snapshots().asyncMap((snapshot){
-
+    return _firestore
+        .collection("Project")
+        .doc(documentId)
+        .collection("task")
+        .snapshots()
+        .asyncMap((snapshot) {
       List<Map<String, dynamic>> allTask = [];
       for (var element in snapshot.docs) {
         // final dt=element.data();
         allTask.add({
-          "taskId":element.id,
-          "projectId":projectId,
-          "documentId":documentId,
-          "data":TaskModel.FormJson(element)
+          "taskId": element.id,
+          "projectId": projectId,
+          "documentId": documentId,
+          "data": TaskModel.FormJson(element)
         });
-               }
-       return allTask;
+      }
+      return allTask;
     });
-}
+  }
 //date 24-2-2025 this functoin will fatch all the task details......................................................
 
- Stream<TaskModel?> getTaskDetails(String documentID, String taskID)
- {
-  return _firestore.collection("Project").doc(documentID).collection("task").doc(taskID).snapshots().asyncMap((snapshot)=>snapshot.exists?TaskModel.FormJson(snapshot):null);
+  Stream<TaskModel?> getTaskDetails(String documentID, String taskID) {
+    return _firestore
+        .collection("Project")
+        .doc(documentID)
+        .collection("task")
+        .doc(taskID)
+        .snapshots()
+        .asyncMap((snapshot) =>
+            snapshot.exists ? TaskModel.FormJson(snapshot) : null);
+  }
+
+  Future<Userprofilemodel?> getAdminProfile(String userid) async {
+    try {
+      DocumentSnapshot snapshot =
+          await _firestore.collection("allusers").doc(userid).get();
+      if (snapshot.exists) {
+        // print(snapshot.data());
+        return Userprofilemodel.FromFireStore(snapshot);
+      }
+      return null;
+    } catch (e) {
+      print("Error fetching user profile: $e");
+      return null;
+    }
+  }
+
   
- }
 }

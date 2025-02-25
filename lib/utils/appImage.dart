@@ -1,7 +1,7 @@
 
 
 class Appimage {
-  static const SplashScreen = './assets/font/splashImage.jpeg';
+  static const SplashScreen = './assets/font/companyLogo.jpg';
   static const Notification = './assets/font/Icon_notification.png';
    static const current = './assets/font/icon_current.png';
    static const threeDot ='./assets/font/icon_threedots.png';

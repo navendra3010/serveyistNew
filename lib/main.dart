@@ -23,8 +23,6 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      
-     
       ChangeNotifierProvider(create: (context) => LoginProviderForUser()),
       ChangeNotifierProvider(create: (context) => LocationProviderr()),
       ChangeNotifierProvider(create: (context) => Adminhomeprovider()),
@@ -32,8 +30,8 @@ void main() async {
       ChangeNotifierProvider(create: (context) => Accountcreate()),
       ChangeNotifierProvider(create: (context) => CommanProviderForUser()),
       ChangeNotifierProvider(create: (context) => CommanproviderAdmin()),
-       ChangeNotifierProvider(create: (context) => Projectprovider()),
-       ChangeNotifierProvider(create: (context) => UserProjectProviderClass()),
+      ChangeNotifierProvider(create: (context) => Projectprovider()),
+      ChangeNotifierProvider(create: (context) => UserProjectProviderClass()),
     ],
     child: MyApp(),
   ));

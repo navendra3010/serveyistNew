@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/taskModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/admin_uI/projectDetails.dart';
+import 'package:surveyist/admin_uI/projectOverViewUI.dart';
 
 import 'package:surveyist/utils/TextSyle.dart';
 import 'package:surveyist/utils/appButton.dart';
@@ -246,7 +248,10 @@ class MycreateUi extends State<Createnewtask> {
                     dateFormate(newTaskProvider.dateStartcontroller.text),
                     dateFormate(newTaskProvider.dateEndcontroller.text),
                     selectedUserId,widget.projectId,widget.documentId);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProjectOverView(),));
+
               },
+              
             )
           ],
         ),

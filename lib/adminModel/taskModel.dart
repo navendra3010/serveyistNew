@@ -43,6 +43,7 @@ class TaskModel {
       "taskType": taskType,
       "taskDescription": taskDescription,
       "taskStartDate": taskStartDate,
+      "taskEndDate":taskEndDate,
       "assignTo": assignTo,
       "taskProgress": taskProgress,
       "taskFeedBack": taskFeedBack,

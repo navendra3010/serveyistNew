@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/userProviders/userProjectProvider.dart';
+import 'package:surveyist/users_UI/userProjectDetails.dart';
 import 'package:surveyist/utils/appFont.dart';
 
 class UserAllProject extends StatefulWidget {
@@ -62,17 +63,19 @@ class _UserAllProjectUI extends State<UserAllProject> {
                                   final projectId = userProjectPro
                                       .projectData[index]["projectId"];
                                   final docId = userProjectPro
-                                      .projectData[index]["docId"];
+                                      .projectData[index]["documentId"];
+                                     
 
                                   return InkWell(
                                       onTap: () {
-                                        // print(userProjectPro.projectData[index]
-                                        //     ["projectId"]);
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //       builder: (context) => ProjectDetailui(projectId:projectId,documentId:docId),
-                                        //     ));
+                                        print(userProjectPro.projectData[index]
+                                            ["projectId"]);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UserProjectDetailUi(projectID:projectId,documentID:docId),
+                                            ));
                                       },
 
                                       // ),
