@@ -117,20 +117,9 @@ class Projectprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //this function for show all project from project over view page.....................................
-  // Future<void> getAllProjectProvider() async {
-  //   print("providr calling");
-  //   await fireser.getAllProjectFireStore();
-  // }
-
-  // Stream<List<Map<String, dynamic>>> getAllStreamProjects() {
-  //   return fireser.getAllproject();
-  // }
-
 //date project details...18-2-2025..................................................................
 // final fetch project  name only.......................................................................
   List<Map<String, dynamic>> _project = [];
-
 
   List<Map<String, dynamic>> get project => _project;
 
@@ -141,9 +130,10 @@ class Projectprovider extends ChangeNotifier {
       notifyListeners();
     });
   }
+
   //Date 18-2-2025------------------------------------------------
   /// this funtion fatch project complete details................
-     ProjectModel? _selectedProject;
+  ProjectModel? _selectedProject;
   ProjectModel? get selectedProject => _selectedProject;
   void listenAllProjectDetail(String projectId, String documentId) {
     fireser.allprojectDetails(projectId, documentId).listen((projectItems) {
@@ -199,17 +189,10 @@ class Projectprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void createTask(TaskModel tmodel) {
-    print("${tmodel.taskName}");
-    print("${tmodel.taskDescription}");
-    print("${tmodel.taskStartDate}");
-    print("${tmodel.taskEndDate}");
-    print(" this id null-------------${tmodel.selectedFile}");
-    // print("${newTaskProvider.selectedFile!.path.split('/').last}");
-  }
+  
 
   //date 22-2-2025 this function will create new task....................................
- bool isTaskCreated=false;
+  bool isTaskCreated = false;
   Future<void> createNewTask(
       String taskName,
       String taskDescription,
@@ -218,16 +201,9 @@ class Projectprovider extends ChangeNotifier {
       String? selectedUserId,
       String? projectId,
       String? documentId) async {
-    print(taskName);
-    print(taskDescription);
-    print(taskStart);
-    print(taskEnd);
-    print(selectedUserId);
-
     fireser.getCreatedNewTask(taskName, taskDescription, taskStart, taskEnd,
         selectedUserId, projectId, documentId);
-        isTaskCreated=true;
-         
+    isTaskCreated = true;
 
     notifyListeners();
   }
@@ -235,24 +211,26 @@ class Projectprovider extends ChangeNotifier {
   //date 22-2-2025 this function will  fatch all task of per project  show on project detials page....................................
   List<Map<String, dynamic>> _task = [];
 
-  List<Map<String,dynamic>> get task=>_task;
+  List<Map<String, dynamic>> get task => _task;
   void listenTask(String projectId, String documentId) {
     fireser.getListenTask(projectId, documentId).listen((pro) {
       _task = pro;
+      // this function count the total task of project per project
+      int length = _task.length;
+      fireser.toTotalTask(length, projectId, documentId);
       notifyListeners();
-  
     });
   }
-TaskModel? _selectTaskModel; 
-TaskModel? get selectTaskModel=>_selectTaskModel;
+
+  TaskModel? _selectTaskModel;
+  TaskModel? get selectTaskModel => _selectTaskModel;
 
 //date 24-2-2025 this provider funcation will fatch task details..............................................................
   void taskDetails(String projectID, String documentID, String taskID) {
-
-    fireser.getTaskDetails(documentID,taskID).listen((taskDe){
-      _selectTaskModel=taskDe;
+    fireser.getTaskDetails(documentID, taskID).listen((taskDe) {
+      _selectTaskModel = taskDe;
       notifyListeners();
-
     });
   }
+  //Date 27-2-2025 the calutlate the length of  total task per projecvt----------------------------------------
 }

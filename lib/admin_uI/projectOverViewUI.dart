@@ -48,51 +48,6 @@ class _CreateProjectPageState extends State<ProjectOverView> {
               )),
             ),
           ),
-          // Center(
-          //   child: Container(
-          //     height: MediaQuery.of(context).size.height * 30 / 100,
-          //     width: MediaQuery.of(context).size.width * 90 / 100,
-          //     decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.all(Radius.circular(20)),
-          //         color: const Color.fromRGBO(255, 250, 250, 1)),
-          //     child: StreamBuilder<List<Map<String, dynamic>>>(
-          //         stream: overViewProvider.getAllStreamProjects(),
-          //         builder: (context, snapshot) {
-          //           if (snapshot.connectionState == ConnectionState.waiting) {
-          //             return CircularProgressIndicator();
-          //           }
-          //           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          //             return Text("No_Project_yet");
-          //           }
-
-          //           List<Map<String, dynamic>> project = snapshot.data!;
-          //           return ListView.builder(
-
-          //             itemCount: project.length,
-          //             itemBuilder: (context, index) {
-          //               final proj = project[index];
-
-          //               return Container(
-          //                 height: MediaQuery.of(context).size.height * 6 / 100,
-          //                 width: MediaQuery.of(context).size.width * 9 / 100,
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(10),
-          //                  // color: const Color.fromARGB(255, 221, 187, 138),
-          //                 ),
-          //                 child: Card(
-          //                   child: Column(
-          //                     children: [
-          //                       Text("${proj["projectName"]}"),
-
-          //                     ],
-          //                   ),
-          //                 ),
-          //               );
-          //             },
-          //           );
-          //         }),
-          //   ),
-          // ),
 
           //date......................................18-2-2025..................................
 
@@ -116,6 +71,7 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                   overViewProvider.project[index]["projectId"];
                               final docId =
                                   overViewProvider.project[index]["docId"];
+                                 // print(project.totalTask);
 
                               return InkWell(
                                 onTap: () {
@@ -124,7 +80,9 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ProjectDetailui(projectId:projectId,documentId:docId),
+                                        builder: (context) => ProjectDetailui(
+                                            projectId: projectId,
+                                            documentId: docId),
                                       ));
                                 },
                                 child: Card(
@@ -147,7 +105,7 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                         )
                                       ],
                                     )),
-                                    Text("${project.progress ?? "0/0"}")
+                                    Text("${project.totalTask ?? "0"}")
                                   ],
                                 )),
                               );
@@ -206,7 +164,6 @@ class _CreateProjectPageState extends State<ProjectOverView> {
           //         }),
           //   ),
           // ),
-        
         ],
       ),
       floatingActionButton: FloatingActionButton(

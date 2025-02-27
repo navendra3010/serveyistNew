@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:surveyist/userProviders/commanProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
+import 'package:surveyist/userProviders/userProjectProvider.dart';
 import 'package:surveyist/users_UI/taskDetail.dart';
 import 'package:surveyist/users_UI/userAllProjectUi.dart';
 
@@ -87,6 +88,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
     final providerComman =
         Provider.of<CommanProviderForUser>(context, listen: false);
     final loginpro = Provider.of<LoginProviderForUser>(context, listen: false);
+      final userProjectPro = Provider.of<UserProjectProviderClass>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -131,14 +133,16 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                            // height: MediaQuery.of(context).size.height * 5/ 100,
-                            //width: MediaQuery.of(context).size.width * 30 / 100,
-                            // color:Colors.amberAccent,
-                            child: Image.asset(
-                              Appimage.Notification,
-                              fit: BoxFit.fill,
-                              cacheHeight: 25,
+                          InkWell( onTap:() {
+                            print("notification working");
+                          },
+                            child: Container(
+                            
+                              child: Image.asset(
+                                Appimage.Notification,
+                                fit: BoxFit.fill,
+                                cacheHeight: 25,
+                              ),
                             ),
                           ),
                         ],
@@ -213,7 +217,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TaskDetails(),
+                                  builder: (context) => UserAllProject(),
                                 ));
                           },
                           child: Container(
@@ -242,7 +246,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                                             image: AssetImage(Appimage.task),
                                             fit: BoxFit.fill)),
                                   ),
-                                  Text("Task",
+                                  Text("All_Project",
                                       style: TextStyle(
                                           fontFamily: AppFont.fontFamily,
                                           fontSize: 13,
@@ -366,23 +370,11 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserAllProject(),
-                    ));
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.height * 4 / 100,
-                width: MediaQuery.of(context).size.width * 20 / 100,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(Appimage.next_arrow),
-                        fit: BoxFit.fill)),
-              ),
-            ),
+            ElevatedButton(onPressed: () {
+              userProjectPro.taskUpdatePerProject();
+              
+            }, child:Text("get value"))
+            
 
             // date hide code 24-2-2025--------------------------------------------------------------hide---------------------------------------
 

@@ -56,32 +56,60 @@ class FireStoreServiceClass {
         .snapshots()
         .asyncMap((snapshot) async {
       List<Map<String, dynamic>> allTask = [];
-      List<Map<String,dynamic>> filter=[];
+      List<Map<String, dynamic>> filter = [];
       for (var taskDoc in snapshot.docs) {
-           
-
         filter.add({
-          "taskId":taskDoc.id,
-          "projectId":projectID,
-          "documentId":documentID,
-          "data":taskDoc.data(),
+          "taskId": taskDoc.id,
+          "projectId": projectID,
+          "documentId": documentID,
+          "data": taskDoc.data(),
         });
       }
-        SharedPreferences pref = await SharedPreferences.getInstance();
-          String? userID = pref.getString("userId");
-          List<Map<String,dynamic>> filtered=filter.where((map){
-
-            return map['data']['assignTo'] == userID;
-          }).toList();
-          allTask=filtered;
-     
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? userID = pref.getString("userId");
+      List<Map<String, dynamic>> filtered = filter.where((map) {
+        return map['data']['assignTo'] == userID;
+      }).toList();
+      allTask = filtered;
 
       return allTask;
     });
   }
-// date 25-2-2025 this function fatch all details for task.....................................
-  Stream<TaskModel?> getListenTaskDetails(String taskId, String projectId, String documentId) {
 
-    return _store.collection("Project").doc(documentId).collection("task").doc(taskId).snapshots().map((snap)=>snap.exists? TaskModel.FormJson(snap):null);
+// date 25-2-2025 this function fatch all details for task.....................................
+  Stream<TaskModel?> getListenTaskDetails(
+      String taskId, String projectId, String documentId) {
+    return _store
+        .collection("Project")
+        .doc(documentId)
+        .collection("task")
+        .doc(taskId)
+        .snapshots()
+        .map((snap) => snap.exists ? TaskModel.FormJson(snap) : null);
+  }
+
+  //Date 27-2-2025 user get notification all project when assigh the new tAsk any project---------------------------------------------------------
+  Stream<List<Map<String, dynamic>>> getTaskUpdatedPerProject() {
+    return _store.collection("Project").snapshots().asyncMap((snapshot) async {
+      List<Map<String, dynamic>> allupdatedResult = [];
+      List<Map<String, dynamic>> filterUpdate = [];
+      for (var element in snapshot.docs) {
+        final docResponse = await element.reference.collection("task").get();
+        for (var docRef in docResponse.docs) {
+          
+          filterUpdate.add({
+            "taskUniqiueId": docRef.id,
+            "data": docRef.data(),
+          });
+        }
+        SharedPreferences pref = await SharedPreferences.getInstance();
+          String? userID = pref.getString("userId");
+          List<Map<String, dynamic>> filteredTask=filterUpdate.where((map){
+            return map["data"]["assignTo"]==userID;
+          }).toList();
+          allupdatedResult=filterUpdate;
+      }
+      return allupdatedResult;
+    });
   }
 }

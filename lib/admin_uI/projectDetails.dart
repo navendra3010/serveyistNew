@@ -224,7 +224,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                                             children: [
                                               //  Text("TasK_Name"),
                                               Text("${taskData.taskName}"),
-                                              Text("${taskData.taskProgress}")
+                                              Text("${taskData.status}",style:TextStyle(color:taskData.status=="pending"?Colors.red:Colors.green),)
                                             ],
                                           )
                                         ],

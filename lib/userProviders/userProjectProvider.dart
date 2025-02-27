@@ -11,7 +11,7 @@ class UserProjectProviderClass extends ChangeNotifier {
     fireStoreService.getAllAssignProject().listen((data) {
       projectData = data;
       notifyListeners();
-      print(projectData);
+      
     });
 
   }
@@ -53,5 +53,15 @@ class UserProjectProviderClass extends ChangeNotifier {
     });
 
   }
+  //Date 27-2-2025 user get notification all project when assigh the new tAsk any project---------------------------------------------------------
+ List<Map<String,dynamic>> tolist=[];
+   void  taskUpdatePerProject()
+   {
+    fireStoreService.getTaskUpdatedPerProject().listen((data){
+      tolist=data;
+      print(tolist);
+      notifyListeners();
+    });
+   }
 
 }

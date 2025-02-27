@@ -331,6 +331,12 @@ class FireStoreServiceForAdmin {
       return null;
     }
   }
+ //  Date 27-2-2027 this function count the total task of project per project
+  void toTotalTask(int length, String projectId, String documentId)
+   {
+
+      _firestore.collection("Project").doc(documentId).collection("P_Name").doc(projectId).update({'totalTask':length});
+   }
 
   
 }

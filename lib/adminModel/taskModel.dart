@@ -14,7 +14,7 @@ class TaskModel {
   String? assignTo;
   String? fileUrl;
   String? downloadUrl;
-  double? taskProgress;
+  int? taskProgress;
   String? taskFeedBack;
   String? selectedFile;
 
@@ -45,7 +45,7 @@ class TaskModel {
       "taskStartDate": taskStartDate,
       "taskEndDate":taskEndDate,
       "assignTo": assignTo,
-      "taskProgress": taskProgress,
+    //  "taskProgress": taskProgress  as int,
       "taskFeedBack": taskFeedBack,
       "fileUrl": fileUrl,
       "downloadUrl": downloadUrl
@@ -62,7 +62,7 @@ class TaskModel {
       taskDescription: data["taskDescription"] ?? '',
       taskStartDate:  data[DateTime],
       taskEndDate:  data[DateTime],
-      taskProgress: data["taskProgress"] ?? '',
+     // taskProgress: data["taskProgress"],
       taskFeedBack: data["taskFeedBack"] ?? '',
       downloadUrl: data["downloadUrl"],
       fileUrl: data["fileUrl"],
