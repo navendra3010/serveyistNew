@@ -107,7 +107,7 @@ class FireStoreServiceClass {
           List<Map<String, dynamic>> filteredTask=filterUpdate.where((map){
             return map["data"]["assignTo"]==userID;
           }).toList();
-          allupdatedResult=filterUpdate;
+          allupdatedResult=filteredTask;
       }
       return allupdatedResult;
     });

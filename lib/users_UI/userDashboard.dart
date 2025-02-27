@@ -82,13 +82,20 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   // {
   //   print("hello");
   // }
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<UserProjectProviderClass>(context, listen: false)
+        .taskUpdatePerProject();
+  }
 
   @override
   Widget build(BuildContext context) {
     final providerComman =
         Provider.of<CommanProviderForUser>(context, listen: false);
     final loginpro = Provider.of<LoginProviderForUser>(context, listen: false);
-      final userProjectPro = Provider.of<UserProjectProviderClass>(context, listen: false);
+    final userProjectPro =
+        Provider.of<UserProjectProviderClass>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -133,11 +140,11 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          InkWell( onTap:() {
-                            print("notification working");
-                          },
+                          InkWell(
+                            onTap: () {
+                              print("notification working");
+                            },
                             child: Container(
-                            
                               child: Image.asset(
                                 Appimage.Notification,
                                 fit: BoxFit.fill,
@@ -359,7 +366,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Container(
-                child: Text("All_Projects",
+                child: Text("All_Task",
                     style: TextStyle(
                         fontFamily: AppFont.fontFamily,
                         fontSize: 15,
@@ -370,90 +377,92 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
-            ElevatedButton(onPressed: () {
-              userProjectPro.taskUpdatePerProject();
-              
-            }, child:Text("get value"))
-            
+            // ElevatedButton(onPressed: () {
+            //   userProjectPro.taskUpdatePerProject();
+
+            // }, child:Text("get value")),
 
             // date hide code 24-2-2025--------------------------------------------------------------hide---------------------------------------
 
-            // Container(
-            //   height: MediaQuery.of(context).size.height *
-            //       8 /
-            //       100, // Set the height directly
-            //   width: MediaQuery.of(context)
-            //       .size
-            //       .width, // Set the width to full width
+            userProjectPro.tolist.isEmpty
+                ? Center(
+                    child: Text("not have task"),
+                  )
+                : Container(
+                    height: MediaQuery.of(context).size.height * 8 / 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: userProjectPro.finalList.length,
+                      itemBuilder: (context, index) {
+                        List<Map<String, dynamic>>? team =
+                            userProjectPro.tolist;
 
-            //   child: ListView.builder(
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: taskList.length,
-            //     itemBuilder: (context, index) {
-            //       return Column(
-            //         children: [
-            //           Container(
-            //             height: MediaQuery.of(context).size.height *
-            //                 7 /
-            //                 100, // Height for each item
-            //             width: MediaQuery.of(context).size.width *
-            //                 38 /
-            //                 100, // Width for each item
-            //             decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.all(Radius.circular(15)),
-            //               color: const Color.fromARGB(255, 228, 153, 41),
-            //             ),
-            //             child: Column(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 Container(
-            //                   child: Text(
-            //                     "${taskList[index]["TaskName"]}",
-            //                     maxLines: 1,
-            //                     overflow: TextOverflow.ellipsis,
-            //                     style: TextStyle(
-            //                         fontSize: 12,
-            //                         color: Colors.white,
-            //                         fontFamily: AppFont.fontFamily,
-            //                         fontWeight: FontWeight.w600),
-            //                   ),
-            //                 ),
-            //                 Container(
-            //                   child: Row(
-            //                     mainAxisAlignment:
-            //                         MainAxisAlignment.spaceEvenly,
-            //                     children: [
-            //                       Text(
-            //                         "${taskList[index]["TaskAssignDate"]}",
-            //                         style: TextStyle(
-            //                           fontSize: 12,
-            //                           fontWeight: FontWeight.w600,
-            //                           color: Colors.white,
-            //                         ),
-            //                       ),
-            //                       Text(
-            //                         "${taskList[index]["status"]}",
-            //                         style: TextStyle(
-            //                           fontSize: 12,
-            //                           fontWeight: FontWeight.w600,
-            //                           color: Colors.red,
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           SizedBox(
-            //             width: MediaQuery.of(context).size.width *
-            //                 40 /
-            //                 100, // Spacing between items
-            //           ),
-            //         ],
-            //       );
-            //     },
-            //   ),
+                        return Column(
+                          children: [
+                            Container(
+                              height:
+                                  MediaQuery.of(context).size.height * 7 / 100,
+                              width:
+                                  MediaQuery.of(context).size.width * 38 / 100,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                                color: const Color.fromARGB(255, 228, 153, 41),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "${team[index]["data"]["taskName"]}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          fontFamily: AppFont.fontFamily,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          "${taskList[index]["TaskAssignDate"]}",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${taskList[index]["status"]}",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width *
+                                  40 /
+                                  100, // Spacing between items
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
             // ),
 
             // TextButton(
