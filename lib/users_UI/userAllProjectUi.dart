@@ -41,7 +41,9 @@ class _UserAllProjectUI extends State<UserAllProject> {
                   100, // Spacing between items
             ),
             userProjectPro.projectData.isEmpty
-                ? Center(child: CircularProgressIndicator())
+                ? Center(child: Center(
+                  child: Text("Not_assigned_Project_yet"),
+                ))
                 : SingleChildScrollView(
                     child: Container(
                       child: Column(

@@ -96,20 +96,52 @@ class FireStoreServiceClass {
       for (var element in snapshot.docs) {
         final docResponse = await element.reference.collection("task").get();
         for (var docRef in docResponse.docs) {
-          
           filterUpdate.add({
             "taskUniqiueId": docRef.id,
             "data": docRef.data(),
           });
         }
         SharedPreferences pref = await SharedPreferences.getInstance();
-          String? userID = pref.getString("userId");
-          List<Map<String, dynamic>> filteredTask=filterUpdate.where((map){
-            return map["data"]["assignTo"]==userID;
-          }).toList();
-          allupdatedResult=filteredTask;
+        String? userID = pref.getString("userId");
+        List<Map<String, dynamic>> filteredTask = filterUpdate.where((map) {
+          return map["data"]["assignTo"] == userID;
+        }).toList();
+        allupdatedResult = filteredTask;
       }
       return allupdatedResult;
+    });
+  }
+
+//date this funcation submit the complete task.............................
+  void setSubmitTask(String taskId, String documentId, String projectId) {
+    _store
+        .collection("Project")
+        .doc(documentId)
+        .collection("task")
+        .doc(taskId)
+        .update({"status": "completed"});
+  }
+
+  Stream<List<Map<String, dynamic>>> getAllProjectTask() {
+    return _store.collection("Project").snapshots().asyncMap((snapshot) async {
+      List<Map<String, dynamic>> history = [];
+
+      List<Map<String, dynamic>> updateHistory = [];
+      for (var element in snapshot.docs) {
+        final dofreffrece = await element.reference.collection("task").get();
+        for (var docRef in dofreffrece.docs) {
+        //  print(docRef.data());
+          updateHistory.add({"data":docRef.data()});
+        }
+
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        String? userID = pref.getString("userId");
+        List<Map<String, dynamic>> filteredhistory = updateHistory.where((map) {
+          return map["data"]["assignTo"] == userID;
+        }).toList();
+        history = filteredhistory;
+      }
+      return history;
     });
   }
 }

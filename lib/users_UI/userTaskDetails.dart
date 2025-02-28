@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surveyist/main.dart';
 import 'package:surveyist/userProviders/userProjectProvider.dart';
+import 'package:surveyist/users_UI/userAllProjectUi.dart';
+import 'package:surveyist/users_UI/userProjectDetails.dart';
+import 'package:surveyist/utils/appButton.dart';
 
 class userTaskDetailsUi extends StatefulWidget {
   String taskId;
@@ -20,7 +24,7 @@ class _MyWidgetState extends State<userTaskDetailsUi> {
   @override
   void initState() {
     super.initState();
-    Provider.of<UserProjectProviderClass>(context,listen: false)
+    Provider.of<UserProjectProviderClass>(context, listen: false)
         .listenTaskDetails(widget.taskId, widget.projectId, widget.documentId);
   }
 
@@ -28,6 +32,8 @@ class _MyWidgetState extends State<userTaskDetailsUi> {
   Widget build(BuildContext context) {
     final taskDetailsProvider =
         Provider.of<UserProjectProviderClass>(context).taskDetailmopdel;
+    final detailProvider =
+        Provider.of<UserProjectProviderClass>(context, listen: false);
 
     if (taskDetailsProvider == null) {
       return Scaffold(
@@ -58,9 +64,9 @@ class _MyWidgetState extends State<userTaskDetailsUi> {
                           icon: Icon(Icons.arrow_back)),
                     ),
                     Container(
-                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Colors.amber),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: Colors.amber),
                       child: Center(
                         child: Text(
                           "${taskDetailsProvider.taskName}",
@@ -91,7 +97,25 @@ class _MyWidgetState extends State<userTaskDetailsUi> {
                     ),
                   ],
                 ),
-              )
+              ),
+              // this paga submit the task..............................................................
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 10 / 100,
+              ),
+            MyButton(
+                text: "submit task",
+                color: Colors.amber,
+                onPressed: () {
+                  detailProvider.submitTask(
+                      widget.taskId, widget.documentId, widget.projectId);
+                       Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => UserAllProject(),
+                                    ));
+                      
+                },
+              ),
             ],
           ),
         ),

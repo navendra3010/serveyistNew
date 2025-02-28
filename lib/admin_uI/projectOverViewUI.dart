@@ -105,7 +105,7 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                         )
                                       ],
                                     )),
-                                    Text("${project.totalTask ?? "0"}")
+                                    Text(" ${project.progress}/ ${project.totalTask ?? "0"}")
                                   ],
                                 )),
                               );

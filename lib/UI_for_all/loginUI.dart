@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:surveyist/UI_for_all/signUp_Ui.dart';
+
 import 'package:surveyist/userProviders/locationProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
 
@@ -28,185 +28,194 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
     final loginProvider = Provider.of<LoginProviderForUser>(context);
     final locationProvider = Provider.of<LocationProviderr>(context);
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-       
-
-          child: Column(children: [
-            //this column for login logo image and login name
-            Column(
-              children: [
-                Center(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 30 / 100,
-                    width: MediaQuery.of(context).size.width * 50 / 100,
-                    // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
-                    decoration: BoxDecoration(
-                        // color: const Color.fromARGB(255, 228, 153, 41),
-                        image: DecorationImage(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            // padding: const EdgeInsets.only(bottom:MediaQuery.of(context).viewInsets.bottom)),
+            child: Column(children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 4 / 100,
+              ),
+              //this column for login logo image and login name
+              Column(
+                children: [
+                  Center(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 30 / 100,
+                      //  width: MediaQuery.of(context).size.width * 50 / 100,
+                      // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
+                      decoration: BoxDecoration(
+                          // color: const Color.fromARGB(255, 228, 153, 41),
+                          image: DecorationImage(
                             image: AssetImage(Appimage.SplashScreen),
-                            fit: BoxFit.fill),
-                        shape: BoxShape.circle),
+                            //  fit: BoxFit.fill
+                          ),
+                          shape: BoxShape.circle),
+                    ),
                   ),
-                ),
-                Center(
-                  child: Text(
-                    Applanguage.signIn[Applanguage.language],
-                    style: const TextStyle(
-                        fontFamily: AppFont.fontFamily,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20),
+                  Center(
+                    child: Text(
+                      Applanguage.signIn[Applanguage.language],
+                      style: const TextStyle(
+                          fontFamily: AppFont.fontFamily,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20),
+                    ),
                   ),
-                ),
-                Container(
-                  child: TextField(
-                    controller: userEmailController,
-                    decoration: InputDecoration(
-                        hintText: "Email",
-
-                        // icon:Icon(Icons.person)
-                        prefixIcon: Icon(
-                          Icons.person,
-                          size: 30,
-                        )),
-                    maxLength: 25,
+                  Container(
+                    child: TextField(
+                      controller: userEmailController,
+                      decoration: InputDecoration(
+                          hintText: "Email",
+          
+                          // icon:Icon(Icons.person)
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 30,
+                          )),
+                      maxLength: 25,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 1 / 100,
-                ),
-                Container(
-                  child: TextField(
-                    controller: userPasswordController,
-                    // keyboardType:,
-                    decoration: InputDecoration(
-                        hintText: "password",
-
-                        // icon:Icon(Icons.person)
-                        prefixIcon: Icon(
-                          Icons.person,
-                          size: 30,
-                        ),
-                        suffixIcon: Icon(Icons.password_sharp)),
-                    maxLength: 10,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 1 / 100,
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 3 / 100,
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          print("this is forgor password scren will be ");
-                        },
-                        child: Text("Forgot_password")),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 2 / 100,
-                ),
-                loginProvider.isloading == true
-                    ? CircularProgressIndicator()
-                    : Container(
-                        child: MyButton(
-                            text: 'Login',
-                            // color: const Color.fromARGB(255, 34, 137, 221),
-                            color: const Color.fromARGB(255, 231, 128, 44),
-                            onPressed: () async {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const SignUpScreenForAll()));
-                              // ShowTaostMessage.toastMessage(context, "SuccesfullLogin");
-
-                              // loginEmailWithPassword(
-
-                              //    );
-                              //  _currentPosition =
-                              //     await Locations.getCurrentPosition();
-                              // if (_currentPosition != null) {
-                              //   _currentAddress =
-                              //       await Locations.getAddressFromLatLng(
-                              //           _currentPosition!);
-                              //   setState(() {});
-                              // } else {
-                              //   print("Failed to get location.");
-                              // }
-
-                              // loginProvider.userLoginAuthantication(
-                              //    context,
-                              //    userEmailController.text.toString().trim(),
-                              //     userPasswordController.text
-                              //         .toString()
-                              //         .trim());
-
-                              // login(String email, String password, BuildContext context)async {
-                              //  monitorLocationService(context);
-
-                              // FirebaseAuth? user =
-                              //     await loginProvider.userLoginAuthantication(
-                              //         context,
-                              //         userEmailController.text
-                              //             .toString()
-                              //             .trim(),
-                              //         userPasswordController.text
-                              //           ..toString()
-                              //           ..trim());
-
-                              // if (user!=null) {
-
-                              //   Navigator.pushReplacement(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             UserDashBoardScreen()),
-                              //   );
-                              // }
-                              loginProvider.login(
-                                  context,
-                                  userEmailController.text.toString().trim(),
-                                  userPasswordController.text
-                                    ..toString()
-                                    ..trim());
-                            }),
-                      ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 4 / 100,
-                ),
-                Container(
-                  child: Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  Container(
+                    child: TextField(
+                      controller: userPasswordController,
+                      // keyboardType:,
+                      decoration: InputDecoration(
+                          hintText: "password",
+          
+                          // icon:Icon(Icons.person)
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 30,
+                          ),
+                          suffixIcon: Icon(Icons.password_sharp)),
+                      maxLength: 10,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 3 / 100,
+                  ),
+                  Row(
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 4 / 100,
-                      ),
-                      Container(
-                        child: Text("Dont have account yet?"),
-                      ),
-                      Container(
-                        child: TextButton(
-                            onPressed: () {
-                              print("sigh_up_screen");
-                              //SignUpScreenForAll
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignUpScreenForAll(),
-                                  ));
-                            },
-                            child: Text(Applanguage
-                                .signupButtonText[Applanguage.language])),
-                      ),
+                      TextButton(
+                          onPressed: () {
+                            print("this is forgor password scren will be ");
+                          },
+                          child: Text("Forgot_password")),
                     ],
                   ),
-                )
-              ],
-            ),
-          ]),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 2 / 100,
+                  ),
+                  loginProvider.isloading == true
+                      ? CircularProgressIndicator()
+                      : Container(
+                          child: MyButton(
+                              text: 'Login',
+                              // color: const Color.fromARGB(255, 34, 137, 221),
+                              color: const Color.fromARGB(255, 231, 128, 44),
+                              onPressed: () async {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const SignUpScreenForAll()));
+                                // ShowTaostMessage.toastMessage(context, "SuccesfullLogin");
+          
+                                // loginEmailWithPassword(
+          
+                                //    );
+                                //  _currentPosition =
+                                //     await Locations.getCurrentPosition();
+                                // if (_currentPosition != null) {
+                                //   _currentAddress =
+                                //       await Locations.getAddressFromLatLng(
+                                //           _currentPosition!);
+                                //   setState(() {});
+                                // } else {
+                                //   print("Failed to get location.");
+                                // }
+          
+                                // loginProvider.userLoginAuthantication(
+                                //    context,
+                                //    userEmailController.text.toString().trim(),
+                                //     userPasswordController.text
+                                //         .toString()
+                                //         .trim());
+          
+                                // login(String email, String password, BuildContext context)async {
+                                //  monitorLocationService(context);
+          
+                                // FirebaseAuth? user =
+                                //     await loginProvider.userLoginAuthantication(
+                                //         context,
+                                //         userEmailController.text
+                                //             .toString()
+                                //             .trim(),
+                                //         userPasswordController.text
+                                //           ..toString()
+                                //           ..trim());
+          
+                                // if (user!=null) {
+          
+                                //   Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             UserDashBoardScreen()),
+                                //   );
+                                // }
+                                loginProvider.login(
+                                    context,
+                                    userEmailController.text.toString().trim(),
+                                    userPasswordController.text
+                                      ..toString()
+                                      ..trim());
+                              }),
+                        ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 4 / 100,
+                  ),
+                  Container(
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 4 / 100,
+                        ),
+                        Container(
+                          child: Text("Dont have account yet?"),
+                        ),
+                        Container(
+                          child: TextButton(
+                              onPressed: () {
+                                print("sigh_up_screen");
+                                //SignUpScreenForAll
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => SignUpScreenForAll(),
+                                //     ));
+                              },
+                              child: Text(Applanguage
+                                  .signupButtonText[Applanguage.language])),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );

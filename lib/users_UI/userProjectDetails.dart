@@ -176,7 +176,8 @@ class _UserProjectDetailUiState extends State<UserProjectDetailUi> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text(taskData["taskName"])
+                                            Text(taskData["taskName"]),
+                                            Text(taskData["status"],style:TextStyle(color:taskData["status"]=="completed"?Colors.green:Colors.red),),
                                           ],
                                         )
                                       ],

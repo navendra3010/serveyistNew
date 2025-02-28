@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:surveyist/userProviders/userProjectProvider.dart';
 import 'package:surveyist/utils/appConstant.dart';
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/footerForUsers.dart';
@@ -100,6 +102,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
 
   @override
   Widget build(BuildContext context) {
+    final historyProvider = Provider.of<UserProjectProviderClass>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -132,8 +135,10 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: worklist.length,
+                itemCount: historyProvider.historyOfTask.length,
                 itemBuilder: (BuildContext context, int index) {
+                  final data=historyProvider.historyOfTask[index]["data"];
+                  print(data);
                   return Column(
                     children: [
                       Container(
@@ -145,27 +150,31 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                 BorderRadius.all(Radius.circular(15))),
                         child: Column(
                           children: [
-                          
                             SizedBox(
                               height: MediaQuery.of(context).size.height *
                                   0.8 /
                                   100,
                             ),
-                            Container( width: MediaQuery.of(context).size.width * 80 / 100,
-                            height: MediaQuery.of(context).size.height *
-                                  3 /
-                                  100,
+                            Container(
+                                width: MediaQuery.of(context).size.width *
+                                    80 /
+                                    100,
+                                height: MediaQuery.of(context).size.height *
+                                    3 /
+                                    100,
                                 decoration: BoxDecoration(
                                     color: Colors.black,
-                                    
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Center(
                                   child: Text(
-                                    "${worklist[index]["TaskName"]}",
+                                    "${data["taskName"]}",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.white,fontFamily:AppFont.fontFamily,fontWeight:FontWeight.w600),
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontFamily: AppFont.fontFamily,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 )),
                             SizedBox(
@@ -194,7 +203,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                     //     100,
                                     // color:Colors.amber,
                                     child: Text(
-                                      "${worklist[index]["TaskAssignDate"]}",
+                                      "${data[index]["TaskAssignDate"]}",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -311,11 +320,11 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                     //     100,
                                     // color:Colors.amber,
                                     child: Text(
-                                      "${worklist[index]["taskStatus"]}",
+                                      "${data["status"]}",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.grey),
+                                          color:data["status"]=="completed"?Colors.green:Colors.red),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
@@ -337,8 +346,8 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
           ],
         ),
       ),
-       bottomNavigationBar:
-          footerUiForUsers(notificationCount: 0, selectMenu2: ButtomMenu2.UserWorkHistory),
+      bottomNavigationBar: footerUiForUsers(
+          notificationCount: 0, selectMenu2: ButtomMenu2.UserWorkHistory),
     );
   }
 }

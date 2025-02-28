@@ -9,7 +9,7 @@ class ProjectModel {
   DateTime? startDate;
   DateTime? endDate;
   List<Map<String,dynamic>>? team;
-  double? progress;
+  int? progress;
   int? totalTask;
 
   ProjectModel(
@@ -51,7 +51,7 @@ class ProjectModel {
       startDate: (data["startDate"]as Timestamp).toDate(),
       endDate: (data["endDate"]as Timestamp).toDate(),
       team: List<Map<String,dynamic>>.from(data["team"] ?? []),
-    //  progress: data["progress"] ?? '',
+      progress: data["progress"]  as int,
       totalTask:data["totalTask"] as int,
     );
   }

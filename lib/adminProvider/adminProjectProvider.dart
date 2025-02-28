@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -137,7 +138,6 @@ class Projectprovider extends ChangeNotifier {
   ProjectModel? get selectedProject => _selectedProject;
   void listenAllProjectDetail(String projectId, String documentId) {
     fireser.allprojectDetails(projectId, documentId).listen((projectItems) {
-      print(projectItems);
       _selectedProject = projectItems;
       notifyListeners();
     });
@@ -189,8 +189,6 @@ class Projectprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  
-
   //date 22-2-2025 this function will create new task....................................
   bool isTaskCreated = false;
   Future<void> createNewTask(
@@ -215,9 +213,11 @@ class Projectprovider extends ChangeNotifier {
   void listenTask(String projectId, String documentId) {
     fireser.getListenTask(projectId, documentId).listen((pro) {
       _task = pro;
-      // this function count the total task of project per project
-      int length = _task.length;
-      fireser.toTotalTask(length, projectId, documentId);
+      totalCompletedTasl(projectId, documentId);
+      int len = _task.length;
+      
+      fireser.toTotalTask(len, projectId, documentId);
+
       notifyListeners();
     });
   }
@@ -232,5 +232,31 @@ class Projectprovider extends ChangeNotifier {
       notifyListeners();
     });
   }
-  //Date 27-2-2025 the calutlate the length of  total task per projecvt----------------------------------------
+
+  //Date 28-2-2025 the calutlate the complete task -----------------------------------------------------------
+  List<Map<String, dynamic>> compelted = [];
+
+  void totalCompletedTasl(String projectId, String documentId) {
+    print("complted--------------------------------");
+    fireser.getTotalCompletedTak(projectId, documentId).listen((task) {
+      List<Map<String, dynamic>> filter = task.where((item) {
+        return item["status"] == "completed";
+      }).toList();
+
+      compelted = filter;
+      int completedLen=compelted.length;
+        updatecompletedTasl(projectId,documentId,completedLen);
+      notifyListeners();
+      print(compelted);
+    });
+  }
+  //date 28-2-2025 this complete update total complete task per project----------------------
+  void updatecompletedTasl(String projectId, String documentId, int completedLen)
+  {
+
+   fireser.getUpDateCompleted(projectId,documentId,completedLen);
+  // notifyListeners();
+
+  }
+  
 }

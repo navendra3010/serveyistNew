@@ -12,13 +12,6 @@ class FireStoreServiceForAdmin {
   DateTime now = DateTime.now();
   //all  user ................................................
 
-
-
-
-
-
-
-
   Stream<List<ViewAllUsers>> getAllUsers() {
     return _firestore.collection("allusers").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -59,22 +52,6 @@ class FireStoreServiceForAdmin {
       return Stream.empty();
     }
   }
-
-// function for create team for project
-  // Future<List> createTeam() async {
-  //   List ids = [];
-  //   print("creeate team working");
-  //   QuerySnapshot snapshot = await _firestore.collection('allusers').get();
-  //   // print(snapshot.docs);
-  //   for (var element in snapshot.docs) {
-  //     //print(element.id);
-  //     // ids.add(element.data());
-  //     // print(element.data());
-  //     ids.add(element.id);
-  //   }
-  //   // print("unqiue data----------------------------     ---------------------------------------------${ids[0]}");
-  //   return ids;
-  // }
 
   ///function for fatch user for team and display them........................................
   Stream<List<Map<String, dynamic>>> getTeam() {
@@ -331,12 +308,40 @@ class FireStoreServiceForAdmin {
       return null;
     }
   }
- //  Date 27-2-2027 this function count the total task of project per project
-  void toTotalTask(int length, String projectId, String documentId)
-   {
 
-      _firestore.collection("Project").doc(documentId).collection("P_Name").doc(projectId).update({'totalTask':length});
-   }
-
-  
+  //  Date 27-2-2027 this function count the total task of project per project
+  void toTotalTask(int length, String projectId, String documentId) {
+    _firestore
+        .collection("Project")
+        .doc(documentId)
+        .collection("P_Name")
+        .doc(projectId)
+        .update({'totalTask': length});
+  }
+// this function  fatch total task aassin to the list..............................
+  Stream<List<Map<String, dynamic>>> getTotalCompletedTak(
+      String projectId, String documentId) {
+    return _firestore
+        .collection("Project")
+        .doc(documentId)
+        .collection("task")
+        .snapshots()
+        .map((snap) {
+      List<Map<String, dynamic>> com = [];
+      for (var docElement in snap.docs) {
+        com.add(docElement.data());
+      }
+      return com;
+    });
+  }
+// this funcation update the progress filed in the progress.....................................
+  void getUpDateCompleted(
+      String projectId, String documentId, int completedLen) {
+    _firestore
+        .collection("Project")
+        .doc(documentId)
+        .collection("P_Name")
+        .doc(projectId)
+        .update({"progress": completedLen});
+  }
 }

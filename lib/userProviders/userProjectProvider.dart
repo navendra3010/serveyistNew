@@ -58,7 +58,7 @@ class UserProjectProviderClass extends ChangeNotifier {
   List<Map<String, dynamic>> finalList = [];
   void taskUpdatePerProject() {
     fireStoreService.getTaskUpdatedPerProject().listen((data) {
-      tolist=data;
+      tolist = data;
       notifyListeners();
       // previousList = List.from(tolist);
       // tolist = List<Map<String, dynamic>>.from(data);
@@ -78,9 +78,24 @@ class UserProjectProviderClass extends ChangeNotifier {
       // } else {
       //   print('No new items added');
       // }
-     
     });
   }
 
+//date 28-2-2025 -------------------------this function submit the task ......................................
 
+  void submitTask(String taskId, String documentId, String projectId) {
+    fireStoreService.setSubmitTask(taskId, documentId, projectId);
+
+    notifyListeners();
+  }
+
+  // this function fatch all task all project ...................................................................
+  List<Map<String, dynamic>> historyOfTask = [];
+  void allProjectTask() {
+    fireStoreService.getAllProjectTask().listen((data) {
+      historyOfTask = data;
+      notifyListeners();
+      print(data.length);
+    });
+  }
 }
