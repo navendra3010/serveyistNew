@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/userProviders/userProjectProvider.dart';
@@ -13,92 +14,13 @@ class UserWorkHistory extends StatefulWidget {
 }
 
 class _UserWorkHistoryState extends State<UserWorkHistory> {
-  List<dynamic> worklist = [
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "Pending",
-    },
-    {
-      "TaskName": "submit safe date with pdf",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "mark all  distance with elevation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2025",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "make whole survey",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "Pending",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "Pending",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "Pending",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    },
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "TaskSubmitDate": "12-12-2014",
-      "taskStatus": "success",
-    }
-  ];
+  @override
+void initState()
+{
+  super.initState();
+  Provider.of<UserProjectProviderClass>(context,listen: false).allProjectTask();
+}
+  
 
   @override
   Widget build(BuildContext context) {
@@ -137,8 +59,20 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
               child: ListView.builder(
                 itemCount: historyProvider.historyOfTask.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final data=historyProvider.historyOfTask[index]["data"];
-                  print(data);
+                  final data = historyProvider.historyOfTask[index]["data"];
+                  Timestamp timestamp = data["taskStartDate"];
+                  DateTime date = timestamp.toDate();
+                  String formattedDate =
+                      "${date.day}/${date.month}/${date.year}";
+                  //-----------------------//--------------------------
+
+                  Timestamp timestamp2 = data["taskEndDate"];
+                  DateTime date2 = timestamp2.toDate();
+                  String formattedDate2 =
+                      "${date2.day}/${date2.month}/${date2.year}";
+                  print(formattedDate2);
+                  // print(data);
+
                   return Column(
                     children: [
                       Container(
@@ -163,7 +97,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                     3 /
                                     100,
                                 decoration: BoxDecoration(
-                                    color: Colors.black,
+                                    color: const Color.fromARGB(255, 228, 153, 41),
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Center(
                                   child: Text(
@@ -179,7 +113,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                 )),
                             SizedBox(
                               height:
-                                  MediaQuery.of(context).size.height * 1 / 100,
+                                  MediaQuery.of(context).size.height * 3 / 100,
                             ),
                             Container(
                               child: Row(
@@ -201,9 +135,9 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                     // width: MediaQuery.of(context).size.width *
                                     //     50 /
                                     //     100,
-                                    // color:Colors.amber,
+                                    // color: const Color.fromARGB(255, 151, 223, 223),
                                     child: Text(
-                                      "${data[index]["TaskAssignDate"]}",
+                                      "${formattedDate}",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -242,7 +176,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                     //     100,
                                     // color:Colors.amber,
                                     child: Text(
-                                      "${worklist[index]["tasksdueDate"]}",
+                                      "${formattedDate2}",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -259,45 +193,45 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                   0.8 /
                                   100,
                             ),
-                            Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    child: Center(
-                                      child: Text(
-                                        "TaskSubmitDate-",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.grey),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    // width: MediaQuery.of(context).size.width *
-                                    //     50 /
-                                    //     100,
-                                    // color:Colors.amber,
-                                    child: Text(
-                                      "${worklist[index]["TaskSubmitDate"]}",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.grey),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height *
-                                  0.8 /
-                                  100,
-                            ),
+                            // Container(
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceAround,
+                            //     children: [
+                            //       Container(
+                            //         child: Center(
+                            //           child: Text(
+                            //             "TaskSubmitDate-",
+                            //             style: TextStyle(
+                            //                 fontSize: 12,
+                            //                 fontWeight: FontWeight.w600,
+                            //                 color: Colors.grey),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Container(
+                            //         // width: MediaQuery.of(context).size.width *
+                            //         //     50 /
+                            //         //     100,
+                            //         // color:Colors.amber,
+                            //         child: Text(
+                            //           "${worklist[index]["TaskSubmitDate"]}",
+                            //           style: TextStyle(
+                            //               fontSize: 12,
+                            //               fontWeight: FontWeight.w600,
+                            //               color: Colors.grey),
+                            //           overflow: TextOverflow.ellipsis,
+                            //           maxLines: 3,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: MediaQuery.of(context).size.height *
+                            //       0.8 /
+                            //       100,
+                            // ),
                             Container(
                               child: Row(
                                 mainAxisAlignment:
@@ -324,7 +258,9 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
-                                          color:data["status"]=="completed"?Colors.green:Colors.red),
+                                          color: data["status"] == "completed"
+                                              ? Colors.green
+                                              : Colors.red),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
@@ -336,7 +272,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 2 / 100,
+                        height: MediaQuery.of(context).size.height * 1 / 100,
                       ),
                     ],
                   );

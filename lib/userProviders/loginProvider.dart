@@ -221,8 +221,6 @@ class LoginProviderForUser extends ChangeNotifier {
               MaterialPageRoute(builder: (context) => AdminDashboardPage()),
             );
           } else if (userRole == "user") {
-
-
             // date 24-2-20225 hide----------------------------------start
             // bool previousSessionLogOut =
             //     await checkAndLogOutPreviousSession(currentUser!.uid);
@@ -232,27 +230,27 @@ class LoginProviderForUser extends ChangeNotifier {
             //   print("previous session found active please logout");
             // }
 
-            // await getDeviceinfo();
-            // Position? position = await _determinePosition(context);
-            // if (position != null) {
-            //   address = await _getAddressFromLatLng(
-            //       position.latitude, position.longitude);
-            //   lat = position.latitude;
-            //   long = position.longitude;
-            //   // --------------------------------------------------------------------
-            //   address = await _getAddressFromLatLng(
-            //       position.latitude, position.longitude);
-            // }
-             // date 24-2-20225 hide----------------------------------end
+            await getDeviceinfo();
+            Position? position = await _determinePosition(context);
+            if (position != null) {
+              address = await _getAddressFromLatLng(
+                  position.latitude, position.longitude);
+              lat = position.latitude;
+              long = position.longitude;
+              // --------------------------------------------------------------------
+              address = await _getAddressFromLatLng(
+                  position.latitude, position.longitude);
+            }
+            //   date 24-2-20225 hide----------------------------------end
             SharedPreferences sf = await SharedPreferences.getInstance();
             String? id = sf.getString("userId");
-          //  storeLoginDetailAsperUserRecord(id);
+            storeLoginDetailAsperUserRecord(id);
 
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      UserDashBoardScreen(userId: currentUser!.uid)),
+                      UserDashBoardScreen()),
             );
             isloading = false;
             notifyListeners();
@@ -568,94 +566,179 @@ class LoginProviderForUser extends ChangeNotifier {
 
   //here to implement auto logout user...................................................................--------------------------------
   Future<void> autoLogin(BuildContext context) async {
+
+    //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------start
     //------------------------here start new code
+  //   final prefs = await SharedPreferences.getInstance();
+
+  //   String? role = prefs.getString("role");
+  //   if (role == "admin") {
+  //     Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (context) => AdminDashboardPage()));
+  //     return;
+  //   }
+  //   //start------------------------
+
+  //   DateTime now = DateTime.now();
+  //   int sessointime = 9 * 3600;
+
+  //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+  //   String formattedTime = DateFormat('hh:mm:ss a').format(now);
+  //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
+  //  // await Future.delayed(Duration(seconds: 2));
+  //   //------------------------end code
+  //   String? id = prefs.getString("userId");
+  //   if (id != null) {
+  //     //date 24-2-2025 hide code -------------start-----------------------------
+
+  //     isloading = false;
+  //     notifyListeners();
+
+  //     String? dt1 = prefs.getString("loginTime");
+  //     if (dt1 == null) {
+  //       userLogOut();
+  //       return;
+  //     }
+
+  //     List<String> splited = dt1.split(":");
+  //     if (splited.length < 3) {
+  //       userLogOut();
+  //       return;
+  //     }
+
+  //     int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
+  //         (int.parse(splited[1]) * 60) +
+  //         (int.parse(splited[2]));
+  //     print(" ;.login time in second${loginTimeInSecond}");
+
+  //     List<String> splittedCurrentTime = formattedTime.split(":");
+  //     int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
+  //         (int.parse(splittedCurrentTime[1]) * 60) +
+  //         (int.parse(splittedCurrentTime[2]));
+
+  //     int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
+  //     print(" different time in second  ${elapsedSecond}");
+  //     int sessointime = 9 * 3600;
+  //     if (elapsedSecond < sessointime) {
+  //       print(
+  //           "---------------------------------------------------------------------------${sessointime}");
+  //       int logOutTimeInSecond = sessointime - elapsedSecond;
+
+  //       _startAutoLogOutTimer(logOutTimeInSecond);
+  //     } else {
+  //       userLogOut();
+  //       return;
+  //     }
+
+  //     //date 24-2-2025 hide code -------------end----------------------------
+  //     isloading = false;
+  //     notifyListeners();
+  //     Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
+  //   } else {
+  //     Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (context) => LoginScreenForAll()));
+  //     notifyListeners();
+  //   }
+     //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------end
+    //end-------------------------
+
+
+
+
+    
+
     final prefs = await SharedPreferences.getInstance();
 
     String? role = prefs.getString("role");
     if (role == "admin") {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => AdminDashboardPage()));
+        MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+      );
       return;
     }
-    //start------------------------
+
+    //------------------------start session management------------------------
 
     DateTime now = DateTime.now();
-    int sessointime = 9 * 3600;
-
     String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
     String formattedTime = DateFormat('hh:mm:ss a').format(now);
-    String dateKey = DateFormat('dd-MM-yyyy').format(now);
+
     await Future.delayed(Duration(seconds: 2));
-    //------------------------end code
+
+    //------------------------end session management------------------------
+
     String? id = prefs.getString("userId");
     if (id != null) {
-      //date 24-2-2025 hide code -------------start-----------------------------
-     
-     // isloading = false;
-      //notifyListeners();
+      // Check if login time exists and calculate session expiry
+      String? dt1 = prefs.getString("loginTime");
+      if (dt1 == null) {
+        userLogOut();
+        return;
+      }
 
-      // String? dt1 = prefs.getString("loginTime");
-      // if (dt1 == null) {
-      //   userLogOut();
-      //   return;
-      // }
+      List<String> splited = dt1.split(":");
+      if (splited.length < 3) {
+        userLogOut();
+        return;
+      }
 
-      // List<String> splited = dt1.split(":");
-      // if (splited.length < 3) {
-      //   userLogOut();
-      //   return;
-      // }
+      // Convert login time to seconds
+      int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
+          (int.parse(splited[1]) * 60) +
+          (int.parse(splited[2]));
 
-     
-      // int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
-      //     (int.parse(splited[1]) * 60) +
-      //     (int.parse(splited[2]));
-      // print(" ;.login time in second${loginTimeInSecond}");
+      // Get current time in seconds
+      List<String> splittedCurrentTime = formattedTime.split(":");
+      int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
+          (int.parse(splittedCurrentTime[1]) * 60) +
+          (int.parse(splittedCurrentTime[2]));
 
-      // List<String> splittedCurrentTime = formattedTime.split(":");
-      // int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
-      //     (int.parse(splittedCurrentTime[1]) * 60) +
-      //     (int.parse(splittedCurrentTime[2]));
+      // Calculate time difference
+      int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
 
-      // int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
-      // print(" different time in second  ${elapsedSecond}");
-      // int sessointime = 9 * 3600;
-      // if (elapsedSecond < sessointime) {
-      //   print(
-      //       "---------------------------------------------------------------------------${sessointime}");
-      //   int logOutTimeInSecond = sessointime - elapsedSecond;
+      // Set session time to 9 hours in seconds
+      int sessionTimeInSeconds = 9 * 3600;
 
-      //   _startAutoLogOutTimer(logOutTimeInSecond);
-      // } else {
-      //   userLogOut();
-      //   return;
-      // }
+      if (elapsedSecond < sessionTimeInSeconds) {
+        int logOutTimeInSecond = sessionTimeInSeconds - elapsedSecond;
+        _startAutoLogOutTimer(logOutTimeInSecond);
+      } else {
+        userLogOut();
+        return;
+      }
 
-       //date 24-2-2025 hide code -------------end----------------------------
-       isloading=false;
+      //------------------------end checking session------------------------
+
+      // After session check, continue navigating to the dashboard
+      isloading = false;
       notifyListeners();
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
-    }
-    
-    
-     else {
+        MaterialPageRoute(builder: (context) => UserDashBoardScreen()),
+      );
+    } else {
+      // If no user ID is found, navigate to login screen
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => LoginScreenForAll()));
+        MaterialPageRoute(builder: (context) => LoginScreenForAll()),
+      );
       notifyListeners();
     }
-
-    //end-------------------------
   }
+
+  
   //---------------------------------------startLogOutTime-  funtion---------------------------------------------------------//
 
   void _startAutoLogOutTimer(
     int logOutTimeInSecond,
   ) {
-    if (logOutTimeInSecond <= 0) {
+    if (logOutTimeInSecond > 0) {
       print("session exprire");
       _logOutTimer?.cancel();
       _logOutTimer = Timer(Duration(seconds: logOutTimeInSecond), userLogOut);
+    }
+    else
+    {
+      userLogOut();
     }
     print("startAutologout is working properly");
   }
@@ -663,11 +746,13 @@ class LoginProviderForUser extends ChangeNotifier {
 
   //------------------------log out for checing logout status..........................
   Future<void> userLogOut() async {
-    final sf = await SharedPreferences.getInstance();
 
-    //here i have to apply user auto logout with data base and manually..
-    String? idForLogOut = await sf.getString("userId");
-    //date 24-2-2025---------------------------------------------------start hide-------------------------------
+    //Date 1-3-2035  start hide----------------------------------------------
+    // final sf = await SharedPreferences.getInstance();
+
+    // //here i have to apply user auto logout with data base and manually..
+    // String? idForLogOut = await sf.getString("userId");
+    // //date 24-2-2025---------------------------------------------------start hide-------------------------------
 
     // if (idForLogOut == null) {
     //   print("user id not found .skipping logout process");
@@ -714,18 +799,90 @@ class LoginProviderForUser extends ChangeNotifier {
     // } catch (e) {
     //   print(e);
     // }
-    //date 24-2-2025---------------------------------------------------end hide-------------------------------
+   
+    // await sf.remove("loginTime");
+    // await sf.remove("userId");
+    // _logOutTimer?.cancel();
+    // await FirebaseAuth.instance.signOut();
 
-   //
-   // await sf.remove("loginTime");
+    // navigatorKey.currentState?.pushReplacement(
+    //     MaterialPageRoute(builder: (context) => LoginScreenForAll()));
+    // notifyListeners();
+
+  //Date 1-2-2025 hide end
+
+
+
+ 
+    final sf = await SharedPreferences.getInstance();
+
+    String? idForLogOut = await sf.getString("userId");
+
+    if (idForLogOut == null) {
+      print("User ID not found. Skipping logout process.");
+      return;
+    }
+
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String formattedTime = DateFormat('hh:mm:ss a').format(now);
+    String dateKey = DateFormat('dd-MM-yyyy').format(now);
+
+    try {
+      FirebaseFirestore fb = FirebaseFirestore.instance;
+
+      final QuerySnapshot querySnapshot = await fb
+          .collection("userLoginRecordPerDay")
+          .doc(idForLogOut)
+          .collection("loginDates")
+          .doc(dateKey)
+          .collection("logins")
+          .where("LogOut_status", isNull: true)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final loginDocs = querySnapshot.docs.first;
+
+        await fb
+            .collection("userLoginRecordPerDay")
+            .doc(idForLogOut)
+            .collection("loginDates")
+            .doc(dateKey)
+            .collection("logins")
+            .doc(loginDocs.id)
+            .update({
+          'LogOut_time': formattedTime,
+          'logOut_date': formattedDate,
+          'LogOut_status': true,
+        });
+        print("User logout details updated successfully in Firestore.");
+      } else {
+        print("No active login record found.");
+      }
+    } catch (e) {
+      print("Error during logout process: $e");
+    }
+
+    // Clear SharedPreferences data
+    await sf.remove("loginTime");
     await sf.remove("userId");
-   // _logOutTimer?.cancel();
+
+    _logOutTimer?.cancel();
+
+    // Sign out from Firebase
     await FirebaseAuth.instance.signOut();
-  
 
     navigatorKey.currentState?.pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreenForAll()));
-          notifyListeners();
+      MaterialPageRoute(builder: (context) => LoginScreenForAll()),
+    );
+    notifyListeners();
+  
+
+
+
+
+
   }
   //------------------------------------------------------------end all functionality of autologin  and auto logout--------------------------------------
 }
