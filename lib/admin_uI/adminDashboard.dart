@@ -138,8 +138,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         List<dynamic> loc = data["location"] ?? [];
                         String add = loc[0]["address"];
                         String addtrim = add.substring(5, 15);
-                        int len=(users.length);
-
+                        int len = (users.length);
 
                         String calculateWorkingHour(
                             String? logTime, String? outTime) {

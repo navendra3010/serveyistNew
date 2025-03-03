@@ -222,13 +222,13 @@ class LoginProviderForUser extends ChangeNotifier {
             );
           } else if (userRole == "user") {
             // date 24-2-20225 hide----------------------------------start
-            // bool previousSessionLogOut =
-            //     await checkAndLogOutPreviousSession(currentUser!.uid);
-            // if (!previousSessionLogOut) {
-            //   print("no active session found.proceding with login");
-            // } else {
-            //   print("previous session found active please logout");
-            // }
+            bool previousSessionLogOut =
+                await checkAndLogOutPreviousSession(currentUser!.uid);
+            if (!previousSessionLogOut) {
+              print("no active session found.proceding with login");
+            } else {
+              print("previous session found active please logout");
+            }
 
             await getDeviceinfo();
             Position? position = await _determinePosition(context);

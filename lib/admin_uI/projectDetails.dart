@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/taskModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/admin_uI/createNewTaskUi.dart';
 import 'package:surveyist/admin_uI/taskDetails.dart';
+import 'package:intl/intl.dart';
 
 class ProjectDetailui extends StatefulWidget {
   String projectId;
@@ -21,7 +24,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
     super.initState();
     Provider.of<Projectprovider>(context, listen: false)
         .listenAllProjectDetail(widget.projectId, widget.documentId);
-    
+
     Provider.of<Projectprovider>(context, listen: false)
         .listenTask(widget.projectId, widget.documentId);
   }
@@ -204,6 +207,14 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                                   final taskId =
                                       thisPageProvider.task[index]["taskId"];
 
+                                  DateTime? startDate = taskData.taskStartDate;
+                                  String? formattedStartDate =
+                                      DateFormat('dd-MM-yyyy')
+                                          .format(startDate!);
+                                  DateTime? EndDate = taskData.taskEndDate;
+                                  String? formattedEndtDate =
+                                      DateFormat('dd-MM-yyyy').format(EndDate!);
+
                                   return InkWell(
                                     onTap: () {
                                       Navigator.push(
@@ -224,7 +235,22 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                                             children: [
                                               //  Text("TasK_Name"),
                                               Text("${taskData.taskName}"),
-                                              Text("${taskData.status}",style:TextStyle(color:taskData.status=="pending"?Colors.red:Colors.green),)
+                                              Text(
+                                                "${taskData.status}",
+                                                style: TextStyle(
+                                                    color: taskData.status ==
+                                                            "pending"
+                                                        ? Colors.red
+                                                        : Colors.green),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text("${formattedStartDate}"),
+                                              Text("${formattedEndtDate}"),
                                             ],
                                           )
                                         ],

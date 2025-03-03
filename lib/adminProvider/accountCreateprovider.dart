@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:surveyist/adminModel/createUserAccountModel.dart';
 import 'package:surveyist/admin_uI/adminDashboard.dart';
+import 'package:surveyist/userFireStoreService/userFireStore.dart';
+import 'package:surveyist/userModel/userProfilemodel.dart';
 
 import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 import 'package:surveyist/utils/app_Language.dart';
 
 class Accountcreate extends ChangeNotifier {
+  FireStoreServiceClass _fireServices = FireStoreServiceClass();
+
   //refreance of collection firebase........................
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   bool isAccountCreate = false;
   User? currentUser;
@@ -140,6 +145,7 @@ class Accountcreate extends ChangeNotifier {
     }
   }
 
+//account adding also on fire store along with fire base authication.............................
   Future<void> createUserOnfireStore(
       String userCurrrentID, context, Map<String, dynamic> fireStore) async {
     try {
@@ -164,5 +170,22 @@ class Accountcreate extends ChangeNotifier {
         .get();
 
     return snapshot.docs.isEmpty;
+  }
+
+  //Date 3-3-2025.......................... thid function fatch user details per  admin only see the details...................................
+  Userprofilemodel? _model;
+  Userprofilemodel? get model => _model;
+
+  void fatchUserAccountDetails(String? userID) {
+    _fireServices.getFacthUserAccountDetails(userID).listen((details) {
+      _model = details;
+      notifyListeners();
+
+      if (_model != null) {
+        print(_model!.userName);
+      } else {
+        print('User details are not available.');
+      }
+    });
   }
 }

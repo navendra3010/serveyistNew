@@ -50,53 +50,52 @@ class _viewAllUserpageState extends State<viewAllUserpage> {
   void initState() {
     super.initState();
     // getAlldocumentFromCollection
-   // Provider.of<Adminhomeprovider>(context, listen: false).getAllUsers();
-   
+    // Provider.of<Adminhomeprovider>(context, listen: false).getAllUsers();
   }
 
-  void _showAlertDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            title: Text("users Managment"),
-            content: Text('This is the alert content.'),
-            actions: <Widget>[
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Card(
-                      color: Colors.black,
-                      child: Text(
-                        "Delete_user",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ViewUserDetailsOnlyadmin()));
-                      },
-                      child: Card(
-                        color: Colors.black,
-                        child: Text("User_Details",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600)),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ]);
-      },
-    );
-  }
+  // void _showAlertDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //           title: Text("users Managment"),
+  //           content: Text('This is the alert content.'),
+  //           actions: <Widget>[
+  //             Container(
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   Card(
+  //                     color: Colors.black,
+  //                     child: Text(
+  //                       "Delete_user",
+  //                       style: TextStyle(
+  //                           color: Colors.white, fontWeight: FontWeight.w600),
+  //                     ),
+  //                   ),
+  //                   GestureDetector(
+  //                     onTap: () {
+  //                       Navigator.pushReplacement(
+  //                           context,
+  //                           MaterialPageRoute(
+  //                               builder: (context) =>
+  //                                   ViewUserDetailsOnlyadmin()));
+  //                     },
+  //                     child: Card(
+  //                       color: Colors.black,
+  //                       child: Text("User_Details",
+  //                           style: TextStyle(
+  //                               color: Colors.white,
+  //                               fontWeight: FontWeight.w600)),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             )
+  //           ]);
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +141,7 @@ class _viewAllUserpageState extends State<viewAllUserpage> {
             ),
             StreamBuilder<List<ViewAllUsers?>>(
                 stream: adminCommanprovider.allUsersStream,
-              //  future: providerAll.getAllUsers(),
-               // future: providerAll.getAlldocumentFromCollection(),
+             
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -155,29 +153,42 @@ class _viewAllUserpageState extends State<viewAllUserpage> {
                       child: Text("no user Found"),
                     );
                   }
-                  var users =snapshot.data;
- 
+                  var users = snapshot.data;
+
                   return Expanded(
                     child: ListView.builder(
                       itemCount: users!.length,
                       itemBuilder: (context, index) {
                         final user = users[index];
+
+                        ///print(user!.uniqueId);
                         return Container(
                           height: MediaQuery.of(context).size.height * 6 / 100,
                           width: MediaQuery.of(context).size.width * 9 / 100,
-                          child: Card(
-                            child: Column(
-                              children: [
-                                Text("Employe_ID:-${user!.userEmployeId ?? 'no name'}"),
-                                Text("Email:-${user.userLoginId ?? 'no name'}"),
-                               // Text("${user['created_at'] ?? 'no name'}"),
-                                // Text("password:-${user.password?? 'no name'}"),
-                                // Text("user-Id: ${user.id ?? 'no name'}"),
-                                //  // Text("user_Email:-${user?? 'no name'}"),
-
-
-                                
-                              ],
+                          child: InkWell(
+                            onTap: () {
+                             
+                              String? userId= user!.uniqueId;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ViewUserDetailsOnlyadmin(userID:userId),
+                                  ));
+                            },
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Text(
+                                      "Employe_ID:-${user!.userEmployeId ?? 'no name'}"),
+                                  Text(
+                                      "Email:-${user.userLoginId ?? 'no name'}"),
+                                  // Text("${user['created_at'] ?? 'no name'}"),
+                                  // Text("password:-${user.password?? 'no name'}"),
+                                  // Text("user-Id: ${user.id ?? 'no name'}"),
+                                  //  // Text("user_Email:-${user?? 'no name'}"),
+                                ],
+                              ),
                             ),
                           ),
                         );

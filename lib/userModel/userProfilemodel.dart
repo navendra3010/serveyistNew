@@ -11,6 +11,7 @@ class Userprofilemodel {
   String? userMobileNumber;
   String? role;
   String? uniqueId;
+  String? loginPassword;
 
   Userprofilemodel(
       {this.userName,
@@ -21,6 +22,7 @@ class Userprofilemodel {
       this.userAddress,
       this.userGender,
       this.role,
+      this.loginPassword,
       this.userMobileNumber,this.uniqueId});
   Map<String, dynamic> toFireStore() {
     return {
@@ -34,6 +36,7 @@ class Userprofilemodel {
       "login_Id": userLoginId,
       "role": role,
       "unique_Id":uniqueId,
+      "Login_Password":loginPassword
     };
   }
 
@@ -50,7 +53,8 @@ class Userprofilemodel {
       userMobileNumber: data["mobile_number"],
       userLoginId: data["login_Id"],
       role: data['role'],
-      uniqueId: data['unique_Id'],
+      uniqueId: data["unique_Id"],
+      loginPassword: data["Login_password"],
     );
   }
 }

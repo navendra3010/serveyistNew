@@ -213,9 +213,11 @@ class Projectprovider extends ChangeNotifier {
   void listenTask(String projectId, String documentId) {
     fireser.getListenTask(projectId, documentId).listen((pro) {
       _task = pro;
+
+    
       totalCompletedTasl(projectId, documentId);
       int len = _task.length;
-      
+
       fireser.toTotalTask(len, projectId, documentId);
 
       notifyListeners();
@@ -244,19 +246,17 @@ class Projectprovider extends ChangeNotifier {
       }).toList();
 
       compelted = filter;
-      int completedLen=compelted.length;
-        updatecompletedTasl(projectId,documentId,completedLen);
+      int completedLen = compelted.length;
+      updatecompletedTasl(projectId, documentId, completedLen);
       notifyListeners();
-      print(compelted);
+      // print(compelted);
     });
   }
+
   //date 28-2-2025 this complete update total complete task per project----------------------
-  void updatecompletedTasl(String projectId, String documentId, int completedLen)
-  {
-
-   fireser.getUpDateCompleted(projectId,documentId,completedLen);
-  // notifyListeners();
-
+  void updatecompletedTasl(
+      String projectId, String documentId, int completedLen) {
+    fireser.getUpDateCompleted(projectId, documentId, completedLen);
+    // notifyListeners();
   }
-  
 }

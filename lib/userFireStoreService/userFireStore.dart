@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/adminModel/taskModel.dart';
+import 'package:surveyist/userModel/userProfilemodel.dart';
 
 class FireStoreServiceClass {
   final _store = FirebaseFirestore.instance;
@@ -130,8 +131,8 @@ class FireStoreServiceClass {
       for (var element in snapshot.docs) {
         final dofreffrece = await element.reference.collection("task").get();
         for (var docRef in dofreffrece.docs) {
-        //  print(docRef.data());
-          updateHistory.add({"data":docRef.data()});
+          //  print(docRef.data());
+          updateHistory.add({"data": docRef.data()});
         }
 
         SharedPreferences pref = await SharedPreferences.getInstance();
@@ -143,5 +144,21 @@ class FireStoreServiceClass {
       }
       return history;
     });
+  }
+
+//date 3-3-2025 this function fatch  userAcoount details from admin account...................................
+  Stream<Userprofilemodel?> getFacthUserAccountDetails(String? userID) {
+    try {
+      if (userID == null) {
+        throw ArgumentError('User ID cannot be null');
+      }
+      return _store.collection("allusers").doc(userID).snapshots().map(
+          (snapshot) => snapshot.exists
+              ? Userprofilemodel.FromFireStore(snapshot)
+              : null);
+    } catch (e) {
+      print('Error fetching user details: $e');
+      rethrow;
+    }
   }
 }
