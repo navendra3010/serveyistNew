@@ -42,7 +42,7 @@ class _UserAllProjectUI extends State<UserAllProject> {
             ),
             userProjectPro.projectData.isEmpty
                 ? Center(child: Center(
-                  child: Text("Not_assigned_Project_yet"),
+                  child: CircularProgressIndicator(),
                 ))
                 : SingleChildScrollView(
                     child: Container(

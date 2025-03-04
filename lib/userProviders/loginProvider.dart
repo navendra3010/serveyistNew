@@ -248,9 +248,7 @@ class LoginProviderForUser extends ChangeNotifier {
 
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      UserDashBoardScreen()),
+              MaterialPageRoute(builder: (context) => UserDashBoardScreen()),
             );
             isloading = false;
             notifyListeners();
@@ -566,87 +564,81 @@ class LoginProviderForUser extends ChangeNotifier {
 
   //here to implement auto logout user...................................................................--------------------------------
   Future<void> autoLogin(BuildContext context) async {
-
     //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------start
     //------------------------here start new code
-  //   final prefs = await SharedPreferences.getInstance();
+    //   final prefs = await SharedPreferences.getInstance();
 
-  //   String? role = prefs.getString("role");
-  //   if (role == "admin") {
-  //     Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (context) => AdminDashboardPage()));
-  //     return;
-  //   }
-  //   //start------------------------
+    //   String? role = prefs.getString("role");
+    //   if (role == "admin") {
+    //     Navigator.of(context).pushReplacement(
+    //         MaterialPageRoute(builder: (context) => AdminDashboardPage()));
+    //     return;
+    //   }
+    //   //start------------------------
 
-  //   DateTime now = DateTime.now();
-  //   int sessointime = 9 * 3600;
+    //   DateTime now = DateTime.now();
+    //   int sessointime = 9 * 3600;
 
-  //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-  //   String formattedTime = DateFormat('hh:mm:ss a').format(now);
-  //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
-  //  // await Future.delayed(Duration(seconds: 2));
-  //   //------------------------end code
-  //   String? id = prefs.getString("userId");
-  //   if (id != null) {
-  //     //date 24-2-2025 hide code -------------start-----------------------------
+    //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    //   String formattedTime = DateFormat('hh:mm:ss a').format(now);
+    //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
+    //  // await Future.delayed(Duration(seconds: 2));
+    //   //------------------------end code
+    //   String? id = prefs.getString("userId");
+    //   if (id != null) {
+    //     //date 24-2-2025 hide code -------------start-----------------------------
 
-  //     isloading = false;
-  //     notifyListeners();
+    //     isloading = false;
+    //     notifyListeners();
 
-  //     String? dt1 = prefs.getString("loginTime");
-  //     if (dt1 == null) {
-  //       userLogOut();
-  //       return;
-  //     }
+    //     String? dt1 = prefs.getString("loginTime");
+    //     if (dt1 == null) {
+    //       userLogOut();
+    //       return;
+    //     }
 
-  //     List<String> splited = dt1.split(":");
-  //     if (splited.length < 3) {
-  //       userLogOut();
-  //       return;
-  //     }
+    //     List<String> splited = dt1.split(":");
+    //     if (splited.length < 3) {
+    //       userLogOut();
+    //       return;
+    //     }
 
-  //     int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
-  //         (int.parse(splited[1]) * 60) +
-  //         (int.parse(splited[2]));
-  //     print(" ;.login time in second${loginTimeInSecond}");
+    //     int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
+    //         (int.parse(splited[1]) * 60) +
+    //         (int.parse(splited[2]));
+    //     print(" ;.login time in second${loginTimeInSecond}");
 
-  //     List<String> splittedCurrentTime = formattedTime.split(":");
-  //     int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
-  //         (int.parse(splittedCurrentTime[1]) * 60) +
-  //         (int.parse(splittedCurrentTime[2]));
+    //     List<String> splittedCurrentTime = formattedTime.split(":");
+    //     int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
+    //         (int.parse(splittedCurrentTime[1]) * 60) +
+    //         (int.parse(splittedCurrentTime[2]));
 
-  //     int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
-  //     print(" different time in second  ${elapsedSecond}");
-  //     int sessointime = 9 * 3600;
-  //     if (elapsedSecond < sessointime) {
-  //       print(
-  //           "---------------------------------------------------------------------------${sessointime}");
-  //       int logOutTimeInSecond = sessointime - elapsedSecond;
+    //     int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
+    //     print(" different time in second  ${elapsedSecond}");
+    //     int sessointime = 9 * 3600;
+    //     if (elapsedSecond < sessointime) {
+    //       print(
+    //           "---------------------------------------------------------------------------${sessointime}");
+    //       int logOutTimeInSecond = sessointime - elapsedSecond;
 
-  //       _startAutoLogOutTimer(logOutTimeInSecond);
-  //     } else {
-  //       userLogOut();
-  //       return;
-  //     }
+    //       _startAutoLogOutTimer(logOutTimeInSecond);
+    //     } else {
+    //       userLogOut();
+    //       return;
+    //     }
 
-  //     //date 24-2-2025 hide code -------------end----------------------------
-  //     isloading = false;
-  //     notifyListeners();
-  //     Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
-  //   } else {
-  //     Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (context) => LoginScreenForAll()));
-  //     notifyListeners();
-  //   }
-     //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------end
+    //     //date 24-2-2025 hide code -------------end----------------------------
+    //     isloading = false;
+    //     notifyListeners();
+    //     Navigator.of(context).pushReplacement(
+    //         MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
+    //   } else {
+    //     Navigator.of(context).pushReplacement(
+    //         MaterialPageRoute(builder: (context) => LoginScreenForAll()));
+    //     notifyListeners();
+    //   }
+    //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------end
     //end-------------------------
-
-
-
-
-    
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -725,7 +717,6 @@ class LoginProviderForUser extends ChangeNotifier {
     }
   }
 
-  
   //---------------------------------------startLogOutTime-  funtion---------------------------------------------------------//
 
   void _startAutoLogOutTimer(
@@ -735,9 +726,7 @@ class LoginProviderForUser extends ChangeNotifier {
       print("session exprire");
       _logOutTimer?.cancel();
       _logOutTimer = Timer(Duration(seconds: logOutTimeInSecond), userLogOut);
-    }
-    else
-    {
+    } else {
       userLogOut();
     }
     print("startAutologout is working properly");
@@ -746,7 +735,6 @@ class LoginProviderForUser extends ChangeNotifier {
 
   //------------------------log out for checing logout status..........................
   Future<void> userLogOut() async {
-
     //Date 1-3-2035  start hide----------------------------------------------
     // final sf = await SharedPreferences.getInstance();
 
@@ -799,7 +787,7 @@ class LoginProviderForUser extends ChangeNotifier {
     // } catch (e) {
     //   print(e);
     // }
-   
+
     // await sf.remove("loginTime");
     // await sf.remove("userId");
     // _logOutTimer?.cancel();
@@ -809,11 +797,8 @@ class LoginProviderForUser extends ChangeNotifier {
     //     MaterialPageRoute(builder: (context) => LoginScreenForAll()));
     // notifyListeners();
 
-  //Date 1-2-2025 hide end
+    //Date 1-2-2025 hide end
 
-
-
- 
     final sf = await SharedPreferences.getInstance();
 
     String? idForLogOut = await sf.getString("userId");
@@ -877,12 +862,6 @@ class LoginProviderForUser extends ChangeNotifier {
       MaterialPageRoute(builder: (context) => LoginScreenForAll()),
     );
     notifyListeners();
-  
-
-
-
-
-
   }
   //------------------------------------------------------------end all functionality of autologin  and auto logout--------------------------------------
 }

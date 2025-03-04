@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
@@ -71,7 +72,20 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                   overViewProvider.project[index]["projectId"];
                               final docId =
                                   overViewProvider.project[index]["docId"];
-                                 // print(project.totalTask);
+
+                              int? totalProgress = project.progress;
+                              int? totalTask = project.totalTask;
+                              int? asIntRound;
+
+                              if (totalProgress == null ||
+                                  totalTask == null ||
+                                  totalTask == 0) {
+                                asIntRound = 0;
+                              } else {
+                                var percen = (totalProgress * 100) / totalTask;
+
+                                asIntRound = percen.round();
+                              }
 
                               return InkWell(
                                 onTap: () {
@@ -86,14 +100,16 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                       ));
                                 },
                                 child: Card(
-                                    child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                    child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  //crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                        child: Row(
+                                    Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           "Project_Name",
@@ -102,10 +118,19 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                         ),
                                         Text(
                                           "${project.projectName}",
-                                        )
+                                        ),
+                                        Text(
+                                            " ${project.progress}/ ${project.totalTask ?? "0"}"),
                                       ],
-                                    )),
-                                    Text(" ${project.progress}/ ${project.totalTask ?? "0"}")
+                                    ),
+                                    Container(
+                                      child: CircularPercentIndicator(
+                                          radius: 30,
+                                          lineWidth: 5.0,
+                                          percent: 0.8,
+                                          center: Text("${asIntRound}%"),
+                                          progressColor: Colors.amber),
+                                    )
                                   ],
                                 )),
                               );

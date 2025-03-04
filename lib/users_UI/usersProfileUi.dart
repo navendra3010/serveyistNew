@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
@@ -19,35 +18,6 @@ class UsersprofilePage extends StatefulWidget {
 
 class _UsersprofilePageState extends State<UsersprofilePage> {
   late Future<Userprofilemodel?> _userProfileFuture;
-
-  
-
-  void _showAlertDialog(BuildContext context, String name) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Edit/UpDate"),
-          content: Text('This is the alert content.'),
-          actions: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: name,
-              ),
-            ),
-            Card(
-              child: Text(
-                "update",
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-              ),
-            )
-          ],
-        );
-      },
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,386 +66,28 @@ class _UsersprofilePageState extends State<UsersprofilePage> {
                           ),
                         )),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 5 / 100,
+                          height: MediaQuery.of(context).size.height * 3 / 100,
                         ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: MediaQuery.of(context).size.height *
-                                    6 /
-                                    100,
-                                width: MediaQuery.of(context).size.width *
-                                    20 /
-                                    100,
-                                // child:Image.asset(Appimage.SplashScreen,fit:BoxFit.fill,),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(Appimage.profileImage),
-                                      fit: BoxFit.fill,
-                                    )),
-                              ),
-                              Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Card(child: Icon(Icons.delete)),
-                                    Card(
-                                      child: Icon(Icons.upload),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+
+                        Center(
+                          child: Container(
+                            height:
+                                MediaQuery.of(context).size.height * 6 / 100,
+                            width: MediaQuery.of(context).size.width * 20 / 100,
+                            // child:Image.asset(Appimage.SplashScreen,fit:BoxFit.fill,),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: AssetImage(Appimage.profileImage),
+                                  fit: BoxFit.fill,
+                                )),
                           ),
                         ),
+
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 5 / 100,
+                          height: MediaQuery.of(context).size.height * 3 / 100,
                         ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 1 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Name",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile!.userName}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "jack_charlie");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Email",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userEmail}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "jack1@gmail.com");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Gender",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userGender}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "7978675900");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Address",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userAddress}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "Bhopal Isbt Road");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Date_Of_Birth",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userDateOfBirth}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "site Engineer");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Login_Id",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userLoginId}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "site Engineer");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "EmployeID",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userEmployeId}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "site Engineer");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          height: 0.5,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 2 / 100,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Address",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: AppFont.fontFamily,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    Text("${userProfile.userAddress}")
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showAlertDialog(context, "site Engineer");
-                                },
-                                child: Container(
-                                  child: Card(
-                                    child: Text("Edit"),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        buildTextField(userProfile),
                       ],
                     ),
                   );
@@ -489,6 +101,46 @@ class _UsersprofilePageState extends State<UsersprofilePage> {
       ),
       bottomNavigationBar: footerUiForUsers(
           notificationCount: 0, selectMenu2: ButtomMenu2.userprofile),
+    );
+  }
+
+  //  will call the function
+  Widget buildTextField(Userprofilemodel userProfile) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      buildViewDetails("Name", userProfile.userName),
+      buildViewDetails("Email", userProfile.userEmail),
+      buildViewDetails("EmployeId", userProfile.userEmployeId),
+      buildViewDetails("LoginId", userProfile.userLoginId),
+      buildViewDetails("Date-of-Birth", userProfile.userEmail),
+      buildViewDetails("Mobile-number", userProfile.userMobileNumber),
+      buildViewDetails("Gender", userProfile.userGender),
+    ]);
+  }
+
+  Widget buildViewDetails(String s, String? details) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 0.5,
+          color: Colors.grey,
+        ),
+        SizedBox(height: 10),
+        Text(
+          s,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: AppFont.fontFamily,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        Text("${details}"),
+        SizedBox(height: 10),
+        Container(
+          height: 0.5,
+          color: Colors.grey,
+        ),
+      ],
     );
   }
 }

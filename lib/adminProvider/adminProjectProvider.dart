@@ -214,7 +214,6 @@ class Projectprovider extends ChangeNotifier {
     fireser.getListenTask(projectId, documentId).listen((pro) {
       _task = pro;
 
-    
       totalCompletedTasl(projectId, documentId);
       int len = _task.length;
 
@@ -258,5 +257,12 @@ class Projectprovider extends ChangeNotifier {
       String projectId, String documentId, int completedLen) {
     fireser.getUpDateCompleted(projectId, documentId, completedLen);
     // notifyListeners();
+  }
+  //date 4-2-2025 t this function edit the from into user details and edit from.........................................................
+
+  bool isEdited = false;
+  void formEdit() {
+    isEdited = !isEdited;
+    notifyListeners();
   }
 }
