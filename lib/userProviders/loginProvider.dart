@@ -208,6 +208,15 @@ class LoginProviderForUser extends ChangeNotifier {
         String getcurrentUserId = FirebaseAuth.instance.currentUser!.uid;
 
         SharedPreferences sf = await SharedPreferences.getInstance();
+
+        DateTime now = DateTime.now();
+
+        //String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+        String formattedTime = DateFormat('hh:mm:ss').format(now);
+        // String dateKey = DateFormat('dd-MM-yyyy').format(now);
+
+        sf.setString("loginTime", formattedTime);
+
         sf.setString("userId", getcurrentUserId);
         notifyListeners();
         currentUser = userCredential.user;
@@ -244,7 +253,7 @@ class LoginProviderForUser extends ChangeNotifier {
             //   date 24-2-20225 hide----------------------------------end
             SharedPreferences sf = await SharedPreferences.getInstance();
             String? id = sf.getString("userId");
-            storeLoginDetailAsperUserRecord(id);
+            //  storeLoginDetailAsperUserRecord(id);
 
             Navigator.pushReplacement(
               context,
@@ -653,8 +662,8 @@ class LoginProviderForUser extends ChangeNotifier {
     //------------------------start session management------------------------
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-    String formattedTime = DateFormat('hh:mm:ss a').format(now);
+   // String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String currentTime = DateFormat('hh:mm:ss').format(now);
 
     await Future.delayed(Duration(seconds: 2));
 
@@ -662,14 +671,27 @@ class LoginProviderForUser extends ChangeNotifier {
 
     String? id = prefs.getString("userId");
     if (id != null) {
+
+
+         print(
+          " this is login time----------------------------------------------------------------------------------------not null");
       // Check if login time exists and calculate session expiry
       String? dt1 = prefs.getString("loginTime");
+      print(
+          " this is login time-----------------------------------------------------------------------------------------${dt1}");
+
       if (dt1 == null) {
+           print(
+          "  timenot null--------------------------------------------------------------------------------------${dt1}");
         userLogOut();
         return;
       }
 
-      List<String> splited = dt1.split(":");
+      
+     print("working to ------------------------------------------------");
+      List<String> splited = dt1!.split(":");
+
+
       if (splited.length < 3) {
         userLogOut();
         return;
@@ -679,18 +701,20 @@ class LoginProviderForUser extends ChangeNotifier {
       int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
           (int.parse(splited[1]) * 60) +
           (int.parse(splited[2]));
-
+          print("====================================================== this is logi time in second${loginTimeInSecond}");
       // Get current time in seconds
-      List<String> splittedCurrentTime = formattedTime.split(":");
+      List<String> splittedCurrentTime = currentTime!.split(":");
       int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
           (int.parse(splittedCurrentTime[1]) * 60) +
           (int.parse(splittedCurrentTime[2]));
+          print("current time ------------------------------------------------ ${currentTimeInSecond}");
 
       // Calculate time difference
       int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
+    
 
       // Set session time to 9 hours in seconds
-      int sessionTimeInSeconds = 9 * 3600;
+      int sessionTimeInSeconds = 50;
 
       if (elapsedSecond < sessionTimeInSeconds) {
         int logOutTimeInSecond = sessionTimeInSeconds - elapsedSecond;
@@ -700,15 +724,14 @@ class LoginProviderForUser extends ChangeNotifier {
         return;
       }
 
-      //------------------------end checking session------------------------
-
-      // After session check, continue navigating to the dashboard
+   
       isloading = false;
       notifyListeners();
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => UserDashBoardScreen()),
       );
-    } else {
+    }
+     else {
       // If no user ID is found, navigate to login screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreenForAll()),
@@ -722,6 +745,7 @@ class LoginProviderForUser extends ChangeNotifier {
   void _startAutoLogOutTimer(
     int logOutTimeInSecond,
   ) {
+    print(logOutTimeInSecond);
     if (logOutTimeInSecond > 0) {
       print("session exprire");
       _logOutTimer?.cancel();

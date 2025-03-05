@@ -6,7 +6,7 @@ import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
 
 import 'package:surveyist/utils/appFont.dart';
-import 'package:surveyist/utils/appImage.dart';
+import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 
 class ViewUserDetailsOnlyadmin extends StatefulWidget {
   String? userID;
@@ -24,19 +24,27 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
   @override
   void initState() {
     super.initState();
+
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+    _employeeIdController = TextEditingController();
+    _loginIdController = TextEditingController();
+    _mobileNumberController = TextEditingController();
+    _dobController = TextEditingController();
+    _addressController = TextEditingController();
+    _genderController = TextEditingController();
     Provider.of<Accountcreate>(context, listen: false)
         .fatchUserAccountDetails(widget.userID);
   }
-  
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _employeeIdController = TextEditingController();
-  TextEditingController _loginIdController = TextEditingController();
-  TextEditingController _mobileNumberController = TextEditingController();
-  TextEditingController _dobController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
-  TextEditingController _genderController = TextEditingController();
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _employeeIdController;
+  late TextEditingController _loginIdController;
+  late TextEditingController _mobileNumberController;
+  late TextEditingController _dobController;
+  late TextEditingController _addressController;
+  late TextEditingController _genderController;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +57,16 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
         ),
       );
     }
+
+    _nameController.text = detailsProvider.userName ?? '';
+    _emailController.text = detailsProvider.userEmail ?? '';
+    _employeeIdController.text = detailsProvider.userEmployeId ?? '';
+    _loginIdController.text = detailsProvider.userLoginId ?? '';
+    _mobileNumberController.text = detailsProvider.userMobileNumber ?? '';
+    _dobController.text = detailsProvider.userDateOfBirth ?? '';
+    _genderController.text = detailsProvider.userGender ?? '';
+    _addressController.text = detailsProvider.userAddress ?? '';
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -64,253 +82,6 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 1 / 100,
               ),
-              Container(
-                height: 0.5,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 1 / 100,
-              ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Name",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userName}")
-              //     ],
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Email",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userEmail}")
-              //     ],
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Employe_Id",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userEmployeId}")
-              //     ],
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Login_Id",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userLoginId}")
-              //     ],
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Login_password",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.loginPassword}")
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Mobile_Number",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userMobileNumber}")
-              //     ],
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // //----------------------------------//------------------
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Date_Of_Birth",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userDateOfBirth}")
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Gender",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userGender}")
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-              // Container(
-              //   height: 0.5,
-              //   color: Colors.grey,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 2 / 100,
-              // ),
-
-              // Container(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Address",
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontFamily: AppFont.fontFamily,
-              //             fontWeight: FontWeight.w800),
-              //       ),
-              //       Text("${detailsProvider!.userAddress}")
-              //     ],
-              //   ),
-              // ),
-
               operationProvider.isEdited == true
                   ? _buildEditableForm(detailsProvider)
                   : _buildDetailsView(detailsProvider),
@@ -321,16 +92,31 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
                   ? Center(
                       child: ElevatedButton(
                           onPressed: () {
-                            print(_nameController.text);
-                            print(_emailController.text);
-                            print(_employeeIdController.text);
-                            print(_mobileNumberController.text);
-                            print(_dobController.text);
-                            print(_genderController.text);
-                            print(_addressController.text);
+                            // print(_nameController.text);
+                            // print(_emailController.text);
+                            // print(_employeeIdController.text);
+                            // print(_mobileNumberController.text);
+                            // print(_dobController.text);
+                            // print(_genderController.text);
+                            // print(_addressController.text);
 
                             // here i will update user details
-                            final  fr=FirebaseFirestore.instance.collection("allusers").doc(widget.userID).update({});
+                            FirebaseFirestore.instance
+                                .collection("allusers")
+                                .doc(widget.userID)
+                                .update({
+                              "address": _addressController.text.trim(),
+                              "full_name": _nameController.text.trim(),
+                              "email": _emailController.text.trim(),
+                              "mobile_number":
+                                  _mobileNumberController.text.trim(),
+                              "employeId": _employeeIdController.text.trim(),
+                              "gender": _genderController.text.trim(),
+                              "date_Of_Birth": _dobController.text.trim()
+                            }).then((value) {
+                              ShowTaostMessage.toastMessage(context,
+                                  "user Details has been updated successfully");
+                            });
                           },
                           child: Text(
                             "Update",
@@ -355,6 +141,11 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          height: 0.5,
+          color: Colors.grey,
+        ),
+        SizedBox(height: 16),
         Text(
           label,
           style: TextStyle(
@@ -373,7 +164,10 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller,) {
+  Widget _buildTextField(
+    String label,
+    TextEditingController controller,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -393,10 +187,6 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
           ),
         ),
         SizedBox(height: 16),
-        Container(
-          height: 0.5,
-          color: Colors.grey,
-        ),
       ],
     );
   }

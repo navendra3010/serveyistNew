@@ -260,9 +260,16 @@ class Projectprovider extends ChangeNotifier {
   }
   //date 4-2-2025 t this function edit the from into user details and edit from.........................................................
 
-  bool isEdited = false;
+   bool isEdited = false;
   void formEdit() {
     isEdited = !isEdited;
     notifyListeners();
   }
+
+
+   void update()
+   {
+
+    notifyListeners();
+   }
 }

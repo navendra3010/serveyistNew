@@ -91,6 +91,7 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                 onTap: () {
                                   print(overViewProvider.project[index]
                                       ["projectId"]);
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
