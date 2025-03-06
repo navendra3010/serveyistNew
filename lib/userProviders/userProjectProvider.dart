@@ -8,11 +8,18 @@ import 'package:surveyist/userFireStoreService/userFireStore.dart';
 class UserProjectProviderClass extends ChangeNotifier {
   FireStoreServiceClass fireStoreService = FireStoreServiceClass();
   List<Map<String, dynamic>> projectData = [];
+  bool isLoading=false;
 // this function for fatch all project to assign to the user..........................................
   void allAssignProject() {
     fireStoreService.getAllAssignProject().listen((data) {
       projectData = data;
+
+       if(data.isEmpty)
+       {
+        isLoading=false;
       notifyListeners();
+       }
+      
     });
   }
 

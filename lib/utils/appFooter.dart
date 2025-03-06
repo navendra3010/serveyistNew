@@ -46,7 +46,7 @@ class AppFooterUi extends StatelessWidget {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => viewAllUserpage()));
             },
-            child: Container(child: Icon(Icons.person,color:ButtomMenu.users!=selectMenu?Colors.black:Colors.grey)),
+            child: Container(child: Icon(Icons.create,color:ButtomMenu.users!=selectMenu?Colors.black:Colors.grey)),
           ),
           InkWell(
             onTap: () {
@@ -56,7 +56,7 @@ class AppFooterUi extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ProjectOverView()));
             },
-            child: Container(child: Icon(Icons.create,color:ButtomMenu.ProjectOverView!=selectMenu?Colors.black:Colors.grey)),
+            child: Container(child: Icon(Icons.format_overline_rounded,color:ButtomMenu.ProjectOverView!=selectMenu?Colors.black:Colors.grey)),
           ),
           InkWell(
             onTap: () {
@@ -66,7 +66,7 @@ class AppFooterUi extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => AdminProfilePage()));
             },
-            child: Container(child: Icon(Icons.circle,color:ButtomMenu.profile!=selectMenu?Colors.black:Colors.grey)),
+            child: Container(child: Icon(Icons.person,color:ButtomMenu.profile!=selectMenu?Colors.black:Colors.grey)),
           ),
         ],
       ),

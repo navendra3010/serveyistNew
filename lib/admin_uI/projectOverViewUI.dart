@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/projectModel.dart';
 import 'package:surveyist/adminProvider/adminProjectProvider.dart';
@@ -49,6 +51,41 @@ class _CreateProjectPageState extends State<ProjectOverView> {
               )),
             ),
           ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 1 / 100,
+          ),
+
+          Container(
+            height: MediaQuery.of(context).size.height * 2 / 100,
+            width: MediaQuery.of(context).size.width * 90 / 100,
+            //  color: Colors.amber,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "Project_Name",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 3 / 100,
+                ),
+                Text(
+                  "completed Task",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 3 / 100,
+                ),
+                Text(
+                  "Status",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 2 / 100,
+                ),
+              ],
+            ),
+          ),
 
           //date......................................18-2-2025..................................
 
@@ -59,7 +96,7 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                     child: Column(
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 40 / 100,
+                          height: MediaQuery.of(context).size.height * 30 / 100,
                           width: MediaQuery.of(context).size.width * 90 / 100,
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -101,37 +138,52 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                       ));
                                 },
                                 child: Card(
-                                    child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                                    child: Column(
                                   children: [
-                                    Column(
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              2 /
+                                              100,
+                                    ),
+                                    Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          MainAxisAlignment.spaceBetween,
+                                      //crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "Project_Name",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              30 /
+                                              100,
+                                          child: Text(
+                                            "${project.projectName}",
+                                          ),
                                         ),
-                                        Text(
-                                          "${project.projectName}",
+                                        Container(
+                                          // width: MediaQuery.of(context).size.width * 10 / 100,
+                                          child: Text(
+                                              " ${project.progress}/ ${project.totalTask ?? "0"}"),
                                         ),
-                                        Text(
-                                            " ${project.progress}/ ${project.totalTask ?? "0"}"),
+                                        Container(
+                                          child: new LinearPercentIndicator(
+                                              width: 100.0,
+                                              lineHeight: 14.0,
+                                              percent: 0.8,
+                                              barRadius: Radius.circular(10),
+                                              backgroundColor: Colors.grey,
+                                              center: Text("${asIntRound}%"),
+                                              progressColor: Colors.amber),
+                                        )
                                       ],
                                     ),
-                                    Container(
-                                      child: CircularPercentIndicator(
-                                          radius: 30,
-                                          lineWidth: 5.0,
-                                          percent: 0.8,
-                                          center: Text("${asIntRound}%"),
-                                          progressColor: Colors.amber),
-                                    )
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              2 /
+                                              100,
+                                    ),
                                   ],
                                 )),
                               );

@@ -42,7 +42,18 @@ class _UserAllProjectUI extends State<UserAllProject> {
             ),
             userProjectPro.projectData.isEmpty
                 ? Center(child: Center(
-                  child: CircularProgressIndicator(),
+                  child:userProjectPro.isLoading==true? CircularProgressIndicator(
+            //         size: 200,
+            // circleSize: 15,
+            // currentSteps: 50,
+            // totalSteps: 10,
+            // progressColor: Color.fromARGB(255, 2, 145, 45),
+            // stepColor: Color.fromARGB(255, 137, 255, 147)),
+            
+            
+                  ):Center(
+                    child:Text("No project Assign yet"),
+                  )
                 ))
                 : SingleChildScrollView(
                     child: Container(

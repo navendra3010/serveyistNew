@@ -26,15 +26,15 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
     // Provider.of<Adminhomeprovider>(context, listen: false)
     //     .fetchAllLoginDetails();
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    final providerHome = Provider.of<Adminhomeprovider>(context);
-    final loginUpdateProvider =
-        Provider.of<AllOpeationAndUpdate>(context, listen: false);
+    // final providerHome = Provider.of<Adminhomeprovider>(context);
+    // final loginUpdateProvider =
+    //     Provider.of<AllOpeationAndUpdate>(context, listen: false);
     final commanproviderAdmin = Provider.of<CommanproviderAdmin>(context);
 
-    var user_iddoc = providerHome.loginRecordList;
+   // var user_iddoc = providerHome.loginRecordList;
 
     return Scaffold(
       body: Padding(
@@ -98,9 +98,14 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
             Container(
-              child: Text(
-                "Active users",
-                style: CustomText.nameOfTextStyle,
+              child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [ 
+                  Text(
+                    "Active users",
+                    style: CustomText.nameOfTextStyle,
+                  ),
+              
+                ],
               ),
             ),
             SizedBox(

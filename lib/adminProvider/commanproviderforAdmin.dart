@@ -31,7 +31,7 @@ Future<Userprofilemodel?> getAdminInfo() async {
 
 
 
-// all users yet -------------------------------------------------------------------------------------
+// all users yet login per day -------------------------------------------------------------------------------------
   Stream<List<ViewAllUsers>> get allUsersStream {
     return frstr.getAllUsers();
   }
@@ -82,4 +82,10 @@ Future<Userprofilemodel?> getAdminInfo() async {
     print(" image length -------------${imageFileList.length}");
     notifyListeners();
   }
+      int ? selecNumber;
+   void setDateForSelect( int value)
+   {
+    selecNumber=value;
+    notifyListeners();
+   }
 }
