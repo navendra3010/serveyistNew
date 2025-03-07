@@ -24,322 +24,326 @@ class _MyNewProjectUI extends State<Newproject> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 5 / 100,
-              ),
-              //new projec text container-------------------------------------------------
-              Center(
-                child: Container(
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 5 / 100,
-                  width: MediaQuery.of(context).size.width * 100 / 100,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 221, 187, 138),
-                      borderRadius: BorderRadius.all(Radius.circular(80))),
-                  child: Center(
-                      child: Text(
-                    "New_project",
-                    style: CustomText.nameOfTextStyle,
-                  )),
                 ),
-              ),
-              //end---------------------------------------------------------------------------
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 120.0, // Fixed width for the label
-                    child: Text('project_Name',
-                        style: TextStyle(
-                            fontFamily: AppFont.fontFamily,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16)),
+                //new projec text container-------------------------------------------------
+                Center(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 5 / 100,
+                    width: MediaQuery.of(context).size.width * 100 / 100,
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 221, 187, 138),
+                        borderRadius: BorderRadius.all(Radius.circular(80))),
+                    child: Center(
+                        child: Text(
+                      "New_project",
+                      style: CustomText.nameOfTextStyle,
+                    )),
                   ),
-                  Flexible(
-                    child: SizedBox(
-                      width: 200.0, // Fixed width
-                      height: 45.0, // Fixed height
-                      child: TextField(
-                        controller: projectNameController,
-                        decoration: InputDecoration(
-                          hintText: 'Enter_Project_Name',
+                ),
+                //end---------------------------------------------------------------------------
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 120.0, // Fixed width for the label
+                      child: Text('project_Name',
+                          style: TextStyle(
+                              fontFamily: AppFont.fontFamily,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16)),
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        width: 200.0, // Fixed width
+                        height: 45.0, // Fixed height
+                        child: TextField(
+                          controller: projectNameController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter_Project_Name',
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 1 / 100,
+                ),
+                //start-------------------------------------------------------
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 120.0, // Fixed width for the label
+                      child: Text('project_Location',
+                          style: TextStyle(
+                              fontFamily: AppFont.fontFamily,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16)),
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        width: 200.0, // Fixed width
+                        height: 45.0, // Fixed height
+                        child: TextField(
+                            controller: projectLocationController,
+                            // keyboardType:TextInputType.name,
+                            decoration: InputDecoration(
+                                hintText: 'Enter_Project_Location')),
+                      ),
+                    ),
+                  ],
+                ),
+                //end-------------------------------------------------------------
+            
+                //start date select--------------------------------------------
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 125.0,
+                      child: TextButton(
+                        onPressed: () {
+                          newProject.selectprojectStartDate(context);
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Icon(Icons.calendar_month),
+                            ),
+                            Text("Project_Start_Date")
+                          ],
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 1 / 100,
-              ),
-              //start-------------------------------------------------------
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 120.0, // Fixed width for the label
-                    child: Text('project_Location',
-                        style: TextStyle(
-                            fontFamily: AppFont.fontFamily,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16)),
-                  ),
-                  Flexible(
-                    child: SizedBox(
-                      width: 200.0, // Fixed width
-                      height: 45.0, // Fixed height
-                      child: TextField(
-                          controller: projectLocationController,
-                          // keyboardType:TextInputType.name,
-                          decoration: InputDecoration(
-                              hintText: 'Enter_Project_Location')),
-                    ),
-                  ),
-                ],
-              ),
-              //end-------------------------------------------------------------
-
-              //start date select--------------------------------------------
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 125.0,
-                    child: TextButton(
-                      onPressed: () {
-                        newProject.selectprojectStartDate(context);
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Icon(Icons.calendar_month),
-                          ),
-                          Text("Project_Start_Date")
-                        ],
+                    Flexible(
+                      child: SizedBox(
+                        width: 200.0, // Fixed width
+                        height: 45.0, // Fixed height
+                        child: TextField(
+                          controller: newProject.dateStartcontroller,
+                        ),
                       ),
-                    ),
-                  ),
-                  Flexible(
-                    child: SizedBox(
-                      width: 200.0, // Fixed width
-                      height: 45.0, // Fixed height
-                      child: TextField(
-                        controller: newProject.dateStartcontroller,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              //start date select--------------------------------------------end
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 120.0,
-                    child: TextButton(
-                      onPressed: () {
-                        newProject.selectprojectEndDate(context);
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Icon(Icons.calendar_month),
-                          ),
-                          Text("Project_End_Date")
-                        ],
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: SizedBox(
-                      width: 200.0, // Fixed width
-                      height: 45.0, // Fixed height
-                      child: TextField(
-                        controller: newProject.dateEndcontroller,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 5 / 100,
-              ),
-              //-----------------start----------project description------container-----------------------------
-              Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 10 / 100,
-                  width: MediaQuery.of(context).size.width * 90 / 100,
-                  //color: Colors.amber,
-                  child: TextFormField(
-                    controller: projectDiscriptionControlller,
-                    maxLines: 15,
-                    maxLength: 1000,
-                    decoration: InputDecoration(
-                        hintText: "Project_Discription....",
-                        hintStyle: TextStyle(
-                            fontSize: 12, fontFamily: AppFont.fontFamily),
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10)))),
-                  ),
+                    )
+                  ],
                 ),
-              ),
-              //-----------------end----------project description----------container-------------------------
-              TextButton(
-                onPressed: () {
-                  // newProject.getTeam();
-                  // newProject.showData();
-                },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 3 / 100,
-                  width: MediaQuery.of(context).size.width * 30 / 100,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 221, 187, 138),
-                      borderRadius: BorderRadius.all(Radius.circular(80))),
-                  child: Center(
-                      child: Text(
-                    "Create_Team",
-                    style: CustomText.nameOfTextStyle,
-                  )),
-                ),
-              ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.5 / 100,
-              // ),
-              newProject.selectUserIdForTeam.isEmpty
-                  ? SizedBox()
-                  : StreamBuilder<List<Map<String, dynamic>>>(
-                      stream:
-                          newProject.userStream, // Replace with actual stream
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return CircularProgressIndicator(); // Loading indicator
-                        }
-
-                        if (snapshot.hasError) {
-                          return Text("Error: ${snapshot.error}");
-                        }
-                        final userList = snapshot.data ?? [];
-                        return SizedBox(
-                          height: 50.0, // Set a fixed height for the ListView
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: userList.length,
-                            itemBuilder: (context, index) {
-                              var uid = userList[index];
-                              // print(uid);
-                              return Container(
-                                width:
-                                    100.0, // Set a fixed width for each item (optional)
-                                margin: EdgeInsets.symmetric(
-                                    horizontal:
-                                        2.0), // Optional margin for spacing
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:
-                                      const Color.fromARGB(255, 221, 187, 138),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center, // Vertically center the text
-                                  children: [
-                                    Text(uid["name"] ?? "no"),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5 / 100,
-              ),
-
-              Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 20 / 100,
-                  width: MediaQuery.of(context).size.width * 90 / 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: const Color.fromRGBO(255, 250, 250, 1)),
-                  child: StreamBuilder<List<Map<String, dynamic>>>(
-                    stream: newProject.teamUser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      }
-                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(
-                          child: Text("no data"),
-                        );
-                      }
-                      var userData = snapshot.data!;
-                      // print(userData);
-                      return SizedBox(
-                          height: 80.0,
-                          child: ListView.builder(
-                            itemCount: userData!.length,
-                            itemBuilder: (context, index) {
-                              var us = userData[index];
-                              // String userId=us.id;
-                              String userId = us["id"];
-                              String userName = us["full_name"];
-                              String emplpoyeId = us["employeId"];
-                              return CheckboxListTile(
-                                title: Text(us["full_name"]),
-                                subtitle: Text(us["employeId"]),
-                                value: newProject.selectUserIdForTeam
-                                    .any((us) => us["userId"] == userId),
-                                onChanged: (bool? selected) {
-                                  newProject.toggleUserId(
-                                      userId, us["full_name"], us["employeId"]);
-                                },
-                              );
-                            },
-                          ));
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 5 / 100,
-              ),
-
-              newProject.loadUser == true
-                  ? CircularProgressIndicator()
-                  : Container(
-                      child: MyButton(
-                        text: "create_project",
-                        color: const Color.fromARGB(255, 221, 187, 138),
+                //start date select--------------------------------------------end
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 120.0,
+                      child: TextButton(
                         onPressed: () {
-                          // print(
-                          //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
-
-                          ProjectModel pm = ProjectModel();
-                          pm.projectName = projectNameController.text.trim();
-                          pm.projectLocation =
-                              projectLocationController.text.trim();
-                          pm.startDate =
-                              parseDate(newProject.dateStartcontroller.text);
-                          pm.endDate =
-                              parseDate(newProject.dateEndcontroller.text);
-
-                          pm.projectDiscription =
-                              projectDiscriptionControlller.text.trim();
-                          pm.team = newProject.selectUserIdForTeam;
-                          newProject.addProjectProvider(pm, context);
+                          newProject.selectprojectEndDate(context);
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Icon(Icons.calendar_month),
+                            ),
+                            Text("Project_End_Date")
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        width: 200.0, // Fixed width
+                        height: 45.0, // Fixed height
+                        child: TextField(
+                          controller: newProject.dateEndcontroller,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 5 / 100,
+                ),
+                //-----------------start----------project description------container-----------------------------
+                Center(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 10 / 100,
+                    width: MediaQuery.of(context).size.width * 90 / 100,
+                    //color: Colors.amber,
+                    child: TextFormField(
+                      controller: projectDiscriptionControlller,
+                      maxLines: 15,
+                      maxLength: 1000,
+                      decoration: InputDecoration(
+                          hintText: "Project_Discription....",
+                          hintStyle: TextStyle(
+                              fontSize: 12, fontFamily: AppFont.fontFamily),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)))),
+                    ),
+                  ),
+                ),
+                //-----------------end----------project description----------container-------------------------
+                TextButton(
+                  onPressed: () {
+                    // newProject.getTeam();
+                    // newProject.showData();
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 3 / 100,
+                    width: MediaQuery.of(context).size.width * 30 / 100,
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 221, 187, 138),
+                        borderRadius: BorderRadius.all(Radius.circular(80))),
+                    child: Center(
+                        child: Text(
+                      "Create_Team",
+                      style: CustomText.nameOfTextStyle,
+                    )),
+                  ),
+                ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.5 / 100,
+                // ),
+                newProject.selectUserIdForTeam.isEmpty
+                    ? SizedBox()
+                    : StreamBuilder<List<Map<String, dynamic>>>(
+                        stream:
+                            newProject.userStream, // Replace with actual stream
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator(); // Loading indicator
+                          }
+            
+                          if (snapshot.hasError) {
+                            return Text("Error: ${snapshot.error}");
+                          }
+                          final userList = snapshot.data ?? [];
+                          return SizedBox(
+                            height: 50.0, // Set a fixed height for the ListView
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: userList.length,
+                              itemBuilder: (context, index) {
+                                var uid = userList[index];
+                                // print(uid);
+                                return Container(
+                                  width:
+                                      100.0, // Set a fixed width for each item (optional)
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          2.0), // Optional margin for spacing
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color:
+                                        const Color.fromARGB(255, 221, 187, 138),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .center, // Vertically center the text
+                                    children: [
+                                      Text(uid["name"] ?? "no"),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          );
                         },
                       ),
+            
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5 / 100,
+                ),
+            
+                Center(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 20 / 100,
+                    width: MediaQuery.of(context).size.width * 90 / 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: const Color.fromRGBO(255, 250, 250, 1)),
+                    child: StreamBuilder<List<Map<String, dynamic>>>(
+                      stream: newProject.teamUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        }
+                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                          return Center(
+                            child: Text("no data"),
+                          );
+                        }
+                        var userData = snapshot.data!;
+                        // print(userData);
+                        return SizedBox(
+                            height: 80.0,
+                            child: ListView.builder(
+                              itemCount: userData!.length,
+                              itemBuilder: (context, index) {
+                                var us = userData[index];
+                                // String userId=us.id;
+                                String userId = us["id"];
+                                String userName = us["full_name"];
+                                String emplpoyeId = us["employeId"];
+                                return CheckboxListTile(
+                                  title: Text(us["full_name"]),
+                                  subtitle: Text(us["employeId"]),
+                                  value: newProject.selectUserIdForTeam
+                                      .any((us) => us["userId"] == userId),
+                                  onChanged: (bool? selected) {
+                                    newProject.toggleUserId(
+                                        userId, us["full_name"], us["employeId"]);
+                                  },
+                                );
+                              },
+                            ));
+                      },
                     ),
-              //submit buttom-------------------------------------------------------------------------end`
-            ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 5 / 100,
+                ),
+            
+                newProject.loadUser == true
+                    ? CircularProgressIndicator()
+                    : Container(
+                        child: MyButton(
+                          text: "create_project",
+                          color: const Color.fromARGB(255, 221, 187, 138),
+                          onPressed: () {
+                            // print(
+                            //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
+            
+                            ProjectModel pm = ProjectModel();
+                            pm.projectName = projectNameController.text.trim();
+                            pm.projectLocation =
+                                projectLocationController.text.trim();
+                            pm.startDate =
+                                parseDate(newProject.dateStartcontroller.text);
+                            pm.endDate =
+                                parseDate(newProject.dateEndcontroller.text);
+            
+                            pm.projectDiscription =
+                                projectDiscriptionControlller.text.trim();
+                            pm.team = newProject.selectUserIdForTeam;
+                            pm.progress=0;
+                            pm.totalTask=0;
+                            newProject.addProjectProvider(pm, context);
+                          },
+                        ),
+                      ),
+                //submit buttom-------------------------------------------------------------------------end`
+              ],
+            ),
           ),
         ));
   }

@@ -24,25 +24,17 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
   @override
   Widget build(BuildContext context) {
     final historyProvider = Provider.of<UserProjectProviderClass>(context);
+
+    
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 2 / 100,
+              height: MediaQuery.of(context).size.height * 6 / 100,
             ),
-            // Row(
-            //   children: [
-            //     InkWell(onTap: (){
-            //       Navigator.pop(context);
-            //     },
-            //       child: Container(
-            //         child: Icon(Icons.arrow_back_ios_new),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+           
             Container(
               child: Center(
                 child: Text(
@@ -54,9 +46,12 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
                 ),
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 6 / 100,
+            ),
             historyProvider.historyOfTask.isEmpty
                 ? Center(
-                    child: CircleAvatar(),
+                    child:Text("Not Have Any History"),
                   )
                 : Expanded(
                     child: ListView.builder(

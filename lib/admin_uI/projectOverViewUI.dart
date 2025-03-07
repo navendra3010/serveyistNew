@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:provider/provider.dart';
@@ -63,14 +62,14 @@ class _CreateProjectPageState extends State<ProjectOverView> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  "Project_Name",
+                  "Project Name",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 3 / 100,
                 ),
                 Text(
-                  "completed Task",
+                  "completed Task/Total Task",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
@@ -124,68 +123,83 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                 asIntRound = percen.round();
                               }
 
-                              return InkWell(
-                                onTap: () {
-                                  print(overViewProvider.project[index]
-                                      ["projectId"]);
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    print(overViewProvider.project[index]
+                                        ["projectId"]);
 
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ProjectDetailui(
-                                            projectId: projectId,
-                                            documentId: docId),
-                                      ));
-                                },
-                                child: Card(
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProjectDetailui(
+                                              projectId: projectId,
+                                              documentId: docId),
+                                        ));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 255, 253, 253),
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
                                     child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
+                                      children: [
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               2 /
                                               100,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      //crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
+                                        ),
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              30 /
-                                              100,
-                                          child: Text(
-                                            "${project.projectName}",
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    30 /
+                                                    100,
+                                                child: Text(
+                                                  "${project.projectName}",
+                                                ),
+                                              ),
+                                              Text(
+                                                  " ${project.progress}/ ${project.totalTask ?? "0"}"),
+                                              Container(
+                                                child:
+                                                    new LinearPercentIndicator(
+                                                        width: 100.0,
+                                                        lineHeight: 25.0,
+                                                        percent:
+                                                            asIntRound / 100,
+                                                        barRadius:
+                                                            Radius.circular(10),
+                                                        backgroundColor:
+                                                            Colors.grey,
+                                                        center: Text(
+                                                            "${asIntRound}%"),
+                                                        progressColor:
+                                                            Colors.amber),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Container(
-                                          // width: MediaQuery.of(context).size.width * 10 / 100,
-                                          child: Text(
-                                              " ${project.progress}/ ${project.totalTask ?? "0"}"),
-                                        ),
-                                        Container(
-                                          child: new LinearPercentIndicator(
-                                              width: 100.0,
-                                              lineHeight: 14.0,
-                                              percent: 0.8,
-                                              barRadius: Radius.circular(10),
-                                              backgroundColor: Colors.grey,
-                                              center: Text("${asIntRound}%"),
-                                              progressColor: Colors.amber),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               2 /
                                               100,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                )),
+                                  ),
+                                ),
                               );
                             },
                           ),
