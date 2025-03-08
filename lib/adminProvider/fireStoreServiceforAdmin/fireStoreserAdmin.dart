@@ -59,7 +59,7 @@ class FireStoreServiceForAdmin {
       return snapshot.docs.map((doc) {
         var data = doc.data();
         data['id'] = doc.id!;
-        //data[doc.id]=doc["full_name"];
+        //data[doc.id]=doc["full_name"]; cs
         return data;
       }).toList();
     });

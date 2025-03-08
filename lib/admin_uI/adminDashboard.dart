@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminProvider/adminHomeProvider.dart';
-import 'package:surveyist/adminProvider/adminoperationProvider.dart';
+
 import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
 import 'package:surveyist/admin_uI/createNewUsersUi.dart';
 
@@ -26,7 +25,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
     // Provider.of<Adminhomeprovider>(context, listen: false)
     //     .fetchAllLoginDetails();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     // final providerHome = Provider.of<Adminhomeprovider>(context);
@@ -34,7 +33,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
     //     Provider.of<AllOpeationAndUpdate>(context, listen: false);
     final commanproviderAdmin = Provider.of<CommanproviderAdmin>(context);
 
-   // var user_iddoc = providerHome.loginRecordList;
+    // var user_iddoc = providerHome.loginRecordList;
 
     return Scaffold(
       body: Padding(
@@ -98,13 +97,13 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
             Container(
-              child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [ 
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
                   Text(
                     "Active users",
                     style: CustomText.nameOfTextStyle,
                   ),
-              
                 ],
               ),
             ),
