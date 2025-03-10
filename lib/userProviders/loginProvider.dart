@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -49,7 +52,7 @@ class LoginProviderForUser extends ChangeNotifier {
       userRole = await fatchUserRole(currentUser!.uid);
       //here it will fatch role
     }
-    bool isloading = true;
+    isloading = true;
     notifyListeners();
   }
   //check user role or admin role....................
@@ -76,6 +79,22 @@ class LoginProviderForUser extends ChangeNotifier {
 
   Future<void> login(
       BuildContext context, String email, String password) async {
+    // //bool isloading = true;
+
+    // final Connectivity _connectivity = Connectivity();
+    // Future<List<ConnectivityResult>> result = _connectivity.checkConnectivity();
+    // if (result == ConnectivityResult.none) {
+    //   // If no connection, show the message and return
+    //   print('No internet connection');
+    //   isloading = false;
+    //   notifyListeners();
+    //   ShowTaostMessage.toastMessage(
+    //       context, 'No internet connection. Please check your network.');
+    //   return;
+    // }
+
+    // TODO
+
     int len = password.length;
     if (email.isEmpty || password.isEmpty) {
       ShowTaostMessage.toastMessage(
@@ -90,119 +109,151 @@ class LoginProviderForUser extends ChangeNotifier {
       ShowTaostMessage.toastMessage(
           context, Applanguage.passWordlength[Applanguage.language]);
     } else {
+      //  isloading = true;
+      // monitorLocationService(context);
+      //notifyListeners();
+      // UserCredential userCredential = await FirebaseAuth.instance
+      //     .signInWithEmailAndPassword(email: email, password: password);
+      // String getcurrentUserId = FirebaseAuth.instance.currentUser!.uid;
+      // id = getcurrentUserId;
+
+      // SharedPreferences sf = await SharedPreferences.getInstance();
+      //  sf.setString("userId", getcurrentUserId);
+      //  notifyListeners();
+
+      //  currentUser = userCredential.user;
+      //  if (currentUser != null) {
+      //  userRole = await fatchUserRole(currentUser!.uid);
+
+      //   if (userRole == "admin") {
+      //     Navigator.pushReplacement(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+      //     );
+      //   }
+      //  else if (userRole == "user") {
+      //     //checking here login status user already loggeed or not if log need logout..........
+
+      //     bool? status = await checkLoginStatus(context);
+      //     if (status == true) {
+      //       print(" log in another session");
+
+      //          await getDeviceinfo();
+      // Position? position = await _determinePosition(context);
+      // if (position != null) {
+      //           address = await _getAddressFromLatLng(
+      //               position.latitude, position.longitude);
+      //           lat = position.latitude;
+      //           long = position.longitude;
+      //--------------------------------------------------------------------
+      // address = await _getAddressFromLatLng(
+      //     position.latitude, position.longitude);
+      //this funcation for Device info....................
+      //-----------------------------------------------this is always same
+
+      //  print("get value==========================================");
+      // }
+      // SharedPreferences sf = await SharedPreferences.getInstance();
+      // String? id = sf.getString("userId");
+      // storeLoginDetailAsperUserRecord(id);
+      //  Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) =>
+      //           UserDashBoardScreen(userId: currentUser!.uid)),
+      // );
+      // isloading = false;
+      // notifyListeners();
+      //}
+      //  else {
+      //   print(" you can not log in another session");
+      // }
+      // isloading = false;
+      // notifyListeners();
+
+      // await getDeviceinfo();
+      // Position? position = await _determinePosition(context);
+      // if (position != null) {
+      //   address = await _getAddressFromLatLng(
+      //       position.latitude, position.longitude);
+      //   lat = position.latitude;
+      //   long = position.longitude;
+
+      //   // address = await _getAddressFromLatLng(
+      //   //     position.latitude, position.longitude);
+      //   //this funcation for Device info....................
+
+      //   print("get value==========================================");
+      // }
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) =>
+      //           UserDashBoardScreen(userId: currentUser!.uid)),
+      // );
+      // isloading = false;
+      // notifyListeners();
+      //}
+      // }
+      //date 28-1-2025.............................
+
+      //date 4-2-2025----------------------------------start----------------------------
+      // if (email.isNotEmpty && password.isNotEmpty) {
+      //   DateTime now = DateTime.now();
+
+      //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+      //   String formattedTime = DateFormat('hh:mm:ss').format(now);
+      //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
+      //   final pref = await SharedPreferences.getInstance();
+      //   pref.setString("id", "1");
+      //   pref.setString("loginTime", formattedTime);
+      //   // _startAutoLoginTimer();
+      //   Navigator.of(context).pushReplacement(
+      //       MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
+
+      //   isloading = false;
+      //   notifyListeners();
+      // }
+
+      // date 4-2-2025-----------------------------------end--------------------------
+
+      //Date 5-2-2025 new login function after created auto login--------------------start
+
+      isloading = true;
+      notifyListeners();
+
       try {
-        //  isloading = true;
-        // monitorLocationService(context);
-        //notifyListeners();
-        // UserCredential userCredential = await FirebaseAuth.instance
-        //     .signInWithEmailAndPassword(email: email, password: password);
-        // String getcurrentUserId = FirebaseAuth.instance.currentUser!.uid;
-        // id = getcurrentUserId;
+        // Create an instance of Connectivity
+        // final Connectivity _connectivity = Connectivity();
 
-        // SharedPreferences sf = await SharedPreferences.getInstance();
-        //  sf.setString("userId", getcurrentUserId);
-        //  notifyListeners();
+        // Await the connectivity result to get the actual status
+        // ConnectivityResult result = await _connectivity.checkConnectivity();
 
-        //  currentUser = userCredential.user;
-        //  if (currentUser != null) {
-        //  userRole = await fatchUserRole(currentUser!.uid);
-
-        //   if (userRole == "admin") {
-        //     Navigator.pushReplacement(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => AdminDashboardPage()),
-        //     );
-        //   }
-        //  else if (userRole == "user") {
-        //     //checking here login status user already loggeed or not if log need logout..........
-
-        //     bool? status = await checkLoginStatus(context);
-        //     if (status == true) {
-        //       print(" log in another session");
-
-        //          await getDeviceinfo();
-        // Position? position = await _determinePosition(context);
-        // if (position != null) {
-        //           address = await _getAddressFromLatLng(
-        //               position.latitude, position.longitude);
-        //           lat = position.latitude;
-        //           long = position.longitude;
-        //--------------------------------------------------------------------
-        // address = await _getAddressFromLatLng(
-        //     position.latitude, position.longitude);
-        //this funcation for Device info....................
-        //-----------------------------------------------this is always same
-
-        //  print("get value==========================================");
-        // }
-        // SharedPreferences sf = await SharedPreferences.getInstance();
-        // String? id = sf.getString("userId");
-        // storeLoginDetailAsperUserRecord(id);
-        //  Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) =>
-        //           UserDashBoardScreen(userId: currentUser!.uid)),
-        // );
-        // isloading = false;
-        // notifyListeners();
-        //}
-        //  else {
-        //   print(" you can not log in another session");
-        // }
-        // isloading = false;
-        // notifyListeners();
-
-        // await getDeviceinfo();
-        // Position? position = await _determinePosition(context);
-        // if (position != null) {
-        //   address = await _getAddressFromLatLng(
-        //       position.latitude, position.longitude);
-        //   lat = position.latitude;
-        //   long = position.longitude;
-
-        //   // address = await _getAddressFromLatLng(
-        //   //     position.latitude, position.longitude);
-        //   //this funcation for Device info....................
-
-        //   print("get value==========================================");
-        // }
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) =>
-        //           UserDashBoardScreen(userId: currentUser!.uid)),
-        // );
-        // isloading = false;
-        // notifyListeners();
-        //}
-        // }
-        //date 28-1-2025.............................
-
-        //date 4-2-2025----------------------------------start----------------------------
-        // if (email.isNotEmpty && password.isNotEmpty) {
-        //   DateTime now = DateTime.now();
-
-        //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-        //   String formattedTime = DateFormat('hh:mm:ss').format(now);
-        //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
-        //   final pref = await SharedPreferences.getInstance();
-        //   pref.setString("id", "1");
-        //   pref.setString("loginTime", formattedTime);
-        //   // _startAutoLoginTimer();
-        //   Navigator.of(context).pushReplacement(
-        //       MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
-
+        // // Check if there is no internet connection
+        // if (result == ConnectivityResult.none) {
+        //   // If no connection, show the message and return
+        //   print('No internet connection');
         //   isloading = false;
         //   notifyListeners();
+        //   ShowTaostMessage.toastMessage(context, 'No internet connection. Please check your network.');
+        //   return;
         // }
 
-        // date 4-2-2025-----------------------------------end--------------------------
+        final Connectivity _connectivity = Connectivity();
 
-        //Date 5-2-2025 new login function after created auto login--------------------start
+        // Await the result of checkConnectivity, which will give you a ConnectivityResult
+       Future<List<ConnectivityResult>> result = _connectivity.checkConnectivity() ;
 
-        isloading = true;
-        notifyListeners();
+       // Now check if there's no internet connection
+        if (result == ConnectivityResult.none) {
+          print('No internet connection');
+          isloading = false;
+          notifyListeners();
+          ShowTaostMessage.toastMessage(
+              context, 'No internet connection. Please check your network.');
+          return;
+        }
+
         UserCredential userCredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         String getcurrentUserId = FirebaseAuth.instance.currentUser!.uid;
@@ -292,6 +343,12 @@ class LoginProviderForUser extends ChangeNotifier {
 
         return null;
         // print("FirebaseAuthException: ${e.code}");
+      } on SocketException catch (error) {
+        // Handle network-related exceptions (like no internet)
+        isloading = false;
+        notifyListeners();
+        ShowTaostMessage.toastMessage(
+            context, 'Network error occurred. Please check your connection.');
       } catch (e) {
         ShowTaostMessage.toastMessage(
           context,
@@ -442,7 +499,7 @@ class LoginProviderForUser extends ChangeNotifier {
   Future<void> storeLoginDetailAsperUserRecord(id) async {
     //UserLoginModel ul=UserLoginModel();
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
     String formattedTime = DateFormat('hh:mm:ss a').format(now);
     String dateKey = DateFormat('dd-MM-yyyy').format(now);
 
@@ -505,7 +562,7 @@ class LoginProviderForUser extends ChangeNotifier {
   Future<bool?> checkLoginStatus(BuildContext context) async {
     DateTime now = DateTime.now();
 
-    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
     String formattedTime = DateFormat(' hh:mm:ss a').format(now);
     String dateKey = DateFormat('dd-MM-yyyy').format(now);
     SharedPreferences sf = await SharedPreferences.getInstance();
@@ -712,7 +769,7 @@ class LoginProviderForUser extends ChangeNotifier {
       int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
 
       // Set session time to 9 hours in seconds
-      int sessionTimeInSeconds = 9*3600;
+      int sessionTimeInSeconds = 9 * 3600;
 
       if (elapsedSecond < sessionTimeInSeconds) {
         int logOutTimeInSecond = sessionTimeInSeconds - elapsedSecond;
@@ -829,7 +886,7 @@ class LoginProviderForUser extends ChangeNotifier {
     }
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
     String formattedTime = DateFormat('hh:mm:ss a').format(now);
     String dateKey = DateFormat('dd-MM-yyyy').format(now);
 

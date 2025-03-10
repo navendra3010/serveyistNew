@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:surveyist/utils/appButton.dart';
 
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appImage.dart';
+import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 
 import 'package:surveyist/utils/app_Language.dart';
 
@@ -73,7 +75,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                       controller: userEmailController,
                       decoration: InputDecoration(
                           hintText: "Email",
-          
+
                           // icon:Icon(Icons.person)
                           prefixIcon: Icon(
                             Icons.person,
@@ -91,7 +93,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                       // keyboardType:,
                       decoration: InputDecoration(
                           hintText: "password",
-          
+
                           // icon:Icon(Icons.person)
                           prefixIcon: Icon(
                             Icons.person,
@@ -124,56 +126,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                               // color: const Color.fromARGB(255, 34, 137, 221),
                               color: const Color.fromARGB(255, 231, 128, 44),
                               onPressed: () async {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const SignUpScreenForAll()));
-                                // ShowTaostMessage.toastMessage(context, "SuccesfullLogin");
-          
-                                // loginEmailWithPassword(
-          
-                                //    );
-                                //  _currentPosition =
-                                //     await Locations.getCurrentPosition();
-                                // if (_currentPosition != null) {
-                                //   _currentAddress =
-                                //       await Locations.getAddressFromLatLng(
-                                //           _currentPosition!);
-                                //   setState(() {});
-                                // } else {
-                                //   print("Failed to get location.");
-                                // }
-          
-                                // loginProvider.userLoginAuthantication(
-                                //    context,
-                                //    userEmailController.text.toString().trim(),
-                                //     userPasswordController.text
-                                //         .toString()
-                                //         .trim());
-          
-                                // login(String email, String password, BuildContext context)async {
-                                //  monitorLocationService(context);
-          
-                                // FirebaseAuth? user =
-                                //     await loginProvider.userLoginAuthantication(
-                                //         context,
-                                //         userEmailController.text
-                                //             .toString()
-                                //             .trim(),
-                                //         userPasswordController.text
-                                //           ..toString()
-                                //           ..trim());
-          
-                                // if (user!=null) {
-          
-                                //   Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             UserDashBoardScreen()),
-                                //   );
-                                // }
+                               
                                 loginProvider.login(
                                     context,
                                     userEmailController.text.toString().trim(),
@@ -192,23 +145,23 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 4 / 100,
                         ),
-                        Container(
-                          child: Text("Dont have account yet?"),
-                        ),
-                        Container(
-                          child: TextButton(
-                              onPressed: () {
-                                print("sigh_up_screen");
-                                //SignUpScreenForAll
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => SignUpScreenForAll(),
-                                //     ));
-                              },
-                              child: Text(Applanguage
-                                  .signupButtonText[Applanguage.language])),
-                        ),
+                        // Container(
+                        //   child: Text("Dont have account yet?"),
+                        // ),
+                        // Container(
+                        //   child: TextButton(
+                        //       onPressed: () {
+                        //         print("sigh_up_screen");
+                        //         //SignUpScreenForAll
+                        //         // Navigator.push(
+                        //         //     context,
+                        //         //     MaterialPageRoute(
+                        //         //       builder: (context) => SignUpScreenForAll(),
+                        //         //     ));
+                        //       },
+                        //       child: Text(Applanguage
+                        //           .signupButtonText[Applanguage.language])),
+                        // ),
                       ],
                     ),
                   )

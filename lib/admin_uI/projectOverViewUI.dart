@@ -150,7 +150,51 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              2 /
+                                              1 /
+                                              100,
+                                        ),
+                                        Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                   showDialog(context: context, builder: (context) => SimpleDialog(
+                                                    children: [
+                                                      TextField(
+                                                    
+                                                        onChanged:(value) {
+                                                          
+                                                        },
+                                                      )
+                                                    ],
+                                                   ),);
+                                                  print("Edit");
+                                                },
+                                                child: Icon(Icons.edit),
+                                              ),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    8 /
+                                                    100,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  print("Delete");
+                                                },
+                                                child: Icon(Icons.delete),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              1 /
                                               100,
                                         ),
                                         Container(
@@ -208,54 +252,6 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                     ),
                   ),
                 ),
-
-          /// ending------------------------------------------
-
-          // Center(
-          //   child: Container(
-          //     height: MediaQuery.of(context).size.height * 30 / 100,
-          //     width: MediaQuery.of(context).size.width * 90 / 100,
-          //     decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.all(Radius.circular(20)),
-          //         color: const Color.fromRGBO(255, 250, 250, 1)),
-          //     child: StreamBuilder<List<ProjectModel>>(
-          //         stream: overViewProvider.getLoadProject(),
-          //         builder: (context, snapshot) {
-          //           if (snapshot.connectionState == ConnectionState.waiting) {
-          //             return CircularProgressIndicator();
-          //           }
-          //           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          //             return Text("No_Project_yet");
-          //           }
-
-          //           var user = snapshot.data!;
-          //           return ListView.builder(
-
-          //             itemCount: user.length,
-          //             itemBuilder: (context, index) {
-          //               final proj = user[index];
-
-          //               return Container(
-          //                 height: MediaQuery.of(context).size.height * 6 / 100,
-          //                 width: MediaQuery.of(context).size.width * 9 / 100,
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(10),
-          //                  // color: const Color.fromARGB(255, 221, 187, 138),
-          //                 ),
-          //                 child: Card(
-          //                   child: Column(
-          //                     children: [
-          //                       Text("${proj.projectName}"),
-
-          //                     ],
-          //                   ),
-          //                 ),
-          //               );
-          //             },
-          //           );
-          //         }),
-          //   ),
-          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -272,6 +268,28 @@ class _CreateProjectPageState extends State<ProjectOverView> {
           child: Icon(Icons.add)),
       bottomNavigationBar: AppFooterUi(
           notificationCount: 0, selectMenu: ButtomMenu.ProjectOverView),
+    );
+  }
+
+  _buildDialog() {
+    return AlertDialog(
+      title: Text('Welcome'),
+      // Message which will be pop up on the screen
+      content: Text('GeeksforGeeks'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('CANCEL'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('ACCEPT'),
+        ),
+      ],
     );
   }
 }

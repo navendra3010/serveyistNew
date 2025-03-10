@@ -20,11 +20,11 @@ class AdminDashboardPage extends StatefulWidget {
 
 class _AdminDashboardPageState extends State<AdminDashboardPage> {
   @override
-  void initState() {
-    super.initState();
-    // Provider.of<Adminhomeprovider>(context, listen: false)
-    //     .fetchAllLoginDetails();
-  }
+  // void initState() {
+  //   super.initState();
+  //   // Provider.of<Adminhomeprovider>(context, listen: false)
+  //   //     .fetchAllLoginDetails();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +141,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         final login_time = data['login_time'] ?? 'no data';
                         List<dynamic> loc = data["location"] ?? [];
                         String add = loc[0]["address"];
-                        String addtrim = add.substring(5, 15);
+                       // String addtrim = add.substring(5, 15);
                         int len = (users.length);
 
                         String calculateWorkingHour(
@@ -238,7 +238,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                               fontWeight: FontWeight.w500),
                                         ),
                                         Text(
-                                          "${addtrim}",
+                                          "${add}",
                                           style: TextStyle(
                                               fontSize: 10,
                                               color: Colors.black,

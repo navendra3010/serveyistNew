@@ -36,6 +36,19 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 1 / 100,
                         ),
+                         SizedBox(
+                height: MediaQuery.of(context).size.height * 1 / 100,
+              ),
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 10 / 100,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(Appimage.SplashScreen),
+                      ),
+                      shape: BoxShape.circle),
+                ),
+              ),
                         Center(
                             child: Card(
                           child: Text(
@@ -47,43 +60,43 @@ class AdminProfilePage extends StatelessWidget {
                           ),
                         )),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 5 / 100,
+                          height: MediaQuery.of(context).size.height * 1 / 100,
                         ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: MediaQuery.of(context).size.height *
-                                    6 /
-                                    100,
-                                width: MediaQuery.of(context).size.width *
-                                    20 /
-                                    100,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(Appimage.profileImage),
-                                      fit: BoxFit.fill,
-                                    )),
-                              ),
-                              Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Card(child: Icon(Icons.delete)),
-                                    Card(
-                                      child: Icon(Icons.upload),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       // Container(
+                        //       //   height: MediaQuery.of(context).size.height *
+                        //       //       6 /
+                        //       //       100,
+                        //       //   width: MediaQuery.of(context).size.width *
+                        //       //       20 /
+                        //       //       100,
+                        //       //   decoration: BoxDecoration(
+                        //       //       shape: BoxShape.circle,
+                        //       //       image: DecorationImage(
+                        //       //         image: AssetImage(Appimage.profileImage),
+                        //       //         fit: BoxFit.fill,
+                        //       //       )),
+                        //       // ),
+                        //       // Container(
+                        //       //   child: Row(
+                        //       //     mainAxisAlignment:
+                        //       //         MainAxisAlignment.spaceAround,
+                        //       //     children: [
+                        //       //       Card(child: Icon(Icons.delete)),
+                        //       //       Card(
+                        //       //         child: Icon(Icons.upload),
+                        //       //       ),
+                        //       //     ],
+                        //       //   ),
+                        //       // ),
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 5 / 100,
+                          height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
                         Container(
                           height: 0.5,

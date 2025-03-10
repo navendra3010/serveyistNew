@@ -25,7 +25,6 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => LoginProviderForUser()),
       ChangeNotifierProvider(create: (context) => LocationProviderr()),
-    
       ChangeNotifierProvider(create: (context) => Accountcreate()),
       ChangeNotifierProvider(create: (context) => CommanProviderForUser()),
       ChangeNotifierProvider(create: (context) => CommanproviderAdmin()),

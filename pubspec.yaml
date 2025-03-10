@@ -51,6 +51,7 @@ dependencies:
   excel: ^4.0.6
   firebase_storage: ^12.4.3
   percent_indicator: ^4.2.4
+  connectivity_plus: ^6.1.3
   
   
   

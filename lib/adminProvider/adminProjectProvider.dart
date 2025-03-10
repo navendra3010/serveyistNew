@@ -2,9 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -24,7 +21,7 @@ class Projectprovider extends ChangeNotifier {
 
   DateTime endDate = DateTime.now();
   bool isShowItem = false;
-
+// this function select project date whem will admin create new project.....................
   Future selectprojectStartDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
         context: context,
@@ -37,6 +34,7 @@ class Projectprovider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  // this function select  end date of project date whem will admin create new project.....................
 
   Future selectprojectEndDate(BuildContext context) async {
     DateTime? end = await showDatePicker(
@@ -51,6 +49,7 @@ class Projectprovider extends ChangeNotifier {
     }
   }
 
+// this funcation convert into  a specific formate.................................
   String formate(DateTime date) {
     return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
@@ -71,14 +70,19 @@ class Projectprovider extends ChangeNotifier {
     } else if (obj.projectDiscription == "" || obj.projectDiscription == null) {
       ShowTaostMessage.toastMessage(context, "Enter_Project_Descriptions");
     } else {
-      loadUser = true;
-      notifyListeners();
-      // print(obj.toJson());
-      fireser.createProject(obj.toJson());
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ProjectOverView()),
-      );
+      try {
+        loadUser = true;
+        notifyListeners();
+        // print(obj.toJson());
+        //here  with the help of model classs new project will be created.........................
+        fireser.createProject(obj.toJson());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProjectOverView()),
+        );
+      } catch (e) {
+        print("${e}");
+      }
     }
   }
 
@@ -269,6 +273,4 @@ class Projectprovider extends ChangeNotifier {
   void update() {
     notifyListeners();
   }
-
- 
 }

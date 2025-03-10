@@ -42,16 +42,16 @@ class _CreateNewUsState extends State<CreateNewUs> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+               SizedBox(
+                height: MediaQuery.of(context).size.height * 5 / 100,
+              ),
               Center(
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 5 / 100,
-                  width: MediaQuery.of(context).size.width * 100 / 100,
-                  // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
+                  height: MediaQuery.of(context).size.height * 10 / 100,
                   decoration: BoxDecoration(
-                      // color: const Color.fromARGB(255, 228, 153, 41),
                       image: DecorationImage(
-                          image: AssetImage(Appimage.SplashScreen),
-                          fit: BoxFit.fill),
+                        image: AssetImage(Appimage.SplashScreen),
+                      ),
                       shape: BoxShape.circle),
                 ),
               ),
@@ -353,7 +353,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                             crateLoginPassword.text.toString().trim();
                         obj.isAdmin = true;
                         createProvider.userNewAccount(obj, context);
-          
+
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(builder: (context) => AdminDashboardPage()),
