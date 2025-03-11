@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -271,6 +272,112 @@ class Projectprovider extends ChangeNotifier {
   }
 
   void update() {
+    notifyListeners();
+  }
+
+//date 11-3-2025
+//this provider function update the project name only admin side.
+  void showEditDialogBox(
+      projectId, docId, BuildContext context, String? projectName) {
+    TextEditingController updateController =
+        TextEditingController(text: projectName);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Edit project name"),
+          content: TextField(
+            controller: updateController,
+            decoration: InputDecoration(hintText: "Enter new project  name"),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.pop(context), child: Text("cancel")),
+            TextButton(
+                onPressed: () async {
+                  try {
+                    if (updateController.text.trim().isNotEmpty) {
+                      final update = FirebaseFirestore.instance
+                          .collection("Project")
+                          .doc(docId)
+                          .collection("P_Name")
+                          .doc(projectId)
+                          .update(
+                              {"projectName": updateController.text.trim()});
+                    }
+                    ShowTaostMessage.toastMessage(
+                        context, " project Update successfuly");
+                    Navigator.pop(context);
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text("update"))
+          ],
+        );
+      },
+    );
+
+    notifyListeners();
+  }
+
+  //date 11-3-2025.......................................
+  // this funcation delete the project
+  void deleteProject(BuildContext context, docId, projectId) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Delete project"),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  final delete = await FirebaseFirestore.instance
+                      .collection("Project")
+                      .doc(docId)
+                      .collection("P_Name")
+                      .doc(projectId)
+                      .collection("task")
+                      .get();
+                  for (var delete in delete.docs) {
+                    FirebaseFirestore.instance
+                        .collection("task")
+                        .doc(delete.id)
+                        .delete();
+                  }
+                  FirebaseFirestore.instance
+                      .collection("Project")
+                      .doc(docId)
+                      .delete();
+                  ShowTaostMessage.toastMessage(
+                      context, " project Deleted successfuly");
+                  Navigator.pop(context);
+                },
+                child: Text("Delete")),
+            TextButton(
+                onPressed: () => Navigator.pop(context), child: Text("cancel")),
+          ],
+        );
+      },
+    );
+  }
+
+  //date 11-3-2025
+  bool isShowTeam = false;
+
+  void showAndHideTeam() {
+    isShowTeam = !isShowTeam;
+    // if(isShowItem==true)
+    // {
+    //   changeText="view Team";
+    //  notifyListeners();
+    // }
+    // else  if(isShowTeam==false){
+    //   changeText="Hide Team";
+    // notifyListeners();
+    // }
+    print(isShowTeam);
     notifyListeners();
   }
 }

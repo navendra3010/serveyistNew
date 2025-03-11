@@ -23,65 +23,7 @@ class UserDashBoardScreen extends StatefulWidget {
 }
 
 class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
-  List<dynamic> taskList = <dynamic>[
-    {
-      "TaskName": "complete all measurment and submit distance with elecation",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "status": "pending",
-      "time": "9.40"
-    },
-    {
-      "TaskName": "Complete Map",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "status": "pending",
-      "time": "9.40"
-    },
-    {
-      "TaskName": "Complete  Excel sheet",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "status": "pending",
-      "time": "9.40"
-    },
-    {
-      "TaskName": "submit Distance",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "status": "pending",
-      "time": "9.40"
-    },
-    {
-      "TaskName": "Complete Metrow work",
-      "TaskAssignDate": "1-12-2024",
-      "tasksdueDate": "12-12-2014",
-      "status": "pending",
-      "time": "9.40"
-    },
-  ];
-//   Timer? _rootTimer;
-
-//   @override
-//  void initState()
-//  {
-//   super.initState();
-//   getPrin();
-//  }
-//   void getPrin()
-//   {
-
-//     const time=const Duration(seconds:1);
-//     _rootTimer=Timer(time,(){
-//       printHello();
-//     });
-
-//   }
-
-  // void printHello()
-  // {
-  //   print("hello");
-  // }
+  
   @override
   void initState() {
     super.initState();

@@ -160,17 +160,11 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                             children: [
                                               InkWell(
                                                 onTap: () {
-                                                   showDialog(context: context, builder: (context) => SimpleDialog(
-                                                    children: [
-                                                      TextField(
-                                                    
-                                                        onChanged:(value) {
-                                                          
-                                                        },
-                                                      )
-                                                    ],
-                                                   ),);
-                                                  print("Edit");
+                                                
+                                                  overViewProvider
+                                                      .showEditDialogBox(projectId,docId,
+                                                          context,project.projectName);
+                                                 
                                                 },
                                                 child: Icon(Icons.edit),
                                               ),
@@ -183,6 +177,8 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                               ),
                                               InkWell(
                                                 onTap: () {
+
+                                                  overViewProvider.deleteProject(context,docId,projectId);
                                                   print("Delete");
                                                 },
                                                 child: Icon(Icons.delete),
@@ -268,28 +264,6 @@ class _CreateProjectPageState extends State<ProjectOverView> {
           child: Icon(Icons.add)),
       bottomNavigationBar: AppFooterUi(
           notificationCount: 0, selectMenu: ButtomMenu.ProjectOverView),
-    );
-  }
-
-  _buildDialog() {
-    return AlertDialog(
-      title: Text('Welcome'),
-      // Message which will be pop up on the screen
-      content: Text('GeeksforGeeks'),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('CANCEL'),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('ACCEPT'),
-        ),
-      ],
     );
   }
 }

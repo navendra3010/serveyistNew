@@ -32,8 +32,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
   @override
   Widget build(BuildContext context) {
     final pdprovider = Provider.of<Projectprovider>(context).selectedProject;
-    final thisPageProvider =
-        Provider.of<Projectprovider>(context, listen: false);
+    final thisPageProvider = Provider.of<Projectprovider>(context);
 
     if (pdprovider == null) {
       return Scaffold(
@@ -43,6 +42,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
       );
     }
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -50,118 +50,109 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 5 / 100,
-              ),
-              Container(
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back)),
-              ),
               Container(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
-                        child: Text(
-                          "${pdprovider.projectName}",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w600),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 4 / 100,
+                        width: MediaQuery.of(context).size.width * 100 / 100,
+                        decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Center(
+                          child: Text(
+                            "${pdprovider.projectName}",
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Icon(Icons.location_pin),
-                            SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 5 / 100,
-                            ),
-                            Text("${pdprovider.projectLocation}"),
-                          ],
-                        ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 1 / 100,
+                      ),
+                      Row(
+                        children: [
+                          Icon(Icons.location_pin),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 5 / 100,
+                          ),
+                          Text("${pdprovider.projectLocation}"),
+                        ],
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 2 / 100,
                       ),
-                      Container(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Description",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.green)),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    1 /
-                                    100,
-                              ),
-                              Text(
-                                "${pdprovider.projectDiscription}",
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Description",
                                 style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w500),
-                              ),
-                            ]),
-                      ),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.green)),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 1 / 100,
+                            ),
+                            Text(
+                              "${pdprovider.projectDiscription}",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w500),
+                            ),
+                          ]),
                     ]),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 1 / 100,
               ),
               TextButton(
-                onPressed: () {},
-                child: Text("View_Team",
+                onPressed: () {
+                  thisPageProvider.showAndHideTeam();
+                },
+                child: Text(
+                    "${thisPageProvider.isShowTeam == false ? "View_team" : "Hide_ Team"}",
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: Colors.green)),
               ),
-              // view team member.......................................
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 1 / 100,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.3 / 100,
-                width: MediaQuery.of(context).size.width * 100 / 100,
-                color: const Color.fromARGB(255, 218, 217, 216),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 1 / 100,
-              ),
-              SizedBox(
-                height: 50,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: pdprovider.team!.length,
-                    itemBuilder: (context, index) {
-                      List<Map<String, dynamic>>? team = pdprovider.team;
-                      final user = team![index];
+              thisPageProvider.isShowTeam == true
+                  ? SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: pdprovider.team!.length,
+                          itemBuilder: (context, index) {
+                            List<Map<String, dynamic>>? team = pdprovider.team;
+                            final user = team![index];
 
-                      return Column(
-                        children: [
-                          Container(
-                              height:
-                                  MediaQuery.of(context).size.height * 5 / 100,
-                              width:
-                                  MediaQuery.of(context).size.width * 20 / 100,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  color:
-                                      const Color.fromARGB(255, 221, 209, 209)),
-                              child: Center(child: Text(user["name"]))),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 25 / 100,
-                          ),
-                        ],
-                      );
-                    }),
-              ),
+                            return Column(
+                              children: [
+                                Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        5 /
+                                        100,
+                                    width: MediaQuery.of(context).size.width *
+                                        20 /
+                                        100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        color: const Color.fromARGB(
+                                            255, 221, 209, 209)),
+                                    child: Center(child: Text(user["name"]))),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      25 /
+                                      100,
+                                ),
+                              ],
+                            );
+                          }),
+                    )
+                  : SizedBox(),
               Container(
                 height: MediaQuery.of(context).size.height * 0.3 / 100,
                 width: MediaQuery.of(context).size.width * 100 / 100,
