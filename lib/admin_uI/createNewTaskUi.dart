@@ -41,7 +41,8 @@ class MycreateUi extends State<Createnewtask> {
 
   @override
   Widget build(BuildContext context) {
-    final newTaskProvider = Provider.of<Projectprovider>(context);
+    final newTaskProvider =
+        Provider.of<Projectprovider>(context, listen: false);
 
     return GestureDetector(
       onTap: () {
@@ -99,6 +100,9 @@ class MycreateUi extends State<Createnewtask> {
                   width: 125.0,
                   child: TextButton(
                     onPressed: () {
+                      // Consumer<Projectprovider>(builder: (context, newTaskProvider, child) {
+                      //   return selectprojectStartDate(context);
+                      // },);
                       newTaskProvider.selectprojectStartDate(context);
                     },
                     child: Column(
@@ -174,36 +178,40 @@ class MycreateUi extends State<Createnewtask> {
                 ),
               ),
             ),
-            Container(
-              child: Column(
-                children: [
-                  DropdownButton<String>(
-                      value: newTaskProvider.selectedTaskType,
-                      hint: Text("select_task_type"),
-                      items: taskType.map((type) {
-                        return DropdownMenuItem(value: type, child: Text(type));
-                      }).toList(),
-                      onChanged: (value) =>
-                          newTaskProvider.setTaskType(value!)),
-                  ElevatedButton(
-                      onPressed: () {
-                        newTaskProvider.selectedTaskType == null
-                            ? Center(
-                                child: ShowTaostMessage.toastMessage(
-                                    context, "Select_Task_File"))
-                            : newTaskProvider.pickFile();
-                      },
-                      child: Text("Select_files")),
-                  if (newTaskProvider.selectedFile != null)
-                    Text(newTaskProvider.selectedFile != null
-                        ? "SelectTed file are${newTaskProvider.selectedFile!.path.split('/').last}"
-                        : "no file selected"),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 2 / 100,
-                  ),
-                ],
-              ),
-            ),
+            Consumer<Projectprovider>(
+                builder: (context, newTaskProvider, child) {
+              return Container(
+                child: Column(
+                  children: [
+                    DropdownButton<String>(
+                        value: newTaskProvider.selectedTaskType,
+                        hint: Text("select_task_type"),
+                        items: taskType.map((type) {
+                          return DropdownMenuItem(
+                              value: type, child: Text(type));
+                        }).toList(),
+                        onChanged: (value) =>
+                            newTaskProvider.setTaskType(value!)),
+                    ElevatedButton(
+                        onPressed: () {
+                          newTaskProvider.selectedTaskType == null
+                              ? Center(
+                                  child: ShowTaostMessage.toastMessage(
+                                      context, "Select_Task_File"))
+                              : newTaskProvider.pickFile();
+                        },
+                        child: Text("Select_files")),
+                    if (newTaskProvider.selectedFile != null)
+                      Text(newTaskProvider.selectedFile != null
+                          ? "SelectTed file are${newTaskProvider.selectedFile!.path.split('/').last}"
+                          : "no file selected"),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 2 / 100,
+                    ),
+                  ],
+                ),
+              );
+            }),
 
             SizedBox(
               height: MediaQuery.of(context).size.height * 2 / 100,
@@ -211,30 +219,33 @@ class MycreateUi extends State<Createnewtask> {
 
             Container(
               child: Column(children: [
-                newTaskProvider.teamList.isEmpty
-                    ? Center(child: CircularProgressIndicator())
-                    : Column(
-                        children: [
-                          DropdownButton<String>(
-                            hint: Text("Select User"),
-                            value: selectedUserId,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedUserId = newValue;
-                              });
-                            },
-                            items: newTaskProvider.teamList
-                                .map<DropdownMenuItem<String>>((user) {
-                              return DropdownMenuItem<String>(
-                                value: user["userId"],
-                                child: Text(user["name"]),
-                              );
-                            }).toList(),
-                          ),
-                          if (selectedUserId != null)
-                            Text("Selected User ID: $selectedUserId"),
-                        ],
-                      ),
+                Consumer<Projectprovider>(
+                    builder: (context, newTaskProvider, child) {
+                  return newTaskProvider.teamList.isEmpty
+                      ? Center(child: CircularProgressIndicator())
+                      : Column(
+                          children: [
+                            DropdownButton<String>(
+                              hint: Text("Select User"),
+                              value: selectedUserId,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedUserId = newValue;
+                                });
+                              },
+                              items: newTaskProvider.teamList
+                                  .map<DropdownMenuItem<String>>((user) {
+                                return DropdownMenuItem<String>(
+                                  value: user["userId"],
+                                  child: Text(user["name"]),
+                                );
+                              }).toList(),
+                            ),
+                            if (selectedUserId != null)
+                              Text("Selected User ID: $selectedUserId"),
+                          ],
+                        );
+                })
               ]),
             ),
 
@@ -247,11 +258,15 @@ class MycreateUi extends State<Createnewtask> {
                     taskDescription.text,
                     dateFormate(newTaskProvider.dateStartcontroller.text),
                     dateFormate(newTaskProvider.dateEndcontroller.text),
-                    selectedUserId,widget.projectId,widget.documentId);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProjectOverView(),));
-
+                    selectedUserId,
+                    widget.projectId,
+                    widget.documentId);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProjectOverView(),
+                    ));
               },
-              
             )
           ],
         ),

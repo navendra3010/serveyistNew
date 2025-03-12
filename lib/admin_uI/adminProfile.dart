@@ -12,7 +12,7 @@ class AdminProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final adminProviderProfile = Provider.of<CommanproviderAdmin>(context);
+    final adminProviderProfile = Provider.of<CommanproviderAdmin>(context,listen: false);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(8),

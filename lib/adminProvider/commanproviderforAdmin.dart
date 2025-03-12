@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/UI_for_all/loginUI.dart';
 import 'package:surveyist/adminModel/allUsersModel.dart';
@@ -31,13 +32,21 @@ Future<Userprofilemodel?> getAdminInfo() async {
 
 
 
-// all users yet login per day -------------------------------------------------------------------------------------
+
   Stream<List<ViewAllUsers>> get allUsersStream {
     return frstr.getAllUsers();
   }
+// all users yet login per day -------------------------------------------------------------------------------------
+DateTime now=DateTime.now();
+String? dateKey;
+notifyListeners();
 
-  Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser() {
-    return frstr.getAllLoginUser();
+
+
+
+  Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser(String s) {
+      //dateKey = DateFormat('dd-MM-yyyy').format(now);
+    return frstr.getAllLoginUser(s);
   }
 
   // admin logout------------------------------------------------------------------------------------
@@ -88,4 +97,31 @@ Future<Userprofilemodel?> getAdminInfo() async {
     selecNumber=value;
     notifyListeners();
    }
+
+
+
+     //date 12-3-2025..........................................................
+  // this function select date for filtering  login record any time.....................................
+
+  String? selectPickedDate;
+  DateTime selectDate = DateTime.now();
+  TextEditingController selectfilterDateController = TextEditingController();
+  
+  void selectDateforLoginFiltering(BuildContext context) async {
+    DateTime? select = await showDatePicker(
+        initialDate: DateTime.now(),
+        context: context,
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2030));
+
+    if (select != null) {
+      selectfilterDateController.text = formateDate(select);
+    }
+     notifyListeners();
+  }
+
+  String formateDate(DateTime date) {
+    //return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+     return "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+  }
 }

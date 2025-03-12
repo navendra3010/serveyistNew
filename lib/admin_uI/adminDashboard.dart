@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 
 import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
 import 'package:surveyist/admin_uI/createNewUsersUi.dart';
@@ -20,20 +21,10 @@ class AdminDashboardPage extends StatefulWidget {
 
 class _AdminDashboardPageState extends State<AdminDashboardPage> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   // Provider.of<Adminhomeprovider>(context, listen: false)
-  //   //     .fetchAllLoginDetails();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // final providerHome = Provider.of<Adminhomeprovider>(context);
-    // final loginUpdateProvider =
-    //     Provider.of<AllOpeationAndUpdate>(context, listen: false);
-    final commanproviderAdmin = Provider.of<CommanproviderAdmin>(context);
-
-    // var user_iddoc = providerHome.loginRecordList;
+    final commanprovide =
+        Provider.of<CommanproviderAdmin>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -54,7 +45,11 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
               child: TextButton(
                   onPressed: () {
                     //  loginpro.userLogOut();
-                    commanproviderAdmin.adminLogOut(context);
+
+                    // Consumer<CommanproviderAdmin>(builder:(context,commanproviderAdmin,child){
+                    //   return
+                    // },);
+                    commanprovide.adminLogOut(context);
                   },
                   child: Center(child: Text("Log_out"))),
             ),
@@ -104,183 +99,155 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                     "Active users",
                     style: CustomText.nameOfTextStyle,
                   ),
+                  InkWell(
+                      onTap: () {
+                        commanprovide.selectDateforLoginFiltering(context);
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Icon(Icons.calendar_month),
+                            ),
+                            Text("Select Date"),
+                          ],
+                        ),
+                      )),
+                  Flexible(
+                    child: SizedBox(
+                      width: 80.0, // Fixed width
+                      height: 40.0, // Fixed height
+                      child: TextField(
+                          controller: commanprovide.selectfilterDateController),
+                    ),
+                  ),
+                  // TextButton(
+                  //     onPressed: () {
+                  //       commanproviderAdmin.dateKey = commanproviderAdmin
+                  //           .selectfilterDateController.text
+                  //           .trim();
+                  //     },
+                  //     child: Text("Search"))
                 ],
               ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
+            Consumer<CommanproviderAdmin>(
+                builder: (context, commanprovide, child) {
+              return StreamBuilder<List<QuerySnapshot<Map<String, dynamic>>>>(
+                  stream: commanprovide.allLoginUser(commanprovide.dateKey =
+                      commanprovide.selectfilterDateController.text.trim()),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Center(
+                        child: Text("no user Found"),
+                      );
+                    }
+                    var users = snapshot.data!
+                        .expand((QuerySnapshot) => QuerySnapshot.docs)
+                        .toList();
+                    if (users.isEmpty) {
+                      return Center(
+                        child: Text(("no login found yet")),
+                      );
+                    }
+                    // final userIdd=users.keys.toList();
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: users.length,
+                        itemBuilder: (context, index) {
+                          final data = users[index].data();
+                          final login_time = data['login_time'] ?? 'no data';
+                          List<dynamic> loc = data["location"] ?? [];
+                          String add = loc[0]["address"];
+                          String addtrim = add.substring(5, 15);
+                          int len = (users.length);
 
-            StreamBuilder<List<QuerySnapshot<Map<String, dynamic>>>>(
-                stream: commanproviderAdmin.allLoginUser(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(
-                      child: Text("no user Found"),
-                    );
-                  }
-                  var users = snapshot.data!
-                      .expand((QuerySnapshot) => QuerySnapshot.docs)
-                      .toList();
-                  if (users.isEmpty) {
-                    return Center(
-                      child: Text(("no login found yet")),
-                    );
-                  }
-                  // final userIdd=users.keys.toList();
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: users.length,
-                      itemBuilder: (context, index) {
-                        final data = users[index].data();
-                        final login_time = data['login_time'] ?? 'no data';
-                        List<dynamic> loc = data["location"] ?? [];
-                        String add = loc[0]["address"];
-                       // String addtrim = add.substring(5, 15);
-                        int len = (users.length);
+                          String calculateWorkingHour(
+                              String? logTime, String? outTime) {
+                            if (logTime == null || outTime == null) {
+                              return "invalid";
+                            }
+                            String? login = logTime.trim();
+                            String logut = outTime.trim();
+                            DateFormat format = DateFormat("hh:mm:ss a");
 
-                        String calculateWorkingHour(
-                            String? logTime, String? outTime) {
-                          if (logTime == null || outTime == null) {
-                            return "invalid";
+                            // var convertFormate=format.format(DateTime.now());
+
+                            DateTime loginTime = format.parse(login);
+                            DateTime logOutTime = format.parse(logut);
+                            Duration difference =
+                                logOutTime.difference(loginTime);
+                            int hour = difference.inHours;
+                            int minutes = difference.inMinutes.remainder(60);
+                            int seconds = difference.inSeconds.remainder(60);
+                            // print("total working hour${hour}-${minutes}-${seconds}");
+                            return "${hour}H-${minutes}M-${seconds}S";
                           }
-                          String? login = logTime.trim();
-                          String logut = outTime.trim();
-                          DateFormat format = DateFormat("hh:mm:ss a");
 
-                          // var convertFormate=format.format(DateTime.now());
+                          return Container(
+                            height:
+                                MediaQuery.of(context).size.height * 9 / 100,
+                            width: MediaQuery.of(context).size.width * 9 / 100,
+                            decoration: BoxDecoration(
 
-                          DateTime loginTime = format.parse(login);
-                          DateTime logOutTime = format.parse(logut);
-                          Duration difference =
-                              logOutTime.difference(loginTime);
-                          int hour = difference.inHours;
-                          int minutes = difference.inMinutes.remainder(60);
-                          int seconds = difference.inSeconds.remainder(60);
-                          // print("total working hour${hour}-${minutes}-${seconds}");
-                          return "${hour}H-${minutes}M-${seconds}S";
-                        }
+                                // color: Colors.amber
 
-                        return Container(
-                          height: MediaQuery.of(context).size.height * 9 / 100,
-                          width: MediaQuery.of(context).size.width * 9 / 100,
-                          decoration: BoxDecoration(
-
-                              // color: Colors.amber
-
-                              ),
-                          child: Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  // crossAxisAlignment:CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${data['full_name']}",
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          5 /
-                                          100,
-                                    ),
-                                    Text(
-                                      "${data['employeId']}",
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    //starting-----------------------
-                                    Column(
-                                      children: [
-                                        Text(
-                                          "Login_Time",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "${data["Login_time"]}",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    //ending---------------------------
-                                    Column(
-                                      children: [
-                                        Text(
-                                          "Location",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "${add}",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          "Working_hour",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "${calculateWorkingHour(data["Login_time"], data["LogOut_time"])}",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    Card(
-                                      shape: LinearBorder(),
-                                      //color: data["LogOut_status"]==true?Colors.red:Colors.green,
-                                      child: Column(
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    // crossAxisAlignment:CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${data['full_name']}",
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                5 /
+                                                100,
+                                      ),
+                                      Text(
+                                        "${data['employeId']}",
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      //starting-----------------------
+                                      Column(
                                         children: [
                                           Text(
-                                            "LogOut_Time",
+                                            "Login_Time",
                                             style: TextStyle(
                                                 fontSize: 10,
-                                                color: data["LogOut_status"] ==
-                                                        true
-                                                    ? Colors.red
-                                                    : Colors.green,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Text(
-                                            "${data["LogOut_time"]}",
+                                            "${data["Login_time"]}",
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.black,
@@ -288,17 +255,80 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      //ending---------------------------
+                                      Column(
+                                        children: [
+                                          Text(
+                                            "Location",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "${addtrim}",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            "Working_hour",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "${calculateWorkingHour(data["Login_time"], data["LogOut_time"])}",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                      Card(
+                                        shape: LinearBorder(),
+                                        //color: data["LogOut_status"]==true?Colors.red:Colors.green,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "LogOut_Time",
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      data["LogOut_status"] ==
+                                                              true
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Text(
+                                              "${data["LogOut_time"]}",
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }),
+                          );
+                        },
+                      ),
+                    );
+                  });
+            })
 
 //------------------------ending login details fatch
           ],

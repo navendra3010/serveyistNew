@@ -31,8 +31,8 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
 
   @override
   Widget build(BuildContext context) {
-    final pdprovider = Provider.of<Projectprovider>(context).selectedProject;
-    final thisPageProvider = Provider.of<Projectprovider>(context);
+    final pdprovider = Provider.of<Projectprovider>(context,listen: false).selectedProject;
+    final thisPageProvider = Provider.of<Projectprovider>(context,listen: false);
 
     if (pdprovider == null) {
       return Scaffold(

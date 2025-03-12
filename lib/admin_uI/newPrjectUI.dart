@@ -102,7 +102,7 @@ class _MyNewProjectUI extends State<Newproject> {
                   ],
                 ),
                 //end-------------------------------------------------------------
-            
+
                 //start date select--------------------------------------------
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -220,7 +220,7 @@ class _MyNewProjectUI extends State<Newproject> {
                               ConnectionState.waiting) {
                             return CircularProgressIndicator(); // Loading indicator
                           }
-            
+
                           if (snapshot.hasError) {
                             return Text("Error: ${snapshot.error}");
                           }
@@ -242,8 +242,8 @@ class _MyNewProjectUI extends State<Newproject> {
                                           2.0), // Optional margin for spacing
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color:
-                                        const Color.fromARGB(255, 221, 187, 138),
+                                    color: const Color.fromARGB(
+                                        255, 221, 187, 138),
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment
@@ -258,11 +258,11 @@ class _MyNewProjectUI extends State<Newproject> {
                           );
                         },
                       ),
-            
+
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.5 / 100,
                 ),
-            
+
                 Center(
                   child: Container(
                     height: MediaQuery.of(context).size.height * 20 / 100,
@@ -273,7 +273,8 @@ class _MyNewProjectUI extends State<Newproject> {
                     child: StreamBuilder<List<Map<String, dynamic>>>(
                       stream: newProject.teamUser(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return CircularProgressIndicator();
                         }
                         if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -299,8 +300,8 @@ class _MyNewProjectUI extends State<Newproject> {
                                   value: newProject.selectUserIdForTeam
                                       .any((us) => us["userId"] == userId),
                                   onChanged: (bool? selected) {
-                                    newProject.toggleUserId(
-                                        userId, us["full_name"], us["employeId"]);
+                                    newProject.toggleUserId(userId,
+                                        us["full_name"], us["employeId"]);
                                   },
                                 );
                               },
@@ -312,7 +313,7 @@ class _MyNewProjectUI extends State<Newproject> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 5 / 100,
                 ),
-            
+
                 newProject.loadUser == true
                     ? CircularProgressIndicator()
                     : Container(
@@ -322,7 +323,7 @@ class _MyNewProjectUI extends State<Newproject> {
                           onPressed: () {
                             // print(
                             //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
-            
+
                             ProjectModel pm = ProjectModel();
                             pm.projectName = projectNameController.text.trim();
                             pm.projectLocation =
@@ -331,12 +332,12 @@ class _MyNewProjectUI extends State<Newproject> {
                                 parseDate(newProject.dateStartcontroller.text);
                             pm.endDate =
                                 parseDate(newProject.dateEndcontroller.text);
-            
+
                             pm.projectDiscription =
                                 projectDiscriptionControlller.text.trim();
                             pm.team = newProject.selectUserIdForTeam;
-                            pm.progress=0;
-                            pm.totalTask=0;
+                            pm.progress = 0;
+                            pm.totalTask = 0;
                             newProject.addProjectProvider(pm, context);
                           },
                         ),

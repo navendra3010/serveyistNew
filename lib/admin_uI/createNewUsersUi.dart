@@ -34,7 +34,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
 
   @override
   Widget build(BuildContext context) {
-    final createProvider = Provider.of<Accountcreate>(context);
+    final createProvider = Provider.of<Accountcreate>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -42,7 +42,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-               SizedBox(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 5 / 100,
               ),
               Center(
@@ -333,33 +333,38 @@ class _CreateNewUsState extends State<CreateNewUs> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 4 / 100,
               ),
-              createProvider.isAccountCreate == true
-                  ? CircularProgressIndicator()
-                  : MyButton(
-                      text: "Create_Account",
-                      color: Colors.black,
-                      onPressed: () {
-                        UserAccount obj = UserAccount();
-                        obj.fullName = createFullName.text.toString().trim();
-                        obj.dob = createDataOfBirth.text.toString().trim();
-                        obj.gender = createGender.text.toString().trim();
-                        obj.email = createEmail.text.toString().trim();
-                        obj.address = createAddres.text.toString().trim();
-                        obj.employeId = createEmployeId.text.toString().trim();
-                        obj.mobileNumber =
-                            createPhoneNumber.text.toString().trim();
-                        obj.loginId = crateLoginID.text.toString().trim();
-                        obj.loginPassword =
-                            crateLoginPassword.text.toString().trim();
-                        obj.isAdmin = true;
-                        createProvider.userNewAccount(obj, context);
+              Consumer<Accountcreate>(
+                  builder: (context, createProvider, child) {
+                return createProvider.isAccountCreate == true
+                    ? CircularProgressIndicator()
+                    : MyButton(
+                        text: "Create_Account",
+                        color: Colors.black,
+                        onPressed: () {
+                          UserAccount obj = UserAccount();
+                          obj.fullName = createFullName.text.toString().trim();
+                          obj.dob = createDataOfBirth.text.toString().trim();
+                          obj.gender = createGender.text.toString().trim();
+                          obj.email = createEmail.text.toString().trim();
+                          obj.address = createAddres.text.toString().trim();
+                          obj.employeId =
+                              createEmployeId.text.toString().trim();
+                          obj.mobileNumber =
+                              createPhoneNumber.text.toString().trim();
+                          obj.loginId = crateLoginID.text.toString().trim();
+                          obj.loginPassword =
+                              crateLoginPassword.text.toString().trim();
+                          obj.isAdmin = true;
+                          createProvider.userNewAccount(obj, context);
+                        
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => AdminDashboardPage()),
-                        // );
-                      },
-                    )
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+                          // );
+                        },
+                      );
+              }),
             ],
           ),
         ),

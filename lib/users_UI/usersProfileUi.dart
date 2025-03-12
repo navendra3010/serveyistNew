@@ -72,14 +72,14 @@ class _UsersprofilePageState extends State<UsersprofilePage> {
                         Center(
                           child: Container(
                             height:
-                                MediaQuery.of(context).size.height * 6 / 100,
-                            width: MediaQuery.of(context).size.width * 20 / 100,
+                                MediaQuery.of(context).size.height * 10 / 100,
+                            width: MediaQuery.of(context).size.width * 30 / 100,
                             // child:Image.asset(Appimage.SplashScreen,fit:BoxFit.fill,),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: AssetImage(Appimage.profileImage),
-                                  fit: BoxFit.fill,
+                                  image: AssetImage(Appimage.SplashScreen),
+                                  //fit: BoxFit.fill,
                                 )),
                           ),
                         ),
