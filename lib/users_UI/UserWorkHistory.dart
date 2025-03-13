@@ -23,7 +23,7 @@ class _UserWorkHistoryState extends State<UserWorkHistory> {
 
   @override
   Widget build(BuildContext context) {
-    final historyProvider = Provider.of<UserProjectProviderClass>(context);
+    final historyProvider = Provider.of<UserProjectProviderClass>(context,listen: false);
 
     
     return Scaffold(

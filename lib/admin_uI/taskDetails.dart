@@ -24,12 +24,14 @@ class _TaskDetailsUiState extends State<TaskDetailsUi> {
     Provider.of<Projectprovider>(context, listen: false)
         .taskDetails(widget.projectID, widget.documentID, widget.taskID);
   }
+
   DateTime? now;
 
   @override
   Widget build(BuildContext context) {
     final taskdDetailProvider =
-        Provider.of<Projectprovider>(context).selectTaskModel;
+        Provider.of<Projectprovider>(context, listen: true).selectTaskModel;
+
     if (taskdDetailProvider == null) {
       return Scaffold(
         body: Center(
@@ -65,9 +67,9 @@ class _TaskDetailsUiState extends State<TaskDetailsUi> {
                           TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                     ),
                   ),
-                   SizedBox(
-              height: MediaQuery.of(context).size.height * 3 / 100,
-            ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 3 / 100,
+                  ),
                   Center(
                     child: Text("Description",
                         style: TextStyle(
@@ -75,9 +77,9 @@ class _TaskDetailsUiState extends State<TaskDetailsUi> {
                             fontWeight: FontWeight.w500,
                             color: Colors.green)),
                   ),
-                   SizedBox(
-              height: MediaQuery.of(context).size.height * 2 / 100,
-            ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 2 / 100,
+                  ),
                   Center(
                     child: Text(
                       "${taskdDetailProvider.taskDescription}",
@@ -103,8 +105,6 @@ class _TaskDetailsUiState extends State<TaskDetailsUi> {
                       ],
                     ),
                   ),
-                   
-
                 ],
               ),
             )

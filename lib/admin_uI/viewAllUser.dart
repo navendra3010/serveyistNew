@@ -17,89 +17,10 @@ class viewAllUserpage extends StatefulWidget {
 }
 
 class _viewAllUserpageState extends State<viewAllUserpage> {
-  var usersName = [
-    "sse1@gmail.com",
-    "sse2@gmail.com",
-    "sse3@gmail.com",
-    "sse4@gmail.com",
-    "sse5@gmail.com",
-    "sse6@gmail.com",
-    "sse7@gmail.com",
-    "sse8@gmail.com",
-    "sse9@gmail.com",
-    "sse1@gmail.com",
-    "sse2@gmail.com",
-    "sse3@gmail.com",
-    "sse4@gmail.com",
-    "sse5@gmail.com",
-    "sse6@gmail.com",
-    "sse7@gmail.com",
-    "sse8@gmail.com",
-    "sse9@gmail.com",
-    "sse1@gmail.com",
-    "sse2@gmail.com",
-    "sse3@gmail.com",
-    "sse4@gmail.com",
-    "sse5@gmail.com",
-    "sse6@gmail.com",
-    "sse7@gmail.com",
-    "sse8@gmail.com",
-    "sse9@gmail.com",
-  ];
-  @override
-  void initState() {
-    super.initState();
-    // getAlldocumentFromCollection
-    // Provider.of<Adminhomeprovider>(context, listen: false).getAllUsers();
-  }
-
-  // void _showAlertDialog(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //           title: Text("users Managment"),
-  //           content: Text('This is the alert content.'),
-  //           actions: <Widget>[
-  //             Container(
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                 children: [
-  //                   Card(
-  //                     color: Colors.black,
-  //                     child: Text(
-  //                       "Delete_user",
-  //                       style: TextStyle(
-  //                           color: Colors.white, fontWeight: FontWeight.w600),
-  //                     ),
-  //                   ),
-  //                   GestureDetector(
-  //                     onTap: () {
-  //                       Navigator.pushReplacement(
-  //                           context,
-  //                           MaterialPageRoute(
-  //                               builder: (context) =>
-  //                                   ViewUserDetailsOnlyadmin()));
-  //                     },
-  //                     child: Card(
-  //                       color: Colors.black,
-  //                       child: Text("User_Details",
-  //                           style: TextStyle(
-  //                               color: Colors.white,
-  //                               fontWeight: FontWeight.w600)),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             )
-  //           ]);
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    final adminCommanprovider = Provider.of<CommanproviderAdmin>(context);
+    final adminCommanprovider =
+        Provider.of<CommanproviderAdmin>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(5.0),
@@ -141,7 +62,6 @@ class _viewAllUserpageState extends State<viewAllUserpage> {
             ),
             StreamBuilder<List<ViewAllUsers?>>(
                 stream: adminCommanprovider.allUsersStream,
-             
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -167,13 +87,13 @@ class _viewAllUserpageState extends State<viewAllUserpage> {
                           width: MediaQuery.of(context).size.width * 9 / 100,
                           child: InkWell(
                             onTap: () {
-                             
-                              String? userId= user!.uniqueId;
+                              String? userId = user!.uniqueId;
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ViewUserDetailsOnlyadmin(userID:userId),
+                                        ViewUserDetailsOnlyadmin(
+                                            userID: userId),
                                   ));
                             },
                             child: Card(

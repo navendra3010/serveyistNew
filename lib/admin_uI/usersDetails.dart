@@ -48,8 +48,8 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
 
   @override
   Widget build(BuildContext context) {
-    final detailsProvider = Provider.of<Accountcreate>(context).model;
-    final operationProvider = Provider.of<Projectprovider>(context);
+    final detailsProvider = Provider.of<Accountcreate>(context,listen: true).model;
+    final operationProvider = Provider.of<Projectprovider>(context,listen: false);
     if (detailsProvider == null) {
       return Scaffold(
         body: Center(
@@ -82,9 +82,15 @@ class _ViewUserDetailsOnlyadminState extends State<ViewUserDetailsOnlyadmin> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 1 / 100,
               ),
+
+              Consumer<Projectprovider>(builder: (context,operationProvider , child) {
+                
+              return
               operationProvider.isEdited == true
                   ? _buildEditableForm(detailsProvider)
-                  : _buildDetailsView(detailsProvider),
+                  : _buildDetailsView(detailsProvider);
+              }
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 3 / 100,
               ),

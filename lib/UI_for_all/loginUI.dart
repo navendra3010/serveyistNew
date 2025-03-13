@@ -1,16 +1,13 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:surveyist/userProviders/locationProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';
 
 import 'package:surveyist/utils/appButton.dart';
 
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appImage.dart';
-import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 
 import 'package:surveyist/utils/app_Language.dart';
 
@@ -27,8 +24,9 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProviderForUser>(context);
-    final locationProvider = Provider.of<LocationProviderr>(context);
+    final loginProvider =
+        Provider.of<LoginProviderForUser>(context, listen: false);
+    // final locationProvider = Provider.of<LocationProviderr>(context);
 
     return GestureDetector(
       onTap: () {
@@ -118,23 +116,27 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 2 / 100,
                   ),
-                  loginProvider.isloading == true
-                      ? CircularProgressIndicator()
-                      : Container(
-                          child: MyButton(
-                              text: 'Login',
-                              // color: const Color.fromARGB(255, 34, 137, 221),
-                              color: const Color.fromARGB(255, 231, 128, 44),
-                              onPressed: () async {
-                               
-                                loginProvider.login(
-                                    context,
-                                    userEmailController.text.toString().trim(),
-                                    userPasswordController.text
-                                      ..toString()
-                                      ..trim());
-                              }),
-                        ),
+                  Consumer<LoginProviderForUser>(
+                      builder: (context, loginProvider, child) {
+                    return loginProvider.isloading == true
+                        ? CircularProgressIndicator()
+                        : Container(
+                            child: MyButton(
+                                text: 'Login',
+                                // color: const Color.fromARGB(255, 34, 137, 221),
+                                color: const Color.fromARGB(255, 231, 128, 44),
+                                onPressed: () async {
+                                  loginProvider.login(
+                                      context,
+                                      userEmailController.text
+                                          .toString()
+                                          .trim(),
+                                      userPasswordController.text
+                                        ..toString()
+                                        ..trim());
+                                }),
+                          );
+                  }),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 4 / 100,
                   ),
