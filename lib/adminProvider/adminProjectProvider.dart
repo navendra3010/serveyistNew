@@ -72,8 +72,9 @@ class Projectprovider extends ChangeNotifier {
       ShowTaostMessage.toastMessage(context, "Enter_Project_Descriptions");
     } else {
       try {
-        loadUser = true;
+         loadUser = true;
         notifyListeners();
+        
         // print(obj.toJson());
         //here  with the help of model classs new project will be created.........................
         fireser.createProject(obj.toJson());
@@ -81,8 +82,14 @@ class Projectprovider extends ChangeNotifier {
           context,
           MaterialPageRoute(builder: (context) => ProjectOverView()),
         );
+       
       } catch (e) {
         print("${e}");
+      }
+      finally
+      {
+        loadUser=false;
+        notifyListeners();
       }
     }
   }
@@ -112,7 +119,7 @@ class Projectprovider extends ChangeNotifier {
     if (selectUserIdForTeam.any((user) => user["userId"] == userId)) {
       selectUserIdForTeam.removeWhere((user) => user["userId"] == userId);
 
-      notifyListeners();
+      // notifyListeners();
     } else {
       selectUserIdForTeam.add(userData);
 

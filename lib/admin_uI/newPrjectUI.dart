@@ -207,62 +207,63 @@ class _MyNewProjectUI extends State<Newproject> {
                     )),
                   ),
                 ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height * 0.5 / 100,
-                // ),
+               
+                //this cunsumer show the team member which is selected for project.
+                Consumer<Projectprovider>(
+                    builder: (context, newProject, child) {
+                  if (newProject.selectUserIdForTeam.isEmpty) {
+                    return Center(
+                        child: Text("No users selected for the team"));
+                  }
+                  return StreamBuilder<List<Map<String, dynamic>>>(
+                    stream: newProject.userStream, // Replace with actual stream
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator(); // Loading indicator
+                      }
 
-                newProject.selectUserIdForTeam.isEmpty
-                    ? SizedBox()
-                    : StreamBuilder<List<Map<String, dynamic>>>(
-                        stream:
-                            newProject.userStream, // Replace with actual stream
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator(); // Loading indicator
-                          }
-
-                          if (snapshot.hasError) {
-                            return Text("Error: ${snapshot.error}");
-                          }
-                          final userList = snapshot.data ?? [];
-                          return SizedBox(
-                            height: 50.0, // Set a fixed height for the ListView
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemCount: userList.length,
-                              itemBuilder: (context, index) {
-                                var uid = userList[index];
-                                // print(uid);
-                                return Container(
-                                  width:
-                                      100.0, // Set a fixed width for each item (optional)
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal:
-                                          2.0), // Optional margin for spacing
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: const Color.fromARGB(
-                                        255, 221, 187, 138),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .center, // Vertically center the text
-                                    children: [
-                                      Text(uid["name"] ?? "no"),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                      if (snapshot.hasError) {
+                        return Text("Error: ${snapshot.error}");
+                      }
+                      final userList = snapshot.data ?? [];
+                      return SizedBox(
+                        height: 50.0, // Set a fixed height for the ListView
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: userList.length,
+                          itemBuilder: (context, index) {
+                            var uid = userList[index];
+                            // print(uid);
+                            return Container(
+                              width:
+                                  100.0, // Set a fixed width for each item (optional)
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      2.0), // Optional margin for spacing
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color.fromARGB(255, 221, 187, 138),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .center, // Vertically center the text
+                                children: [
+                                  Text(uid["name"] ?? "no"),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }),
 
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.5 / 100,
                 ),
+                // this function will select teea, for selected user or team...................
                 Consumer<Projectprovider>(
                     builder: (context, newProject, child) {
                   return Center(
@@ -297,8 +298,8 @@ class _MyNewProjectUI extends State<Newproject> {
                                   String userName = us["full_name"];
                                   String emplpoyeId = us["employeId"];
                                   return CheckboxListTile(
-                                    title: Text(us["full_name"]),
-                                    subtitle: Text(us["employeId"]),
+                                    title: Text(userName),
+                                    subtitle: Text(emplpoyeId),
                                     value: newProject.selectUserIdForTeam
                                         .any((us) => us["userId"] == userId),
                                     onChanged: (bool? selected) {
@@ -319,7 +320,7 @@ class _MyNewProjectUI extends State<Newproject> {
 
                 Consumer<Projectprovider>(
                     builder: (context, newProject, child) {
-                  return newProject.loadUser == true
+                  return newProject.loadUser
                       ? CircularProgressIndicator()
                       : Container(
                           child: MyButton(

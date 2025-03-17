@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/UI_for_all/splashUI.dart';
@@ -13,7 +12,6 @@ import 'package:surveyist/userProviders/loginProvider.dart';
 import 'package:surveyist/userProviders/userProjectProvider.dart';
 import 'package:surveyist/utils/appFont.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
@@ -32,7 +30,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => Projectprovider()),
       ChangeNotifierProvider(create: (context) => UserProjectProviderClass()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 

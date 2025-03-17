@@ -14,7 +14,7 @@ import 'package:surveyist/utils/appConstant.dart';
 import 'package:surveyist/utils/appFooter.dart';
 
 class ProjectOverView extends StatefulWidget {
-  ProjectOverView({super.key});
+ const ProjectOverView({super.key});
 
   @override
   State<ProjectOverView> createState() => _CreateProjectPageState();

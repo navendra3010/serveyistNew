@@ -31,7 +31,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
 
   @override
   Widget build(BuildContext context) {
-    final pdprovider = Provider.of<Projectprovider>(context,listen: false).selectedProject;
+    final pdprovider = Provider.of<Projectprovider>(context,listen: true).selectedProject;
     final thisPageProvider = Provider.of<Projectprovider>(context,listen: false);
 
     if (pdprovider == null) {
@@ -65,7 +65,7 @@ class _MyProjectDetailsUi extends State<ProjectDetailui> {
                             "${pdprovider.projectName}",
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.w600),
-                          ),
+                          )
                         ),
                       ),
                       SizedBox(
