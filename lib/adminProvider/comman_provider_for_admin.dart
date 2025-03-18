@@ -4,11 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:surveyist/UI_for_all/loginUI.dart';
-import 'package:surveyist/adminModel/allUsersModel.dart';
-import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fireStoreserAdmin.dart';
+import 'package:surveyist/UI_for_all/login_ui.dart';
+import 'package:surveyist/adminModel/all_users_model.dart';
+import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fire_store_servie_admin.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
 import 'package:surveyist/userModel/userlogin.dart';
 
@@ -20,13 +20,11 @@ class CommanproviderAdmin extends ChangeNotifier {
 
 Future<Userprofilemodel?> getAdminInfo() async {
     SharedPreferences sff = await SharedPreferences.getInstance();
-    String? profileID = await sff.getString('userId');
+    String? profileID =  sff.getString('userId');
     if (profileID != null) {
       // print("got profile id      ${profileID}");
       return await frstr.getAdminProfile(profileID);
-    } else {
-      print("not getting profile id");
-    }
+    } 
     return null;
   }
 
@@ -39,7 +37,7 @@ Future<Userprofilemodel?> getAdminInfo() async {
 // all users yet login per day -------------------------------------------------------------------------------------
 DateTime now=DateTime.now();
 String? dateKey;
-notifyListeners();
+//notifyListeners();
 
 
 
@@ -54,7 +52,7 @@ notifyListeners();
     final sf = await SharedPreferences.getInstance();
     sf.remove("role");
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreenForAll()));
+        MaterialPageRoute(builder: (context) => const LoginScreenForAll()));
   }
   // select image from gallery and camera....................................
   //date 19-2-2025.............................................................
@@ -66,7 +64,7 @@ notifyListeners();
     final pickfile = await picker.pickImage(source: ImageSource.gallery);
     if (pickfile != null) {
       image = File(pickfile.path);
-      print("imagae path is ----------------------${image!.path}");
+      // print("imagae path is ----------------------${image!.path}");
       notifyListeners();
     }
   }
@@ -84,11 +82,11 @@ notifyListeners();
   // date 19-2-2025 select multiple images from galttery
   List<XFile> imageFileList = [];
   Future selectMultipleImage() async {
-    final List<XFile>? selectImage = await picker.pickMultiImage();
-    if (selectImage!.isNotEmpty) {
-      imageFileList!.addAll(selectImage);
+    final List<XFile> selectImage = await picker.pickMultiImage();
+    if (selectImage.isNotEmpty) {
+      imageFileList.addAll(selectImage);
     }
-    print(" image length -------------${imageFileList.length}");
+   // print(" image length -------------${imageFileList.length}");
     notifyListeners();
   }
       int ? selecNumber;

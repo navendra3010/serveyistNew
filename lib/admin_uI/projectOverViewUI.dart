@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/adminModel/project_model.dart';
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
 
-import 'package:surveyist/admin_uI/newPrjectUI.dart';
+import 'package:surveyist/admin_uI/new_prject_ui.dart';
 import 'package:surveyist/admin_uI/projectDetails.dart';
 import 'package:surveyist/utils/TextSyle.dart';
 import 'package:surveyist/utils/appConstant.dart';
@@ -227,7 +227,7 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                                     " ${project.progress}/ ${project.totalTask ?? "0"}"),
                                                 Container(
                                                   child:
-                                                      new LinearPercentIndicator(
+                                                       LinearPercentIndicator(
                                                           width: 100.0,
                                                           lineHeight: 25.0,
                                                           percent:

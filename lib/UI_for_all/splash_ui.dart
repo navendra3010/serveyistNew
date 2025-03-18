@@ -36,9 +36,9 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           // color: const Color.fromARGB(255, 228, 153, 41),
-          height: MediaQuery.of(context).size.height * 100 / 100,
+          height: MediaQuery.of(context).size.height * 50 / 100,
           width: MediaQuery.of(context).size.width * 100 / 100,
           child: Image.asset(
             Appimage.SplashScreen,

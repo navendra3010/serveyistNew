@@ -51,7 +51,7 @@ class UserAccount {
     };
   }
 
-  factory UserAccount.FromFireStore(
+  factory UserAccount.fromFireStore(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     return UserAccount(
       fullName: documentSnapshot["full_name"],

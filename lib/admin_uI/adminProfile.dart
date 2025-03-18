@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
+import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
 import 'package:surveyist/utils/appConstant.dart';
 import 'package:surveyist/utils/appFont.dart';
@@ -15,7 +15,7 @@ class AdminProfilePage extends StatelessWidget {
     final adminProviderProfile = Provider.of<CommanproviderAdmin>(context,listen: false);
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             FutureBuilder<Userprofilemodel?>(
@@ -23,7 +23,7 @@ class AdminProfilePage extends StatelessWidget {
                   .getAdminInfo(), // Use the Future from the provider
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text("Error: ${snapshot.error}"));
                 } else if (snapshot.hasData) {
@@ -42,14 +42,14 @@ class AdminProfilePage extends StatelessWidget {
               Center(
                 child: Container(
                   height: MediaQuery.of(context).size.height * 10 / 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(Appimage.SplashScreen),
                       ),
                       shape: BoxShape.circle),
                 ),
               ),
-                        Center(
+                        const Center(
                             child: Card(
                           child: Text(
                             "Admin_Profile",
@@ -114,14 +114,14 @@ class AdminProfilePage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Name",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontFamily: AppFont.fontFamily,
                                           fontWeight: FontWeight.w800),
                                     ),
-                                    Text("${userProfile!.userName}")
+                                    Text("${userProfile.userName}")
                                   ],
                                 ),
                               ),
@@ -138,8 +138,7 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                        Container(
-                          child: Row(
+                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
@@ -147,7 +146,7 @@ class AdminProfilePage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Email",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -159,7 +158,7 @@ class AdminProfilePage extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ),
+                          
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
@@ -171,8 +170,7 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                        Container(
-                          child: Row(
+                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
@@ -180,7 +178,7 @@ class AdminProfilePage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Gender",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -193,7 +191,7 @@ class AdminProfilePage extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
+                        
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
@@ -204,16 +202,14 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                        Container(
-                          child: Row(
+                        Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Column(
+                               Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Address",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -222,11 +218,11 @@ class AdminProfilePage extends StatelessWidget {
                                     ),
                                     Text("${userProfile.userAddress}")
                                   ],
-                                ),
+                                
                               ),
                             ],
                           ),
-                        ),
+                        
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
@@ -241,12 +237,11 @@ class AdminProfilePage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Column(
+                               Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Date_Of_Birth",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -256,7 +251,7 @@ class AdminProfilePage extends StatelessWidget {
                                     Text("${userProfile.userDateOfBirth}")
                                   ],
                                 ),
-                              ),
+                              
                             ],
                           ),
                         ),
@@ -270,16 +265,14 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                        Container(
-                          child: Row(
+                        Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Column(
+                             Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Login_Id",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -289,10 +282,10 @@ class AdminProfilePage extends StatelessWidget {
                                     Text("${userProfile.userLoginId}")
                                   ],
                                 ),
-                              ),
+                              
                             ],
                           ),
-                        ),
+                        
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
@@ -307,12 +300,11 @@ class AdminProfilePage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Column(
+                               Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "EmployeID",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -322,7 +314,7 @@ class AdminProfilePage extends StatelessWidget {
                                     Text("${userProfile.userEmployeId}")
                                   ],
                                 ),
-                              ),
+                              
                             ],
                           ),
                         ),
@@ -340,12 +332,11 @@ class AdminProfilePage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Column(
+                               Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Address",
                                       style: TextStyle(
                                           color: Colors.black,
@@ -355,7 +346,7 @@ class AdminProfilePage extends StatelessWidget {
                                     Text("${userProfile.userAddress}")
                                   ],
                                 ),
-                              ),
+                              
                             ],
                           ),
                         ),
@@ -363,7 +354,7 @@ class AdminProfilePage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Center(child: Text("No data available"));
+                  return const Center(child: Text("No data available"));
                 }
               },
             ),
@@ -371,7 +362,7 @@ class AdminProfilePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar:
-          AppFooterUi(notificationCount: 0, selectMenu: ButtomMenu.profile),
+          const AppFooterUi(notificationCount: 0, selectMenu: ButtomMenu.profile),
     );
   }
 }

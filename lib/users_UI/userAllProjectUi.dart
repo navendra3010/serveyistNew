@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
+import 'package:surveyist/adminModel/project_model.dart';
 import 'package:surveyist/userProviders/userProjectProvider.dart';
 import 'package:surveyist/users_UI/userProjectDetails.dart';
 import 'package:surveyist/utils/appFont.dart';

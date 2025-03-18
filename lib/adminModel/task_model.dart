@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskModel {
@@ -43,16 +41,16 @@ class TaskModel {
       "taskType": taskType,
       "taskDescription": taskDescription,
       "taskStartDate": taskStartDate,
-      "taskEndDate":taskEndDate,
+      "taskEndDate": taskEndDate,
       "assignTo": assignTo,
-    //  "taskProgress": taskProgress  as int,
+      //  "taskProgress": taskProgress  as int,
       "taskFeedBack": taskFeedBack,
       "fileUrl": fileUrl,
       "downloadUrl": downloadUrl
     };
   }
 
-  factory TaskModel.FormJson(DocumentSnapshot doc) {
+  factory TaskModel.formJson(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return TaskModel(
       taskId: doc.id,
@@ -60,14 +58,14 @@ class TaskModel {
       status: data["status"] ?? '',
       taskType: data["taskType"] ?? '',
       taskDescription: data["taskDescription"] ?? '',
-      taskStartDate: ( data["taskStartDate"]as Timestamp).toDate(),
+      taskStartDate: (data["taskStartDate"] as Timestamp).toDate(),
       taskEndDate: (data["taskEndDate"] as Timestamp).toDate(),
-     // taskProgress: data["taskProgress"],
+      // taskProgress: data["taskProgress"],
       taskFeedBack: data["taskFeedBack"] ?? '',
       downloadUrl: data["downloadUrl"],
       fileUrl: data["fileUrl"],
       selectedFile: data["selectedFile"],
-      assignTo:data["assignTo"],
+      assignTo: data["assignTo"],
     );
   }
 }

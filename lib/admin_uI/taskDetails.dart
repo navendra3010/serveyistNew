@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
 
 class TaskDetailsUi extends StatefulWidget {
   String projectID;

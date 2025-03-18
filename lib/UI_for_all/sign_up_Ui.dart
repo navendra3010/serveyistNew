@@ -23,7 +23,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("sigh_in"),
+        title: const Text("sigh_in"),
       ),
       body: GestureDetector(
         onTap: () {
@@ -33,7 +33,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
           child: ChangeNotifierProvider<Sighupprovider>(
             create: (context) => Sighupprovider(),
             child:
-                Consumer<Sighupprovider>(builder: (context, Provider, child) {
+                Consumer<Sighupprovider>(builder: (context, sighUpProvider, child) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -47,7 +47,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                                 MediaQuery.of(context).size.height * 15 / 100,
                             width: MediaQuery.of(context).size.width * 50 / 100,
                             // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 image: DecorationImage(
                                     image: AssetImage(Appimage.SplashScreen),
                                     fit: BoxFit.fill),
@@ -57,16 +57,15 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                         Center(
                           child: Text(
                             Applanguage.signUP[Applanguage.language],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: AppFont.fontFamily,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 20),
                           ),
                         ),
-                        Container(
-                          child: TextField(
+                        TextField(
                             controller: userEmailSignController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText: "Email",
 
                                 // icon:Icon(Icons.person)
@@ -76,14 +75,13 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                                 )),
                             maxLength: 25,
                           ),
-                        ),
+                        
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 1 / 100,
                         ),
-                        Container(
-                          child: TextField(
+                         TextField(
                             controller: userPasswordSignController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText: "password",
 
                                 // icon:Icon(Icons.person)
@@ -93,7 +91,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                                 ),
                                 suffixIcon: Icon(Icons.password_sharp)),
                             maxLength: 10,
-                          ),
+                          
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 7 / 100,
@@ -117,10 +115,9 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                         //         ),
                         //       ),
                         //here i will user registration with fire store also..
-                        Provider.isloading == true
-                            ? CircularProgressIndicator()
-                            : Container(
-                                child: MyButton(
+                        sighUpProvider.isloading == true
+                            ? const CircularProgressIndicator()
+                            :  MyButton(
                                   text: "Sigh_up",
                                   color:
                                       const Color.fromARGB(255, 228, 153, 41),
@@ -145,10 +142,10 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                                             .trim();
                                     userReg.isAdmin = true;
 
-                                    Provider.createNewUser(userReg, context);
+                                    sighUpProvider.createNewUser(userReg, context);
                                   },
                                 ),
-                              ),
+                              
 
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 4 / 100,

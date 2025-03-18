@@ -52,6 +52,7 @@ class _ExcelReaderPageState extends State<ExcelReaderPage> {
         });
       }
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error reading file: $e')),
       );

@@ -24,8 +24,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider =
-        Provider.of<LoginProviderForUser>(context, listen: false);
+    Provider.of<LoginProviderForUser>(context, listen: false);
     // final locationProvider = Provider.of<LocationProviderr>(context);
 
     return GestureDetector(
@@ -50,7 +49,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                       height: MediaQuery.of(context).size.height * 30 / 100,
                       //  width: MediaQuery.of(context).size.width * 50 / 100,
                       // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           // color: const Color.fromARGB(255, 228, 153, 41),
                           image: DecorationImage(
                             image: AssetImage(Appimage.SplashScreen),
@@ -68,60 +67,56 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                           fontSize: 20),
                     ),
                   ),
-                  Container(
-                    child: TextField(
-                      controller: userEmailController,
-                      decoration: InputDecoration(
-                          hintText: "Email",
+                  TextField(
+                    controller: userEmailController,
+                    decoration: const InputDecoration(
+                        hintText: "Email",
 
-                          // icon:Icon(Icons.person)
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 30,
-                          )),
-                      maxLength: 25,
-                    ),
+                        // icon:Icon(Icons.person)
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: 30,
+                        )),
+                    maxLength: 25,
                   ),
+
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 1 / 100,
                   ),
-                  Container(
-                    child: TextField(
-                      controller: userPasswordController,
-                      // keyboardType:,
-                      decoration: InputDecoration(
-                          hintText: "password",
+                  TextField(
+                    controller: userPasswordController,
+                    // keyboardType:,
+                    decoration: const InputDecoration(
+                        hintText: "password",
 
-                          // icon:Icon(Icons.person)
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 30,
-                          ),
-                          suffixIcon: Icon(Icons.password_sharp)),
-                      maxLength: 10,
-                    ),
+                        // icon:Icon(Icons.person)
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: 30,
+                        ),
+                        suffixIcon: Icon(Icons.password_sharp)),
+                    maxLength: 10,
                   ),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 3 / 100,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     TextButton(
+                  //         onPressed: () {
+
+                  //         },
+                  //         child: Text("Forgot_password")),
+                  //   ],
+                  // ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 3 / 100,
-                  ),
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            print("this is forgor password scren will be ");
-                          },
-                          child: Text("Forgot_password")),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 2 / 100,
+                    height: MediaQuery.of(context).size.height * 7 / 100,
                   ),
                   Consumer<LoginProviderForUser>(
                       builder: (context, loginProvider, child) {
                     return loginProvider.isloading == true
-                        ? CircularProgressIndicator()
-                        : Container(
-                            child: MyButton(
+                        ? const CircularProgressIndicator()
+                        :  MyButton(
                                 text: 'Login',
                                 // color: const Color.fromARGB(255, 34, 137, 221),
                                 color: const Color.fromARGB(255, 231, 128, 44),
@@ -134,39 +129,37 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                                       userPasswordController.text
                                         ..toString()
                                         ..trim());
-                                }),
-                          );
+                                });
+                          
                   }),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 4 / 100,
-                  ),
-                  Container(
-                    child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 4 / 100,
-                        ),
-                        // Container(
-                        //   child: Text("Dont have account yet?"),
-                        // ),
-                        // Container(
-                        //   child: TextButton(
-                        //       onPressed: () {
-                        //         print("sigh_up_screen");
-                        //         //SignUpScreenForAll
-                        //         // Navigator.push(
-                        //         //     context,
-                        //         //     MaterialPageRoute(
-                        //         //       builder: (context) => SignUpScreenForAll(),
-                        //         //     ));
-                        //       },
-                        //       child: Text(Applanguage
-                        //           .signupButtonText[Applanguage.language])),
-                        // ),
-                      ],
-                    ),
-                  )
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 4 / 100,
+                  // ),
+                 // Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                 //   children: [
+                      // SizedBox(
+                      //   width: MediaQuery.of(context).size.width * 4 / 100,
+                      // ),
+                      // Container(
+                      //   child: Text("Dont have account yet?"),
+                      // ),
+                      // Container(
+                      //   child: TextButton(
+                      //       onPressed: () {
+                      //         print("sigh_up_screen");
+                      //         //SignUpScreenForAll
+                      //         // Navigator.push(
+                      //         //     context,
+                      //         //     MaterialPageRoute(
+                      //         //       builder: (context) => SignUpScreenForAll(),
+                      //         //     ));
+                      //       },
+                      //       child: Text(Applanguage
+                      //           .signupButtonText[Applanguage.language])),
+                      // ),
+                   // ],
+                 // ),
                 ],
               ),
             ]),

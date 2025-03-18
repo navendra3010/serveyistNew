@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminProvider/accountCreateprovider.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/adminProvider/account_create_provider.dart';
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
 
 import 'package:surveyist/utils/appFont.dart';

@@ -39,7 +39,7 @@ class ViewAllUsers {
     };
   }
 
-  factory ViewAllUsers.FromFireStore(DocumentSnapshot snapshot) {
+  factory ViewAllUsers.fromFireStore(DocumentSnapshot snapshot) {
    // Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     final data = snapshot.data() as Map<String, dynamic>;
     return ViewAllUsers(

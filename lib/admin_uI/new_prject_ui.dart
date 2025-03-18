@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/adminModel/project_model.dart';
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
 import 'package:surveyist/utils/TextSyle.dart';
 import 'package:surveyist/utils/appButton.dart';
 import 'package:surveyist/utils/appFont.dart';
 
 class Newproject extends StatefulWidget {
-  Newproject({super.key});
+  const Newproject({super.key});
   @override
   State<Newproject> createState() => _MyNewProjectUI();
 }
@@ -37,10 +37,10 @@ class _MyNewProjectUI extends State<Newproject> {
                   child: Container(
                     height: MediaQuery.of(context).size.height * 5 / 100,
                     width: MediaQuery.of(context).size.width * 100 / 100,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 221, 187, 138),
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 221, 187, 138),
                         borderRadius: BorderRadius.all(Radius.circular(80))),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       "New_project",
                       style: CustomText.nameOfTextStyle,
@@ -51,7 +51,7 @@ class _MyNewProjectUI extends State<Newproject> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 120.0, // Fixed width for the label
                       child: Text('project_Name',
                           style: TextStyle(
@@ -65,7 +65,7 @@ class _MyNewProjectUI extends State<Newproject> {
                         height: 45.0, // Fixed height
                         child: TextField(
                           controller: projectNameController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Enter_Project_Name',
                           ),
                         ),
@@ -80,7 +80,7 @@ class _MyNewProjectUI extends State<Newproject> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 120.0, // Fixed width for the label
                       child: Text('project_Location',
                           style: TextStyle(
@@ -95,7 +95,7 @@ class _MyNewProjectUI extends State<Newproject> {
                         child: TextField(
                             controller: projectLocationController,
                             // keyboardType:TextInputType.name,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText: 'Enter_Project_Location')),
                       ),
                     ),
@@ -115,10 +115,8 @@ class _MyNewProjectUI extends State<Newproject> {
                         },
                         child: Column(
                           children: [
-                            Container(
-                              child: Icon(Icons.calendar_month),
-                            ),
-                            Text("Project_Start_Date")
+                            const Icon(Icons.calendar_month),
+                            const Text("Project_Start_Date")
                           ],
                         ),
                       ),
@@ -146,10 +144,8 @@ class _MyNewProjectUI extends State<Newproject> {
                         },
                         child: Column(
                           children: [
-                            Container(
-                              child: Icon(Icons.calendar_month),
-                            ),
-                            Text("Project_End_Date")
+                            Icon(Icons.calendar_month),
+                            const Text("Project_End_Date")
                           ],
                         ),
                       ),
@@ -172,13 +168,13 @@ class _MyNewProjectUI extends State<Newproject> {
                 Center(
                   child: Container(
                     height: MediaQuery.of(context).size.height * 10 / 100,
-                    width: MediaQuery.of(context).size.width * 90 / 100,
+                    // width: MediaQuery.of(context).size.width * 90 / 100,
                     //color: Colors.amber,
                     child: TextFormField(
                       controller: projectDiscriptionControlller,
                       maxLines: 15,
                       maxLength: 1000,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           hintText: "Project_Discription....",
                           hintStyle: TextStyle(
                               fontSize: 12, fontFamily: AppFont.fontFamily),
@@ -197,29 +193,29 @@ class _MyNewProjectUI extends State<Newproject> {
                   child: Container(
                     height: MediaQuery.of(context).size.height * 3 / 100,
                     width: MediaQuery.of(context).size.width * 30 / 100,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 221, 187, 138),
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 221, 187, 138),
                         borderRadius: BorderRadius.all(Radius.circular(80))),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       "Create_Team",
                       style: CustomText.nameOfTextStyle,
                     )),
                   ),
                 ),
-               
+
                 //this cunsumer show the team member which is selected for project.
                 Consumer<Projectprovider>(
                     builder: (context, newProject, child) {
                   if (newProject.selectUserIdForTeam.isEmpty) {
-                    return Center(
+                    return const Center(
                         child: Text("No users selected for the team"));
                   }
                   return StreamBuilder<List<Map<String, dynamic>>>(
                     stream: newProject.userStream, // Replace with actual stream
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(); // Loading indicator
+                        return const CircularProgressIndicator(); // Loading indicator
                       }
 
                       if (snapshot.hasError) {
@@ -238,7 +234,7 @@ class _MyNewProjectUI extends State<Newproject> {
                             return Container(
                               width:
                                   100.0, // Set a fixed width for each item (optional)
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   horizontal:
                                       2.0), // Optional margin for spacing
                               decoration: BoxDecoration(
@@ -270,18 +266,18 @@ class _MyNewProjectUI extends State<Newproject> {
                     child: Container(
                       height: MediaQuery.of(context).size.height * 20 / 100,
                       width: MediaQuery.of(context).size.width * 90 / 100,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: const Color.fromRGBO(255, 250, 250, 1)),
+                          color: Color.fromRGBO(255, 250, 250, 1)),
                       child: StreamBuilder<List<Map<String, dynamic>>>(
                         stream: newProject.teamUser(),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return Center(
+                            return const Center(
                               child: Text("no data"),
                             );
                           }
@@ -290,7 +286,7 @@ class _MyNewProjectUI extends State<Newproject> {
                           return SizedBox(
                               height: 80.0,
                               child: ListView.builder(
-                                itemCount: userData!.length,
+                                itemCount: userData.length,
                                 itemBuilder: (context, index) {
                                   var us = userData[index];
                                   // String userId=us.id;
@@ -321,33 +317,30 @@ class _MyNewProjectUI extends State<Newproject> {
                 Consumer<Projectprovider>(
                     builder: (context, newProject, child) {
                   return newProject.loadUser
-                      ? CircularProgressIndicator()
-                      : Container(
-                          child: MyButton(
-                            text: "create_project",
-                            color: const Color.fromARGB(255, 221, 187, 138),
-                            onPressed: () {
-                              // print(
-                              //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
+                      ? const CircularProgressIndicator()
+                      : MyButton(
+                          text: "create_project",
+                          color: const Color.fromARGB(255, 221, 187, 138),
+                          onPressed: () {
+                            // print(
+                            //     "${projectDiscriptionControlller.text},${projectNameController.text},${projectLocationController.text},${newProject.dateEndcontroller.text},${newProject.dateStartcontroller.text}");
 
-                              ProjectModel pm = ProjectModel();
-                              pm.projectName =
-                                  projectNameController.text.trim();
-                              pm.projectLocation =
-                                  projectLocationController.text.trim();
-                              pm.startDate = parseDate(
-                                  newProject.dateStartcontroller.text);
-                              pm.endDate =
-                                  parseDate(newProject.dateEndcontroller.text);
+                            ProjectModel pm = ProjectModel();
+                            pm.projectName = projectNameController.text.trim();
+                            pm.projectLocation =
+                                projectLocationController.text.trim();
+                            pm.startDate =
+                                parseDate(newProject.dateStartcontroller.text);
+                            pm.endDate =
+                                parseDate(newProject.dateEndcontroller.text);
 
-                              pm.projectDiscription =
-                                  projectDiscriptionControlller.text.trim();
-                              pm.team = newProject.selectUserIdForTeam;
-                              pm.progress = 0;
-                              pm.totalTask = 0;
-                              newProject.addProjectProvider(pm, context);
-                            },
-                          ),
+                            pm.projectDiscription =
+                                projectDiscriptionControlller.text.trim();
+                            pm.team = newProject.selectUserIdForTeam;
+                            pm.progress = 0;
+                            pm.totalTask = 0;
+                            newProject.addProjectProvider(pm, context);
+                          },
                         );
                 })
                 //submit buttom-------------------------------------------------------------------------end`

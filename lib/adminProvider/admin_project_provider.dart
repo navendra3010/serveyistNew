@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
+
 import 'dart:io';
-import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
-import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fireStoreserAdmin.dart';
+// import 'package:intl/intl.dart';
+import 'package:surveyist/adminModel/project_model.dart';
+import 'package:surveyist/adminModel/task_model.dart';
+import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fire_store_servie_admin.dart';
 
 import 'package:surveyist/admin_uI/projectOverViewUI.dart';
 
@@ -72,23 +72,20 @@ class Projectprovider extends ChangeNotifier {
       ShowTaostMessage.toastMessage(context, "Enter_Project_Descriptions");
     } else {
       try {
-         loadUser = true;
+        loadUser = true;
         notifyListeners();
-        
+
         // print(obj.toJson());
         //here  with the help of model classs new project will be created.........................
         fireser.createProject(obj.toJson());
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ProjectOverView()),
+          MaterialPageRoute(builder: (context) => const ProjectOverView()),
         );
-       
       } catch (e) {
-        print("${e}");
-      }
-      finally
-      {
-        loadUser=false;
+        // print("${e}");
+      } finally {
+        loadUser = false;
         notifyListeners();
       }
     }
@@ -165,7 +162,7 @@ class Projectprovider extends ChangeNotifier {
 
   String? selectedTaskType;
   File? selectedFile; // this will hold selected file
-  bool _isuploading = false;
+  //bool isuploading = false;
 
   void setTaskType(String taskType) {
     selectedTaskType = taskType;
@@ -173,7 +170,6 @@ class Projectprovider extends ChangeNotifier {
   }
 
   Future<void> pickFile() async {
-    print("this pickup function fine--------------------------------------");
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: selectedTaskType == "Excel Sheet"
@@ -185,7 +181,6 @@ class Projectprovider extends ChangeNotifier {
                     : null);
 
     if (result != null) {
-      print("reslut noy nulll-------------------------------------");
       selectedFile = File(result.files.single.path!);
 
       notifyListeners();
@@ -250,7 +245,7 @@ class Projectprovider extends ChangeNotifier {
   List<Map<String, dynamic>> compelted = [];
 
   void totalCompletedTasl(String projectId, String documentId) {
-    print("complted--------------------------------");
+    // print("complted--------------------------------");
     fireser.getTotalCompletedTak(projectId, documentId).listen((task) {
       List<Map<String, dynamic>> filter = task.where((item) {
         return item["status"] == "completed";
@@ -293,14 +288,15 @@ class Projectprovider extends ChangeNotifier {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Edit project name"),
+          title: const Text("Edit project name"),
           content: TextField(
             controller: updateController,
-            decoration: InputDecoration(hintText: "Enter new project  name"),
+            decoration: const InputDecoration(hintText: "Enter new project  name"),
           ),
           actions: [
             TextButton(
-                onPressed: () => Navigator.pop(context), child: Text("cancel")),
+                onPressed: () => Navigator.pop(context),
+                child: const Text("cancel")),
             TextButton(
                 onPressed: () async {
                   try {
@@ -317,10 +313,10 @@ class Projectprovider extends ChangeNotifier {
                         context, " project Update successfuly");
                     Navigator.pop(context);
                   } catch (e) {
-                    print(e);
+                    // print(e);
                   }
                 },
-                child: Text("update"))
+                child: const Text("update"))
           ],
         );
       },
@@ -336,7 +332,7 @@ class Projectprovider extends ChangeNotifier {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Delete project"),
+          title: const Text("Delete project"),
           actions: [
             TextButton(
                 onPressed: () async {
@@ -358,12 +354,15 @@ class Projectprovider extends ChangeNotifier {
                       .doc(docId)
                       .delete();
                   ShowTaostMessage.toastMessage(
-                      context, " project Deleted successfuly");
+                      // ignore: use_build_context_synchronously
+                      context,
+                      " project Deleted successfuly");
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                 },
-                child: Text("Delete")),
-            TextButton(
-                onPressed: () => Navigator.pop(context), child: Text("cancel")),
+                child: const Text("Delete")),
+             TextButton(
+                onPressed: () => Navigator.pop(context), child: const Text("cancel")),
           ],
         );
       },
@@ -375,20 +374,7 @@ class Projectprovider extends ChangeNotifier {
 
   void showAndHideTeam() {
     isShowTeam = !isShowTeam;
-    // if(isShowItem==true)
-    // {
-    //   changeText="view Team";
-    //  notifyListeners();
-    // }
-    // else  if(isShowTeam==false){
-    //   changeText="Hide Team";
-    // notifyListeners();
-    // }
-    print(isShowTeam);
+
     notifyListeners();
   }
-
-
-
-   
 }

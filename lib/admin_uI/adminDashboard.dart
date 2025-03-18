@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
 
-import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
+
+import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/admin_uI/createNewUsersUi.dart';
 
 import 'package:surveyist/utils/TextSyle.dart';

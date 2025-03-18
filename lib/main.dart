@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/UI_for_all/splashUI.dart';
-import 'package:surveyist/adminProvider/accountCreateprovider.dart';
+import 'package:surveyist/UI_for_all/splash_ui.dart';
+import 'package:surveyist/adminProvider/account_create_provider.dart';
 
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
 
-import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
+import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/userProviders/commanProvider.dart';
 import 'package:surveyist/userProviders/locationProvider.dart';
 import 'package:surveyist/userProviders/loginProvider.dart';

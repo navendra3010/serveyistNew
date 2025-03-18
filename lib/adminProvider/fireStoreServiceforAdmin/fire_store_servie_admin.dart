@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:surveyist/adminModel/allUsersModel.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
+
+import 'package:surveyist/adminModel/all_users_model.dart';
+import 'package:surveyist/adminModel/project_model.dart';
+import 'package:surveyist/adminModel/task_model.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
 
 class FireStoreServiceForAdmin {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   DateTime now = DateTime.now();
   //all  user ................................................
 
   Stream<List<ViewAllUsers>> getAllUsers() {
-    return _firestore.collection("allusers").snapshots().map((snapshot) {
+    return firestore.collection("allusers").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         for (var element in snapshot.docs) {
           // print(element.data());
         }
-        return ViewAllUsers.FromFireStore(doc);
+        return ViewAllUsers.fromFireStore(doc);
       }).toList();
     });
   }
@@ -36,14 +36,14 @@ class FireStoreServiceForAdmin {
 
     try {
       // Fetch all user documents from the root collection
-      return _firestore
+      return firestore
           .collection("userLoginRecordPerDay")
           .snapshots()
           .asyncMap((snapshot) async {
         // Fetch all login records for the given date for each user
         final loginStreams = await Future.wait(
           snapshot.docs.map((userDoc) async {
-            return await _firestore
+            return await firestore
                 .collection("userLoginRecordPerDay")
                 .doc(userDoc.id)
                 .collection('loginDates')
@@ -62,10 +62,10 @@ class FireStoreServiceForAdmin {
 
   ///function for fatch user for team and display them........................................
   Stream<List<Map<String, dynamic>>> getTeam() {
-    return _firestore.collection("allusers").snapshots().map((snapshot) {
+    return firestore.collection("allusers").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         var data = doc.data();
-        data['id'] = doc.id!;
+        data['id'] = doc.id;
         //data[doc.id]=doc["full_name"]; cs
         return data;
       }).toList();
@@ -75,9 +75,10 @@ class FireStoreServiceForAdmin {
   //this function for create mainProject................................................
   Future<ProjectModel?> createProject(Map<String, dynamic> json) async {
     bool? status = await creteProjectWithCollectionRefrance(json);
-    if (status == true) {
-      print("data has been save");
-    }
+    // if (status == true) {
+    //   print("data has been save");
+    // }
+    return null;
   }
 
 //another function bases on prevoius funacatiion for project----------
@@ -177,7 +178,7 @@ class FireStoreServiceForAdmin {
 
 //Date 18-2-2025 show project details and when click on button show another details of project........................
   Stream<List<Map<String, dynamic>>> allProject() {
-    return _firestore
+    return firestore
         .collection("Project")
         .snapshots()
         .asyncMap((proShanoshot) async {
@@ -199,7 +200,7 @@ class FireStoreServiceForAdmin {
 
 //date 18-2-2025 allprojectDetails............................
   Stream<ProjectModel?> allprojectDetails(String projectId, String documentId) {
-    return _firestore
+    return firestore
         .collection('Project')
         .doc(documentId)
         .collection('P_Name')
@@ -218,7 +219,7 @@ class FireStoreServiceForAdmin {
     try {
       print("${projectId} project id.............");
       print("${documentId} document id-----------------");
-      DocumentSnapshot snapshot = await _firestore
+      DocumentSnapshot snapshot = await firestore
           .collection("Project")
           .doc(documentId)
           .collection("P_Name")
@@ -253,15 +254,15 @@ class FireStoreServiceForAdmin {
       status: "pending",
       taskProgress: 0,
     );
-    final crateTask = _firestore
+    final crateTask = firestore
         .collection("Project")
         .doc(documentId)
         .collection("task")
         .doc()
         .set(tobject.toJson());
-    if (crateTask != null) {
-      print("upload_Task");
-    }
+    // if (crateTask != null) {
+    //   print("upload_Task");
+    // }
   }
 
   //date 22-2-2025 this function will fatch all tasl real time when oer task new task....................................
@@ -269,7 +270,7 @@ class FireStoreServiceForAdmin {
   Stream<List<Map<String, dynamic>>> getListenTask(
       String projectId, String documentId) {
     print("this functin working");
-    return _firestore
+    return firestore
         .collection("Project")
         .doc(documentId)
         .collection("task")
@@ -282,7 +283,7 @@ class FireStoreServiceForAdmin {
           "taskId": element.id,
           "projectId": projectId,
           "documentId": documentId,
-          "data": TaskModel.FormJson(element)
+          "data": TaskModel.formJson(element)
         });
       }
       return allTask;
@@ -291,20 +292,20 @@ class FireStoreServiceForAdmin {
 //date 24-2-2025 this functoin will fatch all the task details......................................................
 
   Stream<TaskModel?> getTaskDetails(String documentID, String taskID) {
-    return _firestore
+    return firestore
         .collection("Project")
         .doc(documentID)
         .collection("task")
         .doc(taskID)
         .snapshots()
         .asyncMap((snapshot) =>
-            snapshot.exists ? TaskModel.FormJson(snapshot) : null);
+            snapshot.exists ? TaskModel.formJson(snapshot) : null);
   }
 
   Future<Userprofilemodel?> getAdminProfile(String userid) async {
     try {
       DocumentSnapshot snapshot =
-          await _firestore.collection("allusers").doc(userid).get();
+          await firestore.collection("allusers").doc(userid).get();
       if (snapshot.exists) {
         // print(snapshot.data());
         return Userprofilemodel.FromFireStore(snapshot);
@@ -318,7 +319,7 @@ class FireStoreServiceForAdmin {
 
   //  Date 27-2-2027 this function count the total task of project per project
   void toTotalTask(int length, String projectId, String documentId) {
-    _firestore
+    firestore
         .collection("Project")
         .doc(documentId)
         .collection("P_Name")
@@ -328,7 +329,7 @@ class FireStoreServiceForAdmin {
 // this function  fatch total task aassin to the list..............................
   Stream<List<Map<String, dynamic>>> getTotalCompletedTak(
       String projectId, String documentId) {
-    return _firestore
+    return firestore
         .collection("Project")
         .doc(documentId)
         .collection("task")
@@ -344,7 +345,7 @@ class FireStoreServiceForAdmin {
 // this funcation update the progress filed in the progress.....................................
   void getUpDateCompleted(
       String projectId, String documentId, int completedLen) {
-    _firestore
+    firestore
         .collection("Project")
         .doc(documentId)
         .collection("P_Name")

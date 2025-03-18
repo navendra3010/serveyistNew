@@ -2,17 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
+import 'package:surveyist/adminModel/task_model.dart';
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
 import 'package:surveyist/admin_uI/createNewTaskUi.dart';
 import 'package:surveyist/admin_uI/taskDetails.dart';
 import 'package:intl/intl.dart';
 
 class ProjectDetailui extends StatefulWidget {
-  String projectId;
-  String documentId;
+  final projectId;
+  final documentId;
 
-  ProjectDetailui(
+  const ProjectDetailui(
       {super.key, required this.projectId, required this.documentId});
   @override
   State<ProjectDetailui> createState() => _MyProjectDetailsUi();

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
+import 'package:surveyist/adminModel/project_model.dart';
+import 'package:surveyist/adminModel/task_model.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
 
 class FireStoreServiceClass {
@@ -86,7 +86,7 @@ class FireStoreServiceClass {
         .collection("task")
         .doc(taskId)
         .snapshots()
-        .map((snap) => snap.exists ? TaskModel.FormJson(snap) : null);
+        .map((snap) => snap.exists ? TaskModel.formJson(snap) : null);
   }
 
   //Date 27-2-2025 user get notification all project when assigh the new tAsk any project---------------------------------------------------------

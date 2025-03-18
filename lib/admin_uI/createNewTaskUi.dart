@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
-import 'package:surveyist/adminProvider/adminProjectProvider.dart';
-import 'package:surveyist/admin_uI/projectDetails.dart';
+
+import 'package:surveyist/adminProvider/admin_project_provider.dart';
+
 import 'package:surveyist/admin_uI/projectOverViewUI.dart';
 
 import 'package:surveyist/utils/TextSyle.dart';
@@ -13,9 +11,9 @@ import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 
 class Createnewtask extends StatefulWidget {
-  String? projectId;
-  String? documentId;
-  Createnewtask({super.key, required this.projectId, required this.documentId});
+  final projectId;
+  final documentId;
+ const Createnewtask({super.key, required this.projectId, required this.documentId});
   @override
   State<Createnewtask> createState() => MycreateUi();
 }
@@ -59,10 +57,10 @@ class MycreateUi extends State<Createnewtask> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 5 / 100,
                 width: MediaQuery.of(context).size.width * 100 / 100,
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 221, 187, 138),
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 221, 187, 138),
                     borderRadius: BorderRadius.all(Radius.circular(80))),
-                child: Center(
+                child: const Center(
                     child: Text(
                   "New_Task",
                   style: CustomText.nameOfTextStyle,
@@ -70,7 +68,7 @@ class MycreateUi extends State<Createnewtask> {
               ),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              SizedBox(
+              const SizedBox(
                 width: 120.0, // Fixed width for the label
                 child: Text('Task_Name',
                     style: TextStyle(
@@ -84,7 +82,7 @@ class MycreateUi extends State<Createnewtask> {
                   height: 45.0, // Fixed height
                   child: TextField(
                     controller: taskNameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Enter_Task_Name',
                     ),
                   ),
@@ -108,9 +106,9 @@ class MycreateUi extends State<Createnewtask> {
                     child: Column(
                       children: [
                         Container(
-                          child: Icon(Icons.calendar_month),
+                          child: const Icon(Icons.calendar_month),
                         ),
-                        Text("Task_Assigh_Date")
+                        const Text("Task_Assigh_Date")
                       ],
                     ),
                   ),
@@ -138,9 +136,9 @@ class MycreateUi extends State<Createnewtask> {
                     child: Column(
                       children: [
                         Container(
-                          child: Icon(Icons.calendar_month),
+                          child: const Icon(Icons.calendar_month),
                         ),
-                        Text("Task_Due_Date")
+                        const Text("Task_Due_Date")
                       ],
                     ),
                   ),
@@ -169,7 +167,7 @@ class MycreateUi extends State<Createnewtask> {
                   controller: taskDescription,
                   maxLines: 15,
                   maxLength: 1000,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Task_Discription....",
                       hintStyle: TextStyle(
                           fontSize: 12, fontFamily: AppFont.fontFamily),
@@ -185,7 +183,7 @@ class MycreateUi extends State<Createnewtask> {
                   children: [
                     DropdownButton<String>(
                         value: newTaskProvider.selectedTaskType,
-                        hint: Text("select_task_type"),
+                        hint: const Text("select_task_type"),
                         items: taskType.map((type) {
                           return DropdownMenuItem(
                               value: type, child: Text(type));
@@ -200,7 +198,7 @@ class MycreateUi extends State<Createnewtask> {
                                       context, "Select_Task_File"))
                               : newTaskProvider.pickFile();
                         },
-                        child: Text("Select_files")),
+                        child: const Text("Select_files")),
                     if (newTaskProvider.selectedFile != null)
                       Text(newTaskProvider.selectedFile != null
                           ? "SelectTed file are${newTaskProvider.selectedFile!.path.split('/').last}"
@@ -222,11 +220,11 @@ class MycreateUi extends State<Createnewtask> {
                 Consumer<Projectprovider>(
                     builder: (context, newTaskProvider, child) {
                   return newTaskProvider.teamList.isEmpty
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Column(
                           children: [
                             DropdownButton<String>(
-                              hint: Text("Select User"),
+                              hint: const Text("Select User"),
                               value: selectedUserId,
                               onChanged: (String? newValue) {
                                 setState(() {
@@ -264,7 +262,7 @@ class MycreateUi extends State<Createnewtask> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProjectOverView(),
+                      builder: (context) => const ProjectOverView(),
                     ));
               },
             )

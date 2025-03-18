@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/createUserAccountModel.dart';
-import 'package:surveyist/adminProvider/accountCreateprovider.dart';
+import 'package:surveyist/adminModel/create_user_account_model.dart';
+import 'package:surveyist/adminProvider/account_create_provider.dart';
 
 import 'package:surveyist/utils/appButton.dart';
 import 'package:surveyist/utils/appFont.dart';
@@ -34,11 +34,11 @@ class _CreateNewUsState extends State<CreateNewUs> {
 
   @override
   Widget build(BuildContext context) {
-    final createProvider = Provider.of<Accountcreate>(context, listen: false);
+    Provider.of<Accountcreate>(context, listen: false);
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -48,7 +48,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Center(
                 child: Container(
                   height: MediaQuery.of(context).size.height * 10 / 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(Appimage.SplashScreen),
                       ),
@@ -73,7 +73,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('Full_Name:',
                         style: TextStyle(
@@ -87,7 +87,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: createFullName,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Full_Name',
                         ),
                       ),
@@ -101,7 +101,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('Date Of Birth:',
                         style: TextStyle(
@@ -115,7 +115,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: createDataOfBirth,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           // border: OutlineInputBorder(
                           //   borderRadius: BorderRadius.circular(15)
                           // ),
@@ -132,7 +132,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('Gender:',
                         style: TextStyle(
@@ -155,8 +155,8 @@ class _CreateNewUsState extends State<CreateNewUs> {
                               itemBuilder: (BuildContext context) {
                                 return items
                                     .map<PopupMenuItem<String>>((String value) {
-                                  return new PopupMenuItem(
-                                      child: new Text(value), value: value);
+                                  return  PopupMenuItem(
+                                      child:  Text(value), value: value);
                                 }).toList();
                               },
                             ),
@@ -171,7 +171,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('Email:',
                         style: TextStyle(
@@ -185,7 +185,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: createEmail,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Email',
                         ),
                       ),
@@ -199,7 +199,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('user address:',
                         style: TextStyle(
@@ -213,7 +213,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: createAddres,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Address',
                         ),
                       ),
@@ -227,7 +227,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('EmployeId:',
                         style: TextStyle(
@@ -241,7 +241,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: createEmployeId,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Employe Id',
                         ),
                       ),
@@ -252,7 +252,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('user mobile:',
                         style: TextStyle(
@@ -266,7 +266,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: createPhoneNumber,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Mobile number',
                         ),
                       ),
@@ -280,7 +280,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('LoginID:',
                         style: TextStyle(
@@ -294,7 +294,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: crateLoginID,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Login Id',
                         ),
                       ),
@@ -308,7 +308,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100.0, // Fixed width for the label
                     child: Text('Password:',
                         style: TextStyle(
@@ -322,7 +322,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                       height: 45.0, // Fixed height
                       child: TextField(
                         controller: crateLoginPassword,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter Login password',
                         ),
                       ),
@@ -336,7 +336,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
               Consumer<Accountcreate>(
                   builder: (context, createProvider, child) {
                 return createProvider.isAccountCreate == true
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : MyButton(
                         text: "Create_Account",
                         color: Colors.black,

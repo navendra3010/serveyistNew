@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/allUsersModel.dart';
+import 'package:surveyist/adminModel/all_users_model.dart';
 
-import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
+import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/admin_uI/usersDetails.dart';
 import 'package:surveyist/utils/appConstant.dart';
 import 'package:surveyist/utils/appFont.dart';
 import 'package:surveyist/utils/appFooter.dart';
-import 'package:surveyist/utils/appImage.dart';
+
 
 class viewAllUserpage extends StatefulWidget {
   viewAllUserpage({super.key});

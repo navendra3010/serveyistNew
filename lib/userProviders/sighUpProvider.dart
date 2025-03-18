@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:surveyist/UI_for_all/loginUI.dart';
+import 'package:surveyist/UI_for_all/login_ui.dart';
 import 'package:surveyist/userModel/userRegistrationModel.dart';
 import 'package:surveyist/repositry/firebaseAuthentication.dart';
 import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';

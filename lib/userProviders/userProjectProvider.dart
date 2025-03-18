@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:surveyist/adminModel/projectModel.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
+import 'package:surveyist/adminModel/project_model.dart';
+import 'package:surveyist/adminModel/task_model.dart';
 import 'package:surveyist/userFireStoreService/userFireStore.dart';
 
 class UserProjectProviderClass extends ChangeNotifier {

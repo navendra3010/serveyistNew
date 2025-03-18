@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminProvider/commanproviderforAdmin.dart';
+import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 
 class ImageSelect extends StatefulWidget {
   const ImageSelect({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/adminModel/taskModel.dart';
+import 'package:surveyist/adminModel/task_model.dart';
 import 'package:surveyist/userProviders/userProjectProvider.dart';
 import 'package:surveyist/users_UI/userTaskDetails.dart';
 

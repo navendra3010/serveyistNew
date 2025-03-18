@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:surveyist/adminModel/createUserAccountModel.dart';
+import 'package:surveyist/adminModel/create_user_account_model.dart';
 import 'package:surveyist/admin_uI/adminDashboard.dart';
 import 'package:surveyist/userFireStoreService/userFireStore.dart';
 import 'package:surveyist/userModel/userProfilemodel.dart';
@@ -11,12 +11,12 @@ import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
 import 'package:surveyist/utils/app_Language.dart';
 
 class Accountcreate extends ChangeNotifier {
-  FireStoreServiceClass _fireServices = FireStoreServiceClass();
+  FireStoreServiceClass fireServices = FireStoreServiceClass();
 
   //refreance of collection firebase........................
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   bool isAccountCreate = false;
   User? currentUser;
   Future<void> userNewAccount(UserAccount obj, context) async {
@@ -69,14 +69,14 @@ class Accountcreate extends ChangeNotifier {
         /// firebas user account afterr checking admin or user account exit it will execute------------------------
         isAccountCreate = true;
         notifyListeners();
-        _firebaseAuth
+        firebaseAuth
             .createUserWithEmailAndPassword(
                 email: obj.loginId!, password: obj.loginPassword!)
             .then((value) {
           String userId = value.user!.uid;
           obj.role = userRole;
           obj.unique_Id = userId;
-          UserAccount obj1 = UserAccount();
+          // UserAccount obj1 = UserAccount();
           isAccountCreate = false;
           notifyListeners();
 
@@ -86,12 +86,10 @@ class Accountcreate extends ChangeNotifier {
         ShowTaostMessage.toastMessage(context, "Succesfully_Account_Created");
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+          MaterialPageRoute(builder: (context) => const AdminDashboardPage()),
         );
 
-        print(
-            "--------------------------hello--------------------------------");
-        // print(obj1.toFireStore());
+      
         isAccountCreate = false;
         notifyListeners();
       } on PlatformException catch (e) {
@@ -131,10 +129,10 @@ class Accountcreate extends ChangeNotifier {
         notifyListeners();
         ShowTaostMessage.toastMessage(context, message);
 
-        return null;
+       // return null;
         // print("FirebaseAuthException: ${e.code}");
       } catch (e) {
-        print("Unknown error: $e");
+        //print("Unknown error: $e");
         isAccountCreate = false;
         notifyListeners();
         ShowTaostMessage.toastMessage(
@@ -149,10 +147,10 @@ class Accountcreate extends ChangeNotifier {
   Future<void> createUserOnfireStore(
       String userCurrrentID, context, Map<String, dynamic> fireStore) async {
     try {
-      final addData = _firestore.collection("allusers").doc(userCurrrentID);
+      final addData = firestore.collection("allusers").doc(userCurrrentID);
       addData.set(fireStore);
     } catch (e) {
-      print("Unknown error: $e");
+     // print("Unknown error: $e");
       isAccountCreate = false;
       notifyListeners();
       ShowTaostMessage.toastMessage(
@@ -177,15 +175,15 @@ class Accountcreate extends ChangeNotifier {
   Userprofilemodel? get model => _model;
 
   void fatchUserAccountDetails(String? userID) {
-    _fireServices.getFacthUserAccountDetails(userID).listen((details) {
+    fireServices.getFacthUserAccountDetails(userID).listen((details) {
       _model = details;
       notifyListeners();
 
-      if (_model != null) {
-        print(_model!.userName);
-      } else {
-        print('User details are not available.');
-      }
+      // if (_model != null) {
+      //  // print(_model!.userName);
+      // } else {
+      //   print('User details are not available.');
+      // }
     });
   }
 }
