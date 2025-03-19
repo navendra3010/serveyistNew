@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surveyist/userModel/user_registration_model.dart';
 
-import 'package:surveyist/userModel/userRegistrationModel.dart';
-import 'package:surveyist/userProviders/sighUpProvider.dart';
-import 'package:surveyist/utils/appButton.dart';
-import 'package:surveyist/utils/appFont.dart';
-import 'package:surveyist/utils/appImage.dart';
 
-import '../utils/app_Language.dart';
+import 'package:surveyist/userProviders/sigh_up_provider.dart';
+
+import 'package:surveyist/utils/app_font.dart';
+import 'package:surveyist/utils/app_image.dart';
+import 'package:surveyist/utils/app_button.dart';
+
+import '../utils/app_language.dart';
 
 class SignUpScreenForAll extends StatefulWidget {
   const SignUpScreenForAll({super.key});
@@ -49,7 +51,7 @@ class _SignScreenForAllState extends State<SignUpScreenForAll> {
                             // child:Image.asset(Appimage.SplashScreen,fit: BoxFit.fill,),
                             decoration: const BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage(Appimage.SplashScreen),
+                                    image: AssetImage(Appimage.splashScreen),
                                     fit: BoxFit.fill),
                                 shape: BoxShape.circle),
                           ),

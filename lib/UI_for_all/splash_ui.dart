@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:surveyist/userProviders/loginProvider.dart';
+import 'package:surveyist/userProviders/login_provider.dart';
 
-import 'package:surveyist/utils/appImage.dart';
+import 'package:surveyist/utils/app_image.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -41,7 +41,7 @@ class _SplashState extends State<Splash> {
           height: MediaQuery.of(context).size.height * 50 / 100,
           width: MediaQuery.of(context).size.width * 100 / 100,
           child: Image.asset(
-            Appimage.SplashScreen,
+            Appimage.splashScreen,
             fit: BoxFit.fill,
           ),
         ),

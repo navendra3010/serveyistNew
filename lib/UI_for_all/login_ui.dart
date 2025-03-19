@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:surveyist/userProviders/loginProvider.dart';
+import 'package:surveyist/userProviders/login_provider.dart';
 
-import 'package:surveyist/utils/appButton.dart';
 
-import 'package:surveyist/utils/appFont.dart';
-import 'package:surveyist/utils/appImage.dart';
 
-import 'package:surveyist/utils/app_Language.dart';
+import 'package:surveyist/utils/app_font.dart';
+import 'package:surveyist/utils/app_image.dart';
+
+import 'package:surveyist/utils/app_language.dart';
+import 'package:surveyist/utils/app_button.dart';
 
 class LoginScreenForAll extends StatefulWidget {
   const LoginScreenForAll({super.key});
@@ -52,7 +53,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                       decoration: const BoxDecoration(
                           // color: const Color.fromARGB(255, 228, 153, 41),
                           image: DecorationImage(
-                            image: AssetImage(Appimage.SplashScreen),
+                            image: AssetImage(Appimage.splashScreen),
                             //  fit: BoxFit.fill
                           ),
                           shape: BoxShape.circle),

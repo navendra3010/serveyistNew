@@ -10,7 +10,7 @@ class UserAccount {
   String? address;
   String? role;
   bool? isAdmin;
-  String? unique_Id;
+  String? uniqueId;
 
   DateTime? createdAt;
 
@@ -31,7 +31,7 @@ class UserAccount {
       this.createdAt,
       this.isAdmin,
       this.role,
-      this.unique_Id});
+      this.uniqueId});
 
   Map<String, dynamic> toFireStore() {
     return {
@@ -46,7 +46,7 @@ class UserAccount {
       "Login_password": loginPassword,
       "isAdmin": isAdmin,
       "role": role,
-      "unique_Id":unique_Id,
+      "unique_Id":uniqueId,
       "Date_Time": FieldValue.serverTimestamp(),
     };
   }
@@ -65,7 +65,7 @@ class UserAccount {
       loginPassword: documentSnapshot["Login_password"],
       isAdmin: documentSnapshot['isAdmin'],
       role: documentSnapshot['role'],
-      unique_Id: documentSnapshot['unique_Id'],
+      uniqueId: documentSnapshot['unique_Id'],
       createdAt: (documentSnapshot['created_at'] as Timestamp).toDate(),
     );
   }

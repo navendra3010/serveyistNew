@@ -6,11 +6,11 @@ import 'package:surveyist/adminProvider/account_create_provider.dart';
 import 'package:surveyist/adminProvider/admin_project_provider.dart';
 
 import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
-import 'package:surveyist/userProviders/commanProvider.dart';
-import 'package:surveyist/userProviders/locationProvider.dart';
-import 'package:surveyist/userProviders/loginProvider.dart';
-import 'package:surveyist/userProviders/userProjectProvider.dart';
-import 'package:surveyist/utils/appFont.dart';
+import 'package:surveyist/userProviders/comman_provider.dart';
+import 'package:surveyist/userProviders/location_provider.dart';
+import 'package:surveyist/userProviders/login_provider.dart';
+import 'package:surveyist/userProviders/user_project_provider.dart';
+import 'package:surveyist/utils/app_font.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:surveyist/userModel/deviceInfomodel.dart';
-import 'package:surveyist/userModel/deviceLocatioModel.dart';
+import 'package:surveyist/userModel/device_info_model.dart';
+import 'package:surveyist/userModel/device_location_model.dart';
 
 class UserLoginModel {
   bool? loginStatus;
@@ -56,8 +56,8 @@ class UserLoginModel {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return UserLoginModel(
       loginDate: data['login_date'] ?? " ",
-      loginTime: data?['Login_time'] ?? " ",
-      logOutDate: data?['logOut_date'] ?? " ",
+      loginTime: data['Login_time'] ?? " ",
+      logOutDate: data['logOut_date'] ?? " ",
       logOutTime: data['LogOut_time'] ?? " ",
       loginStatus: data['Login_status'] ?? false,
       logOutStatus: data['LogOut_status'] ??false,

@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/UI_for_all/login_ui.dart';
 import 'package:surveyist/adminModel/all_users_model.dart';
 import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fire_store_servie_admin.dart';
-import 'package:surveyist/userModel/userProfilemodel.dart';
+import 'package:surveyist/userModel/user_profile_model.dart';
 import 'package:surveyist/userModel/userlogin.dart';
 
 class CommanproviderAdmin extends ChangeNotifier {

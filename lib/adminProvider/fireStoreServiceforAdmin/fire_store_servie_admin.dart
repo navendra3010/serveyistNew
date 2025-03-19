@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:surveyist/adminModel/all_users_model.dart';
 import 'package:surveyist/adminModel/project_model.dart';
 import 'package:surveyist/adminModel/task_model.dart';
-import 'package:surveyist/userModel/userProfilemodel.dart';
+import 'package:surveyist/userModel/user_profile_model.dart';
 
 class FireStoreServiceForAdmin {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -15,9 +15,9 @@ class FireStoreServiceForAdmin {
   Stream<List<ViewAllUsers>> getAllUsers() {
     return firestore.collection("allusers").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
-        for (var element in snapshot.docs) {
-          // print(element.data());
-        }
+        // for (var element in snapshot.docs) {
+        //   // print(element.data());
+        // }
         return ViewAllUsers.fromFireStore(doc);
       }).toList();
     });
@@ -55,8 +55,8 @@ class FireStoreServiceForAdmin {
         return loginStreams; // Return the list of QuerySnapshot
       });
     } catch (e) {
-      print(e);
-      return Stream.empty();
+      //print(e);
+      return const Stream.empty();
     }
   }
 
@@ -74,7 +74,7 @@ class FireStoreServiceForAdmin {
 
   //this function for create mainProject................................................
   Future<ProjectModel?> createProject(Map<String, dynamic> json) async {
-    bool? status = await creteProjectWithCollectionRefrance(json);
+     await creteProjectWithCollectionRefrance(json);
     // if (status == true) {
     //   print("data has been save");
     // }
@@ -92,7 +92,7 @@ class FireStoreServiceForAdmin {
         await df.set({
           'created_AT': DateTime.now(),
         });
-        print("project collection has been created");
+        //print("project collection has been created");
       }
       DocumentReference df1 = df.collection("P_Name").doc();
       DocumentSnapshot ds = await df1.get();
@@ -105,8 +105,9 @@ class FireStoreServiceForAdmin {
       await df1.set(json);
       return true;
     } catch (e) {
-      print("${e}");
+      //print("${e}");
     }
+    return null;
   }
 
   // Future<void> getAllProjectFireStore() async {
@@ -217,8 +218,8 @@ class FireStoreServiceForAdmin {
   Future<List<Map<String, dynamic>>> getTaskAssignToUser(
       String? documentId, String? projectId) async {
     try {
-      print("${projectId} project id.............");
-      print("${documentId} document id-----------------");
+      // print("${projectId} project id.............");
+      // print("${documentId} document id-----------------");
       DocumentSnapshot snapshot = await firestore
           .collection("Project")
           .doc(documentId)
@@ -230,7 +231,7 @@ class FireStoreServiceForAdmin {
         return teamData.map((e) => Map<String, dynamic>.from(e)).toList();
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     return [];
@@ -254,7 +255,7 @@ class FireStoreServiceForAdmin {
       status: "pending",
       taskProgress: 0,
     );
-    final crateTask = firestore
+     firestore
         .collection("Project")
         .doc(documentId)
         .collection("task")
@@ -269,7 +270,7 @@ class FireStoreServiceForAdmin {
 
   Stream<List<Map<String, dynamic>>> getListenTask(
       String projectId, String documentId) {
-    print("this functin working");
+    //print("this functin working");
     return firestore
         .collection("Project")
         .doc(documentId)
@@ -308,11 +309,11 @@ class FireStoreServiceForAdmin {
           await firestore.collection("allusers").doc(userid).get();
       if (snapshot.exists) {
         // print(snapshot.data());
-        return Userprofilemodel.FromFireStore(snapshot);
+        return Userprofilemodel.fromFireStore(snapshot);
       }
       return null;
     } catch (e) {
-      print("Error fetching user profile: $e");
+      //print("Error fetching user profile: $e");
       return null;
     }
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:async';
 
 import 'dart:io';
@@ -10,9 +12,9 @@ import 'package:surveyist/adminModel/project_model.dart';
 import 'package:surveyist/adminModel/task_model.dart';
 import 'package:surveyist/adminProvider/fireStoreServiceforAdmin/fire_store_servie_admin.dart';
 
-import 'package:surveyist/admin_uI/projectOverViewUI.dart';
+import 'package:surveyist/admin_uI/project_over_view_ui.dart';
 
-import '../utils/appSnackBarOrToastMessage.dart';
+import '../utils/app_snack_bar_or_toast_message.dart';
 
 class Projectprovider extends ChangeNotifier {
   TextEditingController dateStartcontroller = TextEditingController();
@@ -301,7 +303,7 @@ class Projectprovider extends ChangeNotifier {
                 onPressed: () async {
                   try {
                     if (updateController.text.trim().isNotEmpty) {
-                      final update = FirebaseFirestore.instance
+                       FirebaseFirestore.instance
                           .collection("Project")
                           .doc(docId)
                           .collection("P_Name")

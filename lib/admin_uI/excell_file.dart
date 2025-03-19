@@ -8,7 +8,7 @@ class ExcelReaderPage extends StatefulWidget {
   const ExcelReaderPage({super.key});
 
   @override
-  _ExcelReaderPageState createState() => _ExcelReaderPageState();
+  State<ExcelReaderPage> createState() => _ExcelReaderPageState();
 }
 
 class _ExcelReaderPageState extends State<ExcelReaderPage> {

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/project_model.dart';
 import 'package:surveyist/adminProvider/admin_project_provider.dart';
-import 'package:surveyist/utils/TextSyle.dart';
-import 'package:surveyist/utils/appButton.dart';
-import 'package:surveyist/utils/appFont.dart';
+import 'package:surveyist/utils/text_style.dart';
+
+import 'package:surveyist/utils/app_font.dart';
+import 'package:surveyist/utils/app_button.dart';
 
 class Newproject extends StatefulWidget {
   const Newproject({super.key});
@@ -113,10 +114,10 @@ class _MyNewProjectUI extends State<Newproject> {
                         onPressed: () {
                           newProject.selectprojectStartDate(context);
                         },
-                        child: Column(
+                        child: const Column(
                           children: [
-                            const Icon(Icons.calendar_month),
-                            const Text("Project_Start_Date")
+                            Icon(Icons.calendar_month),
+                            Text("Project_Start_Date")
                           ],
                         ),
                       ),
@@ -142,10 +143,10 @@ class _MyNewProjectUI extends State<Newproject> {
                         onPressed: () {
                           newProject.selectprojectEndDate(context);
                         },
-                        child: Column(
+                        child: const Column(
                           children: [
                             Icon(Icons.calendar_month),
-                            const Text("Project_End_Date")
+                            Text("Project_End_Date")
                           ],
                         ),
                       ),
@@ -166,9 +167,9 @@ class _MyNewProjectUI extends State<Newproject> {
                 ),
                 //-----------------start----------project description------container-----------------------------
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     height: MediaQuery.of(context).size.height * 10 / 100,
-                    // width: MediaQuery.of(context).size.width * 90 / 100,
+                     width: MediaQuery.of(context).size.width * 90 / 100,
                     //color: Colors.amber,
                     child: TextFormField(
                       controller: projectDiscriptionControlller,

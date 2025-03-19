@@ -3,12 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:surveyist/adminModel/create_user_account_model.dart';
-import 'package:surveyist/admin_uI/adminDashboard.dart';
-import 'package:surveyist/userFireStoreService/userFireStore.dart';
-import 'package:surveyist/userModel/userProfilemodel.dart';
+import 'package:surveyist/admin_uI/admin_dashboard.dart';
+import 'package:surveyist/userFireStoreService/user_fire_store.dart';
+import 'package:surveyist/userModel/user_profile_model.dart';
 
-import 'package:surveyist/utils/appSnackBarOrToastMessage.dart';
-import 'package:surveyist/utils/app_Language.dart';
+import 'package:surveyist/utils/app_snack_bar_or_toast_message.dart';
+import 'package:surveyist/utils/app_language.dart';
 
 class Accountcreate extends ChangeNotifier {
   FireStoreServiceClass fireServices = FireStoreServiceClass();
@@ -33,7 +33,7 @@ class Accountcreate extends ChangeNotifier {
           context, Applanguage.gender[Applanguage.language]);
     } else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(obj.email!))) {
       ShowTaostMessage.toastMessage(
-          context, Applanguage.NotValidEmail[Applanguage.language]);
+          context, Applanguage.notValidEmail[Applanguage.language]);
     } else if (obj.address == "") {
       ShowTaostMessage.toastMessage(
           context, Applanguage.address[Applanguage.language]);
@@ -75,7 +75,7 @@ class Accountcreate extends ChangeNotifier {
             .then((value) {
           String userId = value.user!.uid;
           obj.role = userRole;
-          obj.unique_Id = userId;
+          obj.uniqueId = userId;
           // UserAccount obj1 = UserAccount();
           isAccountCreate = false;
           notifyListeners();
