@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surveyist/adminModel/project_model.dart';
@@ -161,4 +165,19 @@ class FireStoreServiceClass {
       rethrow;
     }
   }
+
+  // Future<void> getNews() async {
+  //   try {
+  //     final response = await http.get(Uri.parse(
+  //         'https://newsapi.org/v2/everything?q=tesla&from=2025-03-19&to=2025-03-19&sortBy=popularity&apiKey=26fa926270e944a0b0d9b8af77fd2609'));
+
+          
+  //           var data=json.decode(response.body);
+  //           print(data);
+           
+  //    // print(response.body);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //}
 }

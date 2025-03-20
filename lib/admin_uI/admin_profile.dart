@@ -141,20 +141,19 @@ class AdminProfilePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Email",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: AppFont.fontFamily,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  Text("${userProfile.userEmail}")
-                                ],
-                              ),
-                            
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Email",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: AppFont.fontFamily,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                Text("${userProfile.userEmail}")
+                              ],
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -171,19 +170,18 @@ class AdminProfilePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Gender",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: AppFont.fontFamily,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  Text("${userProfile.userGender}")
-                                ],
-                              
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Gender",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: AppFont.fontFamily,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                Text("${userProfile.userGender}")
+                              ],
                             ),
                           ],
                         ),
@@ -228,25 +226,24 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                         Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Date_Of_Birth",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: AppFont.fontFamily,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  Text("${userProfile.userDateOfBirth}")
-                                ],
-                              ),
-                            ],
-                          
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Date_Of_Birth",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: AppFont.fontFamily,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                Text("${userProfile.userDateOfBirth}")
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
@@ -288,26 +285,26 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                         Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "EmployeID",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: AppFont.fontFamily,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  Text("${userProfile.userEmployeId}")
-                                ],
-                              ),
-                            ],
-                          ),
-                        
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "EmployeID",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: AppFont.fontFamily,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                Text("${userProfile.userEmployeId}")
+                              ],
+                            ),
+                          ],
+                        ),
+
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
@@ -318,25 +315,24 @@ class AdminProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 2 / 100,
                         ),
-                         Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Address",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: AppFont.fontFamily,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  Text("${userProfile.userAddress}")
-                                ],
-                              ),
-                            ],
-                          
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Address",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: AppFont.fontFamily,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                Text("${userProfile.userAddress}")
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),

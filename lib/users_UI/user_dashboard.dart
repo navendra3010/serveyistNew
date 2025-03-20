@@ -35,7 +35,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   Widget build(BuildContext context) {
     Provider.of<CommanProviderForUser>(context, listen: false);
     final loginpro = Provider.of<LoginProviderForUser>(context, listen: false);
-    Provider.of<UserProjectProviderClass>(context, listen: false);
+      final data=Provider.of<UserProjectProviderClass>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -114,7 +114,11 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            //print("tap on attenafce");
+                            // Consumer<UserProjectProviderClass>(builder: (context, data, child) {
+                            //    return data.fatchnew();
+                               
+                            // },);
+                           // data.fatchnew();
                           },
                           child: Container(
                             height:
@@ -145,7 +149,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                                                 AssetImage(Appimage.attendance),
                                             fit: BoxFit.fill)),
                                   ),
-                                  const Text("Attendance",
+                                  const Text("News",
                                       style: TextStyle(
                                           fontFamily: AppFont.fontFamily,
                                           fontSize: 13,

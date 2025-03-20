@@ -105,4 +105,12 @@ class UserProjectProviderClass extends ChangeNotifier {
       // print(data.length);
     });
   }
+
+  // void fatchnew()
+  // {
+
+  //   fireStoreService.getNews();
+  //   notifyListeners();
+  // }
+
 }

@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-
 import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/admin_uI/create_new_users_ui.dart';
-
 
 import 'package:surveyist/utils/app_constant.dart';
 import 'package:surveyist/utils/app_footer.dart';
@@ -73,7 +71,8 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      buildBoxContainer(context, "new_users", const CreateNewUs()),
+                      buildBoxContainer(
+                          context, "new_users", const CreateNewUs()),
                       buildBoxContainer(context, "B"),
                     ],
                   ),
@@ -94,44 +93,43 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
-           Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Text(
-                    "Active users",
-                    style: CustomText.nameOfTextStyle,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text(
+                  "Active users",
+                  style: CustomText.nameOfTextStyle,
+                ),
+                InkWell(
+                    onTap: () {
+                      commanprovide.selectDateforLoginFiltering(context);
+                    },
+                    child: const SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(Icons.calendar_month),
+                          Text("Select Date"),
+                        ],
+                      ),
+                    )),
+                Flexible(
+                  child: SizedBox(
+                    width: 80.0, // Fixed width
+                    height: 40.0, // Fixed height
+                    child: TextField(
+                        controller: commanprovide.selectfilterDateController),
                   ),
-                  InkWell(
-                      onTap: () {
-                        commanprovide.selectDateforLoginFiltering(context);
-                      },
-                      child: const SizedBox(
-                        child: Column(
-                          children: [
-                             Icon(Icons.calendar_month),
-                            
-                            Text("Select Date"),
-                          ],
-                        ),
-                      )),
-                  Flexible(
-                    child: SizedBox(
-                      width: 80.0, // Fixed width
-                      height: 40.0, // Fixed height
-                      child: TextField(
-                          controller: commanprovide.selectfilterDateController),
-                    ),
-                  ),
-                  // TextButton(
-                  //     onPressed: () {
-                  //       commanproviderAdmin.dateKey = commanproviderAdmin
-                  //           .selectfilterDateController.text
-                  //           .trim();
-                  //     },
-                  //     child: Text("Search"))
-                ],
-              ),
-            
+                ),
+                // TextButton(
+                //     onPressed: () {
+                //       commanproviderAdmin.dateKey = commanproviderAdmin
+                //           .selectfilterDateController.text
+                //           .trim();
+                //     },
+                //     child: Text("Search"))
+              ],
+            ),
+
             SizedBox(
               height: MediaQuery.of(context).size.height * 1 / 100,
             ),
@@ -166,11 +164,11 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         itemCount: users.length,
                         itemBuilder: (context, index) {
                           final data = users[index].data();
-                         // final loginTime = data['login_time'] ?? 'no data';
+                          // final loginTime = data['login_time'] ?? 'no data';
                           List<dynamic> loc = data["location"] ?? [];
                           String add = loc[0]["address"];
                           String addtrim = add.substring(5, 15);
-                         // int len = (users.length);
+                          // int len = (users.length);
 
                           String calculateWorkingHour(
                               String? logTime, String? outTime) {
@@ -286,7 +284,9 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Text(
-                                            calculateWorkingHour(data["Login_time"], data["LogOut_time"]),
+                                            calculateWorkingHour(
+                                                data["Login_time"],
+                                                data["LogOut_time"]),
                                             style: const TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.black,
