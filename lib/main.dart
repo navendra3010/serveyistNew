@@ -10,8 +10,9 @@ import 'package:surveyist/userProviders/comman_provider.dart';
 import 'package:surveyist/userProviders/location_provider.dart';
 import 'package:surveyist/userProviders/login_provider.dart';
 import 'package:surveyist/userProviders/user_project_provider.dart';
-import 'package:surveyist/utils/app_font.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:surveyist/utils/my_theme.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -42,14 +43,34 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: AppFont.fontFamily,
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   navigatorKey: navigatorKey,
+    //   title: 'flutter Dark mode',
+    //   //theme:
+    //   // theme: ThemeData(
+    //   //   fontFamily: AppFont.fontFamily,
+    //   // ),
+    //   theme: MyAppTheme.lightTheme,
+    //   darkTheme: MyAppTheme.darkTheme,
+    //   themeMode: ThemeMode.system,
+
+    //   home: const Splash(),
+    // );
+    return ChangeNotifierProvider(
+      create: (_) => CommanproviderAdmin(),  // Provide the ThemeProvider to the widget tree
+      child: Consumer<CommanproviderAdmin>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Dark Mode',
+            theme: MyAppTheme.lightTheme,  // Your light theme
+            darkTheme: MyAppTheme.darkTheme, // Your dark theme
+            themeMode: themeProvider.themeMode, // Set the themeMode dynamically
+            home: const Splash(),
+          );
+        },
       ),
-      home: const Splash(),
     );
   }
 }

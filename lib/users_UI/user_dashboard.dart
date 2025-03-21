@@ -35,7 +35,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   Widget build(BuildContext context) {
     Provider.of<CommanProviderForUser>(context, listen: false);
     final loginpro = Provider.of<LoginProviderForUser>(context, listen: false);
-      final data=Provider.of<UserProjectProviderClass>(context, listen: false);
+      Provider.of<UserProjectProviderClass>(context, listen: false);
 
     return Scaffold(
       body: Padding(

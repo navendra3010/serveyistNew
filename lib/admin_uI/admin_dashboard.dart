@@ -21,12 +21,15 @@ class AdminDashboardPage extends StatefulWidget {
 }
 
 class _AdminDashboardPageState extends State<AdminDashboardPage> {
-  @override
+  
   @override
   Widget build(BuildContext context) {
+
     final commanprovide =
         Provider.of<CommanproviderAdmin>(context, listen: false);
-
+       // bool isDarkmode=Theme.of(context).brightness == Brightness.dark;
+        bool isDarkMode = Provider.of<CommanproviderAdmin>(context,listen: true).themeMode == ThemeMode.dark;
+       
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -37,22 +40,31 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 5 / 100,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 4 / 100,
-              width: MediaQuery.of(context).size.width * 20 / 100,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 228, 153, 41),
-                  borderRadius: BorderRadius.all(Radius.circular(80))),
-              child: TextButton(
-                  onPressed: () {
-                    //  loginpro.userLogOut();
-
-                    // Consumer<CommanproviderAdmin>(builder:(context,commanproviderAdmin,child){
-                    //   return
-                    // },);
-                    commanprovide.adminLogOut(context);
-                  },
-                  child: const Center(child: Text("Log_out"))),
+            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 4 / 100,
+                  width: MediaQuery.of(context).size.width * 20 / 100,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 228, 153, 41),
+                      borderRadius: BorderRadius.all(Radius.circular(80))),
+                  child: TextButton(
+                      onPressed: () {
+                        //  loginpro.userLogOut();
+                
+                        // Consumer<CommanproviderAdmin>(builder:(context,commanproviderAdmin,child){
+                        //   return
+                        // },);
+                        commanprovide.adminLogOut(context);
+                      },
+                      child: const Center(child: Text("Log_out"))),
+                ),
+                Switch(value:isDarkMode, onChanged: (isOn) {
+                
+                 // isOn?commanprovide.themeSwitchMode(ThemeMode.dark):commanprovide.themeSwitchMode(ThemeMode.light);
+                 commanprovide.themeSwitchMode(isOn?ThemeMode.dark:ThemeMode.light);
+                },)
+              ],
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 2 / 100,

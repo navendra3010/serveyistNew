@@ -17,33 +17,27 @@ class CommanproviderAdmin extends ChangeNotifier {
   UserLoginModel? userLoginModel;
   FireStoreServiceForAdmin frstr = FireStoreServiceForAdmin();
 
-
-Future<Userprofilemodel?> getAdminInfo() async {
+  Future<Userprofilemodel?> getAdminInfo() async {
     SharedPreferences sff = await SharedPreferences.getInstance();
-    String? profileID =  sff.getString('userId');
+    String? profileID = sff.getString('userId');
     if (profileID != null) {
       // print("got profile id      ${profileID}");
       return await frstr.getAdminProfile(profileID);
-    } 
+    }
     return null;
   }
-
-
-
 
   Stream<List<ViewAllUsers>> get allUsersStream {
     return frstr.getAllUsers();
   }
+
 // all users yet login per day -------------------------------------------------------------------------------------
-DateTime now=DateTime.now();
-String? dateKey;
+  DateTime now = DateTime.now();
+  String? dateKey;
 //notifyListeners();
 
-
-
-
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser(String s) {
-      //dateKey = DateFormat('dd-MM-yyyy').format(now);
+    //dateKey = DateFormat('dd-MM-yyyy').format(now);
     return frstr.getAllLoginUser(s);
   }
 
@@ -86,25 +80,23 @@ String? dateKey;
     if (selectImage.isNotEmpty) {
       imageFileList.addAll(selectImage);
     }
-   // print(" image length -------------${imageFileList.length}");
+    // print(" image length -------------${imageFileList.length}");
     notifyListeners();
   }
-      int ? selecNumber;
-   void setDateForSelect( int value)
-   {
-    selecNumber=value;
+
+  int? selecNumber;
+  void setDateForSelect(int value) {
+    selecNumber = value;
     notifyListeners();
-   }
+  }
 
-
-
-     //date 12-3-2025..........................................................
+  //date 12-3-2025..........................................................
   // this function select date for filtering  login record any time.....................................
 
   String? selectPickedDate;
   DateTime selectDate = DateTime.now();
   TextEditingController selectfilterDateController = TextEditingController();
-  
+
   void selectDateforLoginFiltering(BuildContext context) async {
     DateTime? select = await showDatePicker(
         initialDate: DateTime.now(),
@@ -115,11 +107,20 @@ String? dateKey;
     if (select != null) {
       selectfilterDateController.text = formateDate(select);
     }
-     notifyListeners();
+    notifyListeners();
   }
 
   String formateDate(DateTime date) {
     //return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-     return "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+    return "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+  }
+
+ ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode get themeMode => _themeMode;
+
+  void themeSwitchMode(ThemeMode thmd) {
+   // print("hello");
+    _themeMode = thmd;
+    notifyListeners();
   }
 }
