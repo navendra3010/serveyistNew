@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
     //   title: 'flutter Dark mode',
     //   //theme:
     //   // theme: ThemeData(
-    //   //   fontFamily: AppFont.fontFamily,
+    //   //   fontFamily: AppFont.fontFamily
     //   // ),
     //   theme: MyAppTheme.lightTheme,
     //   darkTheme: MyAppTheme.darkTheme,
