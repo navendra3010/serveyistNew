@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            navigatorKey: navigatorKey,
             title: 'Flutter Dark Mode',
             theme: MyAppTheme.lightTheme,  // Your light theme
             darkTheme: MyAppTheme.darkTheme, // Your dark theme

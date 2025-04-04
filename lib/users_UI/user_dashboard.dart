@@ -33,8 +33,8 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<CommanProviderForUser>(context, listen: false);
-    final loginpro = Provider.of<LoginProviderForUser>(context, listen: false);
+  Provider.of<CommanProviderForUser>(context, listen: false);
+     Provider.of<LoginProviderForUser>(context,listen: false);
       Provider.of<UserProjectProviderClass>(context, listen: false);
 
     return Scaffold(
@@ -53,12 +53,23 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 228, 153, 41),
                   borderRadius: BorderRadius.all(Radius.circular(80))),
-              child: TextButton(
-                  onPressed: () {
-                    loginpro.userLogOut();
-                  },
-                  child: const Center(child: Text("Log_out"))),
+              // child: TextButton(
+              //     onPressed: () {
+              //       Consumer<LoginProviderForUser>(builder: (context, loginpro, child) {
+              //         return loginpro.userLogOut();
+              //       },);
+              //      // login.userLogOut();
+              //     },
+              //     child: const Center(child: Text("Log_out"))),
+           // ),
+            child:Consumer<LoginProviderForUser>(builder: (context, loginpro, child) {
+              return TextButton(onPressed: () {
+                loginpro.userLogOut();
+                
+              }, child: const Text("logout"));
+            },
             ),
+             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 3 / 100,
             ),

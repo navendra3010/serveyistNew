@@ -937,10 +937,12 @@ class LoginProviderForUser extends ChangeNotifier {
 
     // Sign out from Firebase
     await FirebaseAuth.instance.signOut();
-
+     
     navigatorKey.currentState?.pushReplacement(
       MaterialPageRoute(builder: (context) => const LoginScreenForAll()),
     );
+
+  
     notifyListeners();
   }
   //------------------------------------------------------------end all functionality of autologin  and auto logout--------------------------------------
