@@ -178,8 +178,9 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                           final data = users[index].data();
                           // final loginTime = data['login_time'] ?? 'no data';
                           List<dynamic> loc = data["location"] ?? [];
-                          String add = loc[0]["address"];
-                          String addtrim = add.substring(5, 15);
+                         
+                         String add = loc[0]["address"]??"";
+                          //String addtrim = add!.substring(0, 5);
                           // int len = (users.length);
 
                           String calculateWorkingHour(
@@ -278,7 +279,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Text(
-                                            addtrim,
+                                            add,
                                             style: const TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.black,

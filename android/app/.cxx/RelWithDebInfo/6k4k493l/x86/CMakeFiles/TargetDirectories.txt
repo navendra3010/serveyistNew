@@ -1,0 +1,2 @@
+E:/Navendra_6_dec/projectcopy/surveyist/android/app/.cxx/RelWithDebInfo/6k4k493l/x86/CMakeFiles/edit_cache.dir
+E:/Navendra_6_dec/projectcopy/surveyist/android/app/.cxx/RelWithDebInfo/6k4k493l/x86/CMakeFiles/rebuild_cache.dir

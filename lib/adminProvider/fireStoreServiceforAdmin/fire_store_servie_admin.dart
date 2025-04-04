@@ -24,15 +24,12 @@ class FireStoreServiceForAdmin {
   }
 
 //all login on admin dasghbord.............................................
-  Stream<List<QuerySnapshot<Map<String, dynamic>>>> getAllLoginUser(String dateKey) {
-  
-    if(dateKey.isEmpty)
-    {
-       String dateKey2 = DateFormat('dd-MM-yyyy').format(now);
-        dateKey=dateKey2;
-        
+  Stream<List<QuerySnapshot<Map<String, dynamic>>>> getAllLoginUser(
+      String dateKey) {
+    if (dateKey.isEmpty) {
+      String dateKey2 = DateFormat('dd-MM-yyyy').format(now);
+      dateKey = dateKey2;
     }
-
 
     try {
       // Fetch all user documents from the root collection
@@ -74,7 +71,7 @@ class FireStoreServiceForAdmin {
 
   //this function for create mainProject................................................
   Future<ProjectModel?> createProject(Map<String, dynamic> json) async {
-     await creteProjectWithCollectionRefrance(json);
+    await creteProjectWithCollectionRefrance(json);
     // if (status == true) {
     //   print("data has been save");
     // }
@@ -255,7 +252,7 @@ class FireStoreServiceForAdmin {
       status: "pending",
       taskProgress: 0,
     );
-     firestore
+    firestore
         .collection("Project")
         .doc(documentId)
         .collection("task")
@@ -327,6 +324,7 @@ class FireStoreServiceForAdmin {
         .doc(projectId)
         .update({'totalTask': length});
   }
+
 // this function  fatch total task aassin to the list..............................
   Stream<List<Map<String, dynamic>>> getTotalCompletedTak(
       String projectId, String documentId) {
@@ -343,6 +341,7 @@ class FireStoreServiceForAdmin {
       return com;
     });
   }
+
 // this funcation update the progress filed in the progress.....................................
   void getUpDateCompleted(
       String projectId, String documentId, int completedLen) {
