@@ -31,10 +31,12 @@ class Accountcreate extends ChangeNotifier {
     } else if (obj.gender == "") {
       ShowTaostMessage.toastMessage(
           context, Applanguage.gender[Applanguage.language]);
-    } else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(obj.email!))) {
+    } 
+    else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(obj.email!))) {
       ShowTaostMessage.toastMessage(
           context, Applanguage.notValidEmail[Applanguage.language]);
-    } else if (obj.address == "") {
+    }
+     else if (obj.address == "") {
       ShowTaostMessage.toastMessage(
           context, Applanguage.address[Applanguage.language]);
     } else if (obj.employeId == "") {
@@ -46,10 +48,12 @@ class Accountcreate extends ChangeNotifier {
     } else if (mobileLen <= 9) {
       ShowTaostMessage.toastMessage(
           context, Applanguage.mobileLength[Applanguage.language]);
-    } else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(obj.loginId!))) {
+    }
+     else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(obj.loginId!))) {
       ShowTaostMessage.toastMessage(
           context, Applanguage.loginIdvalid[Applanguage.language]);
-    } else if (obj.loginId == "") {
+    }
+     else if (obj.loginId == "") {
       ShowTaostMessage.toastMessage(
           context, Applanguage.loginId[Applanguage.language]);
     } else if (obj.loginPassword == "") {

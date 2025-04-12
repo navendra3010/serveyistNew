@@ -28,22 +28,16 @@
 
 import 'dart:io';
 
-
 import 'package:device_info_plus/device_info_plus.dart';
 
 class DeviceInfo {
-  String id;
-  String device;
-  String model;
-  String brand;
-  String board;
+  String? id;
+  String? device;
+  String? model;
+  String? brand;
+  String? board;
 
-  DeviceInfo(
-      {required this.id,
-      required this.device,
-      required this.model,
-      required this.brand,
-      required this.board});
+  DeviceInfo({this.id, this.device, this.model, this.brand, this.board});
 
   static Future<DeviceInfo> loginDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

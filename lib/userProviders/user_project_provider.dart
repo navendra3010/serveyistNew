@@ -17,8 +17,9 @@ class UserProjectProviderClass extends ChangeNotifier {
        if(data.isEmpty)
        {
         isLoading=false;
-      notifyListeners();
+     
        }
+        notifyListeners();
       
     });
   }
@@ -90,27 +91,26 @@ class UserProjectProviderClass extends ChangeNotifier {
 
 //date 28-2-2025 -------------------------this function submit the task ......................................
 
-  void submitTask(String taskId, String documentId, String projectId) {
-    fireStoreService.setSubmitTask(taskId, documentId, projectId);
+  void submitTask(String taskId, String documentId, String projectId, String taskFeedBack) {
+    fireStoreService.setSubmitTask(taskId, documentId, projectId,taskFeedBack);
 
     notifyListeners();
   }
 
   // this function fatch all task all project ...................................................................
-  List<Map<String, dynamic>> historyOfTask = [];
+  List<Map<String, dynamic>> _historyOfTask = [];
+  List<Map<String,dynamic>> get historyOfTask=>_historyOfTask;
+
+  
   void allProjectTask() {
     fireStoreService.getAllProjectTask().listen((data) {
-      historyOfTask = data;
-      notifyListeners();
+      _historyOfTask = data;
+       notifyListeners();
+      
       // print(data.length);
     });
+  
   }
 
-  // void fatchnew()
-  // {
-
-  //   fireStoreService.getNews();
-  //   notifyListeners();
-  // }
 
 }

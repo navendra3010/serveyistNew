@@ -353,7 +353,7 @@ class _CreateNewUsState extends State<CreateNewUs> {
                               createEmployeId.text.toString().trim();
                           obj.mobileNumber =
                               createPhoneNumber.text.toString().trim();
-                          obj.loginId = crateLoginID.text.toString().trim();
+                          obj.loginId = crateLoginID.text.toString()+"@gmail.com".trim();
                           obj.loginPassword =
                               crateLoginPassword.text.toString().trim();
                           obj.isAdmin = true;

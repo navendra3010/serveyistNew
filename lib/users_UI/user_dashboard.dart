@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:surveyist/userProviders/comman_provider.dart';
-import 'package:surveyist/userProviders/login_provider.dart';
+
+import 'package:surveyist/userProviders/login_provider2.dart';
 import 'package:surveyist/userProviders/user_project_provider.dart';
 
 import 'package:surveyist/users_UI/user_all_project_ui.dart';
@@ -34,8 +35,9 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
   Provider.of<CommanProviderForUser>(context, listen: false);
-     Provider.of<LoginProviderForUser>(context,listen: false);
+    // Provider.of<LoginProviderForUser>(context,listen: false);
       Provider.of<UserProjectProviderClass>(context, listen: false);
+        Provider.of<LoginProvider2>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -62,9 +64,10 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
               //     },
               //     child: const Center(child: Text("Log_out"))),
            // ),
-            child:Consumer<LoginProviderForUser>(builder: (context, loginpro, child) {
+           //date 12--4-2025------------------------------------------- hide some changes
+            child:Consumer<LoginProvider2>(builder: (context,loginPro2, child) {
               return TextButton(onPressed: () {
-                loginpro.userLogOut();
+                loginPro2.logOutUserAndAdmin(context);
                 
               }, child: const Text("logout"));
             },

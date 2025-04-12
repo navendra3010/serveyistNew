@@ -25,11 +25,14 @@ class FireStoreServiceForAdmin {
 
 //all login on admin dasghbord.............................................
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> getAllLoginUser(
-      String dateKey) {
-    if (dateKey.isEmpty) {
-      String dateKey2 = DateFormat('dd-MM-yyyy').format(now);
-      dateKey = dateKey2;
-    }
+      //String dateKey
+      
+      ) {
+    // if (dateKey.isEmpty) {
+    //   String dateKey2 = DateFormat('dd-MM-yyyy').format(now);
+    //   dateKey = dateKey2;
+    // }
+    String dateKey2 = DateFormat('dd-MM-yyyy').format(now);
 
     try {
       // Fetch all user documents from the root collection
@@ -44,7 +47,7 @@ class FireStoreServiceForAdmin {
                 .collection("userLoginRecordPerDay")
                 .doc(userDoc.id)
                 .collection('loginDates')
-                .doc(dateKey)
+                .doc(dateKey2)
                 .collection('logins')
                 .get();
           }).toList(),

@@ -1,8 +1,5 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:provider/provider.dart';
 import 'package:surveyist/adminModel/project_model.dart';
@@ -10,9 +7,8 @@ import 'package:surveyist/adminProvider/admin_project_provider.dart';
 
 import 'package:surveyist/admin_uI/new_prject_ui.dart';
 import 'package:surveyist/admin_uI/project_details.dart';
-import 'package:surveyist/utils/app_constant.dart';
+import '../utils/app_constant.dart';
 import 'package:surveyist/utils/app_footer.dart';
-
 
 import 'package:surveyist/utils/text_style.dart';
 
@@ -41,18 +37,18 @@ class _CreateProjectPageState extends State<ProjectOverView> {
           ),
           Center(
             child: Container(
-              height: MediaQuery.of(context).size.height * 5 / 100,
-              width: MediaQuery.of(context).size.width * 100 / 100,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 221, 187, 138),
-                  borderRadius: BorderRadius.all(Radius.circular(80))),
-              child: const Center(
-                  child: Text(
-                "Project_overview",
-                style: CustomText.nameOfTextStyle,
-              ))
-            ),
+                height: MediaQuery.of(context).size.height * 5 / 100,
+                width: MediaQuery.of(context).size.width * 100 / 100,
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 221, 187, 138),
+                    borderRadius: BorderRadius.all(Radius.circular(80))),
+                child: const Center(
+                    child: Text(
+                  "Project_overview",
+                  style: CustomText.nameOfTextStyle,
+                ))),
           ),
+          
           SizedBox(
             height: MediaQuery.of(context).size.height * 1 / 100,
           ),
@@ -115,16 +111,14 @@ class _CreateProjectPageState extends State<ProjectOverView> {
 
                               int? totalProgress = project.progress;
                               int? totalTask = project.totalTask;
-                              int? asIntRound;
+                               int? asIntRound;
 
                               if (totalProgress == null ||
                                   totalTask == null ||
                                   totalTask == 0) {
-                                asIntRound = 0;
                               } else {
                                 var percen = (totalProgress * 100) / totalTask;
 
-                                asIntRound = percen.round();
                               }
                               bool projectComplete = false;
                               if (totalProgress == totalTask) {
@@ -152,6 +146,8 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                             ? const Color.fromARGB(
                                                 255, 186, 211, 187)
                                             : Colors.white,
+                                        //  color:Colors.amber,
+
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: Column(
@@ -221,17 +217,19 @@ class _CreateProjectPageState extends State<ProjectOverView> {
                                             ),
                                             Text(
                                                 " ${project.progress}/ ${project.totalTask ?? "0"}"),
-                                            LinearPercentIndicator(
-                                                  width: 100.0,
-                                                  lineHeight: 25.0,
-                                                  percent: asIntRound / 100,
-                                                  barRadius:
-                                                      const Radius.circular(10),
-                                                  backgroundColor: Colors.grey,
-                                                  center:
-                                                      Text("$asIntRound%"),
-                                                  progressColor: Colors.amber),
-                                            
+                                          //  new  LinearPercentIndicator(
+                                          //     width: 100.0,
+                                          //     lineHeight: 25.0,
+                                          //     // percent:
+                                          //     //     (asIntRound ?? 0) / 100.0,
+                                          //     percent: 0.5,
+                                          //     barRadius:
+                                          //         const Radius.circular(10),
+                                          //     backgroundColor: Colors.grey,
+                                          //     // center:
+                                          //     //     Text("${asIntRound ?? 0}%"),
+                                          //      progressColor: const Color.fromARGB(255, 209, 196, 156),
+                                          //   ),
                                           ],
                                         ),
 

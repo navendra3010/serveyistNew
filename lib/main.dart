@@ -9,6 +9,7 @@ import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/userProviders/comman_provider.dart';
 import 'package:surveyist/userProviders/location_provider.dart';
 import 'package:surveyist/userProviders/login_provider.dart';
+import 'package:surveyist/userProviders/login_provider2.dart';
 import 'package:surveyist/userProviders/user_project_provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -24,12 +25,14 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => LoginProviderForUser()),
+      ChangeNotifierProvider(create: (context) => LoginProvider2()),
       ChangeNotifierProvider(create: (context) => LocationProviderr()),
       ChangeNotifierProvider(create: (context) => Accountcreate()),
       ChangeNotifierProvider(create: (context) => CommanProviderForUser()),
       ChangeNotifierProvider(create: (context) => CommanproviderAdmin()),
       ChangeNotifierProvider(create: (context) => Projectprovider()),
       ChangeNotifierProvider(create: (context) => UserProjectProviderClass()),
+          
     ],
     child: const MyApp(),
   ));

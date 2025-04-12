@@ -18,7 +18,7 @@ class Applanguage {
   static const emailText = ["Email"];
   static const validEmail = ["Email valid Email"];
   static const notValidEmail = ["Not valid Email"];
-  static const entterEmailText = ["Enter Email"];
+  static const entterEmailText = ["Enter  login  id and password"];
   static const messageText = ["Message"];
   static const createASurveyText = ["Create a Survey"];
   static const yesText = ["Yes"];

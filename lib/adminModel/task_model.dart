@@ -58,8 +58,15 @@ class TaskModel {
       status: data["status"] ?? '',
       taskType: data["taskType"] ?? '',
       taskDescription: data["taskDescription"] ?? '',
-      taskStartDate: (data["taskStartDate"] as Timestamp).toDate(),
-      taskEndDate: (data["taskEndDate"] as Timestamp).toDate(),
+      // taskStartDate: (data["taskStartDate"] as Timestamp).toDate(),
+      // taskEndDate: (data["taskEndDate"] as Timestamp).toDate(),
+      taskStartDate: data["taskStartDate"] != null 
+    ? (data["taskStartDate"] as Timestamp).toDate() 
+    : null,
+taskEndDate: data["taskEndDate"] != null 
+    ? (data["taskEndDate"] as Timestamp).toDate() 
+    : null,
+
       // taskProgress: data["taskProgress"],
       taskFeedBack: data["taskFeedBack"] ?? '',
       downloadUrl: data["downloadUrl"],

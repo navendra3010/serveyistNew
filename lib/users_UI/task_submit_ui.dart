@@ -86,7 +86,7 @@ class _TasksubmitPageState extends State<TasksubmitPage> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                      hintText: "Task_name.",
+                      hintText: "submit task",
                       hintStyle:
                           TextStyle(fontSize: 12, fontFamily: AppFont.fontFamily),
                       border: OutlineInputBorder(

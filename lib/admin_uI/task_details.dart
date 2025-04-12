@@ -89,6 +89,32 @@ class _TaskDetailsUiState extends State<TaskDetailsUi> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 2 / 100,
                   ),
+                  //  Center(
+                  //   child: Text(
+                  //     "${taskdDetailProvider.taskFeedBack}",
+                  //     style:
+                  //         const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                  //   ),
+                  // ),
+                   Container(
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 226, 195, 103)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Task Feedback",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 175, 87, 76))),
+                        Text("${taskdDetailProvider.taskFeedBack==""?"No feedback":taskdDetailProvider.taskFeedBack}"),
+                      ],
+                    ),
+                    
+                  ),
+                   SizedBox(
+                    height: MediaQuery.of(context).size.height * 2 / 100,
+                  ),
                   Container(
                     decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 226, 195, 103)),
@@ -103,7 +129,10 @@ class _TaskDetailsUiState extends State<TaskDetailsUi> {
                         Text("${taskdDetailProvider.status}"),
                       ],
                     ),
+                    
                   ),
+                  
+                  
                 ],
               ),
             

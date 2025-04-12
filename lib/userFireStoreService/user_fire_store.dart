@@ -114,13 +114,13 @@ class FireStoreServiceClass {
   }
 
 //date this funcation submit the complete task.............................
-  void setSubmitTask(String taskId, String documentId, String projectId) {
+  void setSubmitTask(String taskId, String documentId, String projectId, String taskFeedBack) {
     _store
         .collection("Project")
         .doc(documentId)
         .collection("task")
         .doc(taskId)
-        .update({"status": "completed"});
+        .update({"status": "completed","taskFeedBack":taskFeedBack});
   }
 
   Stream<List<Map<String, dynamic>>> getAllProjectTask() {

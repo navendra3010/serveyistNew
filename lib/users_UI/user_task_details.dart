@@ -7,6 +7,8 @@ import 'package:surveyist/userProviders/user_project_provider.dart';
 import 'package:surveyist/users_UI/user_all_project_ui.dart';
 
 import 'package:surveyist/utils/app_button.dart';
+import 'package:surveyist/utils/app_font.dart';
+import 'package:surveyist/utils/app_snack_bar_or_toast_message.dart';
 
 class UserTaskDetailsUi extends StatefulWidget {
   final taskId;
@@ -23,6 +25,7 @@ class UserTaskDetailsUi extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<UserTaskDetailsUi> {
+  TextEditingController taskfeedbackController=TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -94,24 +97,56 @@ class _MyWidgetState extends State<UserTaskDetailsUi> {
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),
                     ),
+                      SizedBox(
+                      height: MediaQuery.of(context).size.height * 2 / 100,
+                    ),
+                    Center(
+                      child: TextFormField(
+                        controller:taskfeedbackController,
+                  decoration: const InputDecoration(
+                      hintText: "Work_ Report",
+                      hintStyle:
+                          TextStyle(fontSize: 12, fontFamily: AppFont.fontFamily),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                ),
+                    )
                   ],
                 ),
+
               
               
               SizedBox(
                 height: MediaQuery.of(context).size.height * 10 / 100,
               ),
             MyButton(
-                text: "submit task",
+                text: "Submit Task",
                 color: Colors.amber,
                 onPressed: () {
-                  detailProvider.submitTask(
-                      widget.taskId, widget.documentId, widget.projectId);
+                   if(taskfeedbackController.text.trim().isEmpty)
+                   {
+                     ShowTaostMessage.toastMessage(context,"fill task report");
+
+                   }
+                   else
+                   {
+                          detailProvider.submitTask(
+                      widget.taskId, widget.documentId, widget.projectId,taskfeedbackController.text.trim());
                        Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => const UserAllProject(),
                                     ));
+                 
+                   }
+                  // detailProvider.submitTask(
+                  //     widget.taskId, widget.documentId, widget.projectId);
+                  //      Navigator.pushReplacement(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => const UserAllProject(),
+                  //                   ));
+                 
                       
                 },
               ),

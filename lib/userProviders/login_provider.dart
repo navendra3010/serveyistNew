@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, unrelated_type_equality_checks, deprecated_member_use
-
 import 'dart:async';
 import 'dart:io';
 
@@ -37,214 +35,47 @@ class LoginProviderForUser extends ChangeNotifier {
   String? brand;
   String? board;
   String? address;
-  double? lat;
-  double? long;
+  double? lat = 0.0;
+  double? long = 0.0;
   String? userName;
   String? employeId;
-  String? unique_Id;
+  String? uniqueId;
 
   User? currentUser;
   String? userRole;
+
   bool isloading = false;
   String? userID;
-  Future<void> checkAuthstatus() async {
-    currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      userRole = await fatchUserRole(currentUser!.uid);
-      //here it will fatch role
-    }
-    isloading = true;
-    notifyListeners();
-  }
-  //check user role or admin role....................
-
-  Future<String?> fatchUserRole(String currentUserLoginId) async {
-    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-        .collection('allusers')
-        .doc(currentUserLoginId)
-        .get();
-    if (documentSnapshot.exists) {
-      Map<String, dynamic> data =
-          documentSnapshot.data() as Map<String, dynamic>;
-      userName = data['full_name'];
-      unique_Id = data['unique_Id'];
-      employeId = data['employeId'];
-      // print("user details--------------------------");
-      //  print("{$userName,$employeId,$unique_Id,}");
-
-      // print(documentSnapshot.data());
-      return documentSnapshot['role'];
-    }
-    return null;
-  }
 
   Future<void> login(
       BuildContext context, String email, String password) async {
-    // //bool isloading = true;
-
-    // final Connectivity _connectivity = Connectivity();
-    // Future<List<ConnectivityResult>> result = _connectivity.checkConnectivity();
-    // if (result == ConnectivityResult.none) {
-    //   // If no connection, show the message and return
-    //   print('No internet connection');
-    //   isloading = false;
-    //   notifyListeners();
-    //   ShowTaostMessage.toastMessage(
-    //       context, 'No internet connection. Please check your network.');
-    //   return;
-    // }
-
     int len = password.length;
     if (email.isEmpty || password.isEmpty) {
       ShowTaostMessage.toastMessage(
           context, Applanguage.entterEmailText[Applanguage.language]);
-    } else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email))) {
-      ShowTaostMessage.toastMessage(
-          context, Applanguage.notValidEmail[Applanguage.language]);
-    } else if (password == "") {
+    }
+    // else if ((!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email))) {
+    //   ShowTaostMessage.toastMessage(
+    //       context, Applanguage.notValidEmail[Applanguage.language]);
+    // }
+
+    else if (password == "") {
       ShowTaostMessage.toastMessage(
           context, Applanguage.passwordNameessage[Applanguage.language]);
-    } else if (len < 6) {
+    } else if (len < 5) {
       ShowTaostMessage.toastMessage(
           context, Applanguage.passWordlength[Applanguage.language]);
     } else {
-      //  isloading = true;
-      // monitorLocationService(context);
-      //notifyListeners();
-      // UserCredential userCredential = await FirebaseAuth.instance
-      //     .signInWithEmailAndPassword(email: email, password: password);
-      // String getcurrentUserId = FirebaseAuth.instance.currentUser!.uid;
-      // id = getcurrentUserId;
-
-      // SharedPreferences sf = await SharedPreferences.getInstance();
-      //  sf.setString("userId", getcurrentUserId);
-      //  notifyListeners();
-
-      //  currentUser = userCredential.user;
-      //  if (currentUser != null) {
-      //  userRole = await fatchUserRole(currentUser!.uid);
-
-      //   if (userRole == "admin") {
-      //     Navigator.pushReplacement(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => AdminDashboardPage()),
-      //     );
-      //   }
-      //  else if (userRole == "user") {
-      //     //checking here login status user already loggeed or not if log need logout..........
-
-      //     bool? status = await checkLoginStatus(context);
-      //     if (status == true) {
-      //       print(" log in another session");
-
-      //          await getDeviceinfo();
-      // Position? position = await _determinePosition(context);
-      // if (position != null) {
-      //           address = await _getAddressFromLatLng(
-      //               position.latitude, position.longitude);
-      //           lat = position.latitude;
-      //           long = position.longitude;
-      //--------------------------------------------------------------------
-      // address = await _getAddressFromLatLng(
-      //     position.latitude, position.longitude);
-      //this funcation for Device info....................
-      //-----------------------------------------------this is always same
-
-      //  print("get value==========================================");
-      // }
-      // SharedPreferences sf = await SharedPreferences.getInstance();
-      // String? id = sf.getString("userId");
-      // storeLoginDetailAsperUserRecord(id);
-      //  Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //       builder: (context) =>
-      //           UserDashBoardScreen(userId: currentUser!.uid)),
-      // );
-      // isloading = false;
-      // notifyListeners();
-      //}
-      //  else {
-      //   print(" you can not log in another session");
-      // }
-      // isloading = false;
-      // notifyListeners();
-
-      // await getDeviceinfo();
-      // Position? position = await _determinePosition(context);
-      // if (position != null) {
-      //   address = await _getAddressFromLatLng(
-      //       position.latitude, position.longitude);
-      //   lat = position.latitude;
-      //   long = position.longitude;
-
-      //   // address = await _getAddressFromLatLng(
-      //   //     position.latitude, position.longitude);
-      //   //this funcation for Device info....................
-
-      //   print("get value==========================================");
-      // }
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //       builder: (context) =>
-      //           UserDashBoardScreen(userId: currentUser!.uid)),
-      // );
-      // isloading = false;
-      // notifyListeners();
-      //}
-      // }
-      //date 28-1-2025.............................
-
-      //date 4-2-2025----------------------------------start----------------------------
-      // if (email.isNotEmpty && password.isNotEmpty) {
-      //   DateTime now = DateTime.now();
-
-      //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-      //   String formattedTime = DateFormat('hh:mm:ss').format(now);
-      //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
-      //   final pref = await SharedPreferences.getInstance();
-      //   pref.setString("id", "1");
-      //   pref.setString("loginTime", formattedTime);
-      //   // _startAutoLoginTimer();
-      //   Navigator.of(context).pushReplacement(
-      //       MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
-
-      //   isloading = false;
-      //   notifyListeners();
-      // }
-
-      // date 4-2-2025-----------------------------------end--------------------------
-
-      //Date 5-2-2025 new login function after created auto login--------------------start
-
       isloading = true;
       notifyListeners();
 
       try {
-        // Create an instance of Connectivity
-        // final Connectivity _connectivity = Connectivity();
-
-        // Await the connectivity result to get the actual status
-        // ConnectivityResult result = await _connectivity.checkConnectivity();
-
-        // // Check if there is no internet connection
-        // if (result == ConnectivityResult.none) {
-        //   // If no connection, show the message and return
-        //   print('No internet connection');
-        //   isloading = false;
-        //   notifyListeners();
-        //   ShowTaostMessage.toastMessage(context, 'No internet connection. Please check your network.');
-        //   return;
-        // }
-
+        // bool result=checkNetwork();
         final Connectivity connectivity = Connectivity();
 
-        // Await the result of checkConnectivity, which will give you a ConnectivityResult
         Future<List<ConnectivityResult>> result =
             connectivity.checkConnectivity();
 
-        // Now check if there's no internet connection
         if (result == ConnectivityResult.none) {
           //print('No internet connection');
           isloading = false;
@@ -262,14 +93,12 @@ class LoginProviderForUser extends ChangeNotifier {
 
         DateTime now = DateTime.now();
 
-        //String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
         String formattedTime = DateFormat('hh:mm:ss').format(now);
-        // String dateKey = DateFormat('dd-MM-yyyy').format(now);
 
         sf.setString("loginTime", formattedTime);
 
         sf.setString("userId", getcurrentUserId);
-        notifyListeners();
+        
         currentUser = userCredential.user;
         if (currentUser != null) {
           userRole = await fatchUserRole(currentUser!.uid);
@@ -298,36 +127,36 @@ class LoginProviderForUser extends ChangeNotifier {
                   position.latitude, position.longitude);
               lat = position.latitude;
               long = position.longitude;
-              // --------------------------------------------------------------------
-              address = await _getAddressFromLatLng(
-                  position.latitude, position.longitude);
 
-              SharedPreferences sf = await SharedPreferences.getInstance();
-              String? id = sf.getString("userId");
-              storeLoginDetailAsperUserRecord(id);
+              if (address != null) {
+                SharedPreferences sf = await SharedPreferences.getInstance();
+                String? id = sf.getString("userId");
+                storeLoginDetailAsperUserRecord(id);
 
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const UserDashBoardScreen()),
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserDashBoardScreen()),
+                );
+              } else {
+                const SnackBar(
+                  content: Text(
+                      "Please enable location services and grand permisson"),
+                  duration: Duration(seconds: 2),
+                );
+              }
+            } else {
+              const SnackBar(
+                content:
+                    Text("Please enable location services and grand permisson"),
+                duration: Duration(seconds: 2),
               );
             }
-            //   date 24-2-20225 hide----------------------------------end
-            // SharedPreferences sf = await SharedPreferences.getInstance();
-            // String? id = sf.getString("userId");
-            // storeLoginDetailAsperUserRecord(id);
 
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(
-            //       builder: (context) => const UserDashBoardScreen()),
-            // );
             isloading = false;
             notifyListeners();
           }
         }
-
-        //Date 5-2-2025 new login function after created auto login--------------------end
       } on FirebaseAuthException catch (e) {
         String message;
 
@@ -378,7 +207,7 @@ class LoginProviderForUser extends ChangeNotifier {
     try {
       FirebaseFirestore fb = FirebaseFirestore.instance;
 
-      final QuerySnapshot = await fb
+      final querySnapshot = await fb
           .collection("userLoginRecordPerDay")
           .doc(id)
           .collection("loginDates")
@@ -388,8 +217,8 @@ class LoginProviderForUser extends ChangeNotifier {
           .limit(1)
           .get();
 
-      if (QuerySnapshot.docs.isNotEmpty) {
-        final loginDocs = QuerySnapshot.docs.first;
+      if (querySnapshot.docs.isNotEmpty) {
+        final loginDocs = querySnapshot.docs.first;
         //print(loginDocs);
         await fb
             .collection("userLoginRecordPerDay")
@@ -528,6 +357,7 @@ class LoginProviderForUser extends ChangeNotifier {
 
     // After location is granted, proceed to get the current position
     return await Geolocator.getCurrentPosition(
+      // ignore: deprecated_member_use
       desiredAccuracy: LocationAccuracy.high,
     );
   }
@@ -569,17 +399,6 @@ class LoginProviderForUser extends ChangeNotifier {
     );
   }
 
-  // void monitorLocationService(BuildContext context) {
-  //   Geolocator.getServiceStatusStream().listen((ServiceStatus status) async {
-  //     if (status == ServiceStatus.enabled) {
-  //       Navigator.pop(context); // Close dialog if location is enabled
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text('Location enabled. Please login again.')),
-  //       );
-  //     }
-  //   });
-  // }
-
   Future<void> storeLoginDetailAsperUserRecord(id) async {
     //UserLoginModel ul=UserLoginModel();
     DateTime now = DateTime.now();
@@ -602,7 +421,7 @@ class LoginProviderForUser extends ChangeNotifier {
       location: [deviceData],
       deviceinfo: [infoData],
       userName: userName,
-      uniqueId: unique_Id,
+      uniqueId: uniqueId,
       userEmpId: employeId,
       loginTime: formattedTime,
       loginDate: formattedDate,
@@ -715,84 +534,7 @@ class LoginProviderForUser extends ChangeNotifier {
 
   Timer? _logOutTimer;
 
-  //here to implement auto logout user...................................................................--------------------------------
   Future<void> autoLogin(BuildContext context) async {
-    //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------start
-    //------------------------here start new code
-    //   final prefs = await SharedPreferences.getInstance();
-
-    //   String? role = prefs.getString("role");
-    //   if (role == "admin") {
-    //     Navigator.of(context).pushReplacement(
-    //         MaterialPageRoute(builder: (context) => AdminDashboardPage()));
-    //     return;
-    //   }
-    //   //start------------------------
-
-    //   DateTime now = DateTime.now();
-    //   int sessointime = 9 * 3600;
-
-    //   String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-    //   String formattedTime = DateFormat('hh:mm:ss a').format(now);
-    //   String dateKey = DateFormat('dd-MM-yyyy').format(now);
-    //  // await Future.delayed(Duration(seconds: 2));
-    //   //------------------------end code
-    //   String? id = prefs.getString("userId");
-    //   if (id != null) {
-    //     //date 24-2-2025 hide code -------------start-----------------------------
-
-    //     isloading = false;
-    //     notifyListeners();
-
-    //     String? dt1 = prefs.getString("loginTime");
-    //     if (dt1 == null) {
-    //       userLogOut();
-    //       return;
-    //     }
-
-    //     List<String> splited = dt1.split(":");
-    //     if (splited.length < 3) {
-    //       userLogOut();
-    //       return;
-    //     }
-
-    //     int loginTimeInSecond = (int.parse(splited[0]) * 3600) +
-    //         (int.parse(splited[1]) * 60) +
-    //         (int.parse(splited[2]));
-    //     print(" ;.login time in second${loginTimeInSecond}");
-
-    //     List<String> splittedCurrentTime = formattedTime.split(":");
-    //     int currentTimeInSecond = (int.parse(splittedCurrentTime[0]) * 3600) +
-    //         (int.parse(splittedCurrentTime[1]) * 60) +
-    //         (int.parse(splittedCurrentTime[2]));
-
-    //     int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
-    //     print(" different time in second  ${elapsedSecond}");
-    //     int sessointime = 9 * 3600;
-    //     if (elapsedSecond < sessointime) {
-    //       print(
-    //           "---------------------------------------------------------------------------${sessointime}");
-    //       int logOutTimeInSecond = sessointime - elapsedSecond;
-
-    //       _startAutoLogOutTimer(logOutTimeInSecond);
-    //     } else {
-    //       userLogOut();
-    //       return;
-    //     }
-
-    //     //date 24-2-2025 hide code -------------end----------------------------
-    //     isloading = false;
-    //     notifyListeners();
-    //     Navigator.of(context).pushReplacement(
-    //         MaterialPageRoute(builder: (context) => UserDashBoardScreen()));
-    //   } else {
-    //     Navigator.of(context).pushReplacement(
-    //         MaterialPageRoute(builder: (context) => LoginScreenForAll()));
-    //     notifyListeners();
-    //   }
-    //Date 1-3-2025 comment all--------------------------------------------------------------------------------------------end
-    //end-------------------------
-
     final prefs = await SharedPreferences.getInstance();
 
     String? role = prefs.getString("role");
@@ -803,10 +545,8 @@ class LoginProviderForUser extends ChangeNotifier {
       return;
     }
 
-    //------------------------start session management------------------------
-
     DateTime now = DateTime.now();
-    // String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
+
     String currentTime = DateFormat('hh:mm:ss').format(now);
 
     await Future.delayed(const Duration(seconds: 2));
@@ -815,16 +555,9 @@ class LoginProviderForUser extends ChangeNotifier {
 
     String? id = prefs.getString("userId");
     if (id != null) {
-      // print(
-      //     " this is login time----------------------------------------------------------------------------------------not null");
-      // Check if login time exists and calculate session expiry
       String? dt1 = prefs.getString("loginTime");
-      // print(
-      //     " this is login time-----------------------------------------------------------------------------------------${dt1}");
 
       if (dt1 == null) {
-        // print(
-        //     "  timenot null--------------------------------------------------------------------------------------${dt1}");
         userLogOut();
         return;
       }
@@ -855,11 +588,12 @@ class LoginProviderForUser extends ChangeNotifier {
       int elapsedSecond = currentTimeInSecond - loginTimeInSecond;
 
       // Set session time to 9 hours in seconds
-      int sessionTimeInSeconds = 9 * 3600;
+      int sessionTimeInSeconds = 10 * 3600;
 
       if (elapsedSecond < sessionTimeInSeconds) {
         int logOutTimeInSecond = sessionTimeInSeconds - elapsedSecond;
         _startAutoLogOutTimer(logOutTimeInSecond);
+        // print("autologoutStrat--------------------------------");
       } else {
         userLogOut();
         return;
@@ -894,74 +628,8 @@ class LoginProviderForUser extends ChangeNotifier {
     }
     //print("startAutologout is working properly");
   }
-  //-----------------------------------end   start logout time---------------------------------------------------------//
 
-  //------------------------log out for checing logout status..........................
   Future<void> userLogOut() async {
-    //Date 1-3-2035  start hide----------------------------------------------
-    // final sf = await SharedPreferences.getInstance();
-
-    // //here i have to apply user auto logout with data base and manually..
-    // String? idForLogOut = await sf.getString("userId");
-    // //date 24-2-2025---------------------------------------------------start hide-------------------------------
-
-    // if (idForLogOut == null) {
-    //   print("user id not found .skipping logout process");
-    // }
-    // DateTime now = DateTime.now();
-
-    // String formattedDate = DateFormat('dd/MM/yyyy a').format(now);
-    // String formattedTime = DateFormat(' hh:mm:ss a').format(now);
-    // String dateKey = DateFormat('dd-MM-yyyy').format(now);
-
-    // try {
-    //   FirebaseFirestore fb = await FirebaseFirestore.instance;
-
-    //   final QuerySnapshot = await fb
-    //       .collection("userLoginRecordPerDay")
-    //       .doc(idForLogOut)
-    //       .collection("loginDates")
-    //       .doc(dateKey)
-    //       .collection("logins")
-    //       .where("LogOut_status", isNull: true)
-    //       .limit(1)
-    //       .get();
-
-    //   if (QuerySnapshot.docs.isNotEmpty) {
-    //     final loginDocs = QuerySnapshot.docs.first;
-    //     print(loginDocs);
-    //     await fb
-    //         .collection("userLoginRecordPerDay")
-    //         .doc(idForLogOut)
-    //         .collection("loginDates")
-    //         .doc(dateKey)
-    //         .collection("logins")
-    //         .doc(loginDocs.id)
-    //         .update({
-    //       'LogOut_time': formattedTime,
-    //       'logOut_date': formattedDate,
-    //       'LogOut_status': true,
-    //     });
-    //     print(
-    //         "user logout details has been updated successsfully in firestore");
-    //   } else {
-    //     print("no active  login recond found at");
-    //   }
-    // } catch (e) {
-    //   print(e);
-    // }
-
-    // await sf.remove("loginTime");
-    // await sf.remove("userId");
-    // _logOutTimer?.cancel();
-    // await FirebaseAuth.instance.signOut();
-
-    // navigatorKey.currentState?.pushReplacement(
-    //     MaterialPageRoute(builder: (context) => LoginScreenForAll()));
-    // notifyListeners();
-
-    //Date 1-2-2025 hide end
-
     final sf = await SharedPreferences.getInstance();
 
     String? idForLogOut = sf.getString("userId");
@@ -1028,4 +696,36 @@ class LoginProviderForUser extends ChangeNotifier {
     notifyListeners();
   }
   //------------------------------------------------------------end all functionality of autologin  and auto logout--------------------------------------
+
+  Future<void> checkAuthstatus() async {
+    currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      userRole = await fatchUserRole(currentUser!.uid);
+      //here it will fatch role
+    }
+    isloading = true;
+    notifyListeners();
+  }
+
+  Future<String?> fatchUserRole(String currentUserLoginId) async {
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('allusers')
+        .doc(currentUserLoginId)
+        .get();
+    if (documentSnapshot.exists) {
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
+      userName = data['full_name'];
+      uniqueId = data['unique_Id'];
+      employeId = data['employeId'];
+
+      return documentSnapshot['role'];
+    }
+    //return null;
+  } 
+
+  boolcheckNetwork()
+  {
+    
+  }
 }

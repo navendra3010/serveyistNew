@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:surveyist/userProviders/login_provider.dart';
 
-
+import 'package:surveyist/userProviders/login_provider2.dart';
 
 import 'package:surveyist/utils/app_font.dart';
 import 'package:surveyist/utils/app_image.dart';
@@ -25,7 +24,8 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<LoginProviderForUser>(context, listen: false);
+    // Provider.of<LoginProviderForUser>(context, listen: false);
+    final loginAuth = Provider.of<LoginProvider2>(context, listen: false);
     // final locationProvider = Provider.of<LocationProviderr>(context);
 
     return GestureDetector(
@@ -71,7 +71,7 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                   TextField(
                     controller: userEmailController,
                     decoration: const InputDecoration(
-                        hintText: "Email",
+                        hintText: "Login_Id",
 
                         // icon:Icon(Icons.person)
                         prefixIcon: Icon(
@@ -113,54 +113,69 @@ class _LoginScreenForAllState extends State<LoginScreenForAll> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 7 / 100,
                   ),
-                  Consumer<LoginProviderForUser>(
-                      builder: (context, loginProvider, child) {
-                    return loginProvider.isloading == true
-                        ? const CircularProgressIndicator()
-                        :  MyButton(
-                                text: 'Login',
-                                // color: const Color.fromARGB(255, 34, 137, 221),
-                                color: const Color.fromARGB(255, 231, 128, 44),
-                                onPressed: () async {
-                                  loginProvider.login(
-                                      context,
-                                      userEmailController.text
-                                          .toString()
-                                          .trim(),
-                                      userPasswordController.text
-                                        ..toString()
-                                        ..trim());
-                                });
-                          
-                  }),
+                  //date 8-4-2025................................... comment for new provider
+                  // Consumer<LoginProviderForUser>(
+                  //     builder: (context, loginProvider, child) {
+                  //   return loginProvider.isloading == true
+                  //       ? const CircularProgressIndicator()
+                  //       :  MyButton(
+                  //               text: 'Login',
+                  //               // color: const Color.fromARGB(255, 34, 137, 221),
+                  //               color: const Color.fromARGB(255, 231, 128, 44),
+                  //               onPressed: () async {
+                  //                 loginProvider.login(
+                  //                     context,
+                  //                     userEmailController.text
+                  //                         .toString()
+                  //                         .trim(),
+                  //                     userPasswordController.text
+                  //                       ..toString()
+                  //                       ..trim());
+                  //               });
+
+                  // }),
+                  //date 8-4-2025................................... comment for new provider
+                Consumer<LoginProvider2>(builder: (context, loginAuth, child) {
+                  return loginAuth.isLoginTrue==true?const CircularProgressIndicator():
+                
+                  MyButton(
+                      text: 'Login',
+                      // color: const Color.fromARGB(255, 34, 137, 221),
+                      color: const Color.fromARGB(255, 231, 128, 44),
+                      onPressed: () {
+                        loginAuth.userLogin(userEmailController.text+"@gmail.com".trim(),
+                            userPasswordController.text.trim(), context);
+                      });
+                })
+
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 4 / 100,
                   // ),
-                 // Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                 //   children: [
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width * 4 / 100,
-                      // ),
-                      // Container(
-                      //   child: Text("Dont have account yet?"),
-                      // ),
-                      // Container(
-                      //   child: TextButton(
-                      //       onPressed: () {
-                      //         print("sigh_up_screen");
-                      //         //SignUpScreenForAll
-                      //         // Navigator.push(
-                      //         //     context,
-                      //         //     MaterialPageRoute(
-                      //         //       builder: (context) => SignUpScreenForAll(),
-                      //         //     ));
-                      //       },
-                      //       child: Text(Applanguage
-                      //           .signupButtonText[Applanguage.language])),
-                      // ),
-                   // ],
-                 // ),
+                  // Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: [
+                  // SizedBox(
+                  //   width: MediaQuery.of(context).size.width * 4 / 100,
+                  // ),
+                  // Container(
+                  //   child: Text("Dont have account yet?"),
+                  // ),
+                  // Container(
+                  //   child: TextButton(
+                  //       onPressed: () {
+                  //         print("sigh_up_screen");
+                  //         //SignUpScreenForAll
+                  //         // Navigator.push(
+                  //         //     context,
+                  //         //     MaterialPageRoute(
+                  //         //       builder: (context) => SignUpScreenForAll(),
+                  //         //     ));
+                  //       },
+                  //       child: Text(Applanguage
+                  //           .signupButtonText[Applanguage.language])),
+                  // ),
+                  // ],
+                  // ),
                 ],
               ),
             ]),

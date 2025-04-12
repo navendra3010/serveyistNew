@@ -7,9 +7,11 @@ import 'package:provider/provider.dart';
 
 import 'package:surveyist/adminProvider/comman_provider_for_admin.dart';
 import 'package:surveyist/admin_uI/create_new_users_ui.dart';
+import 'package:surveyist/userProviders/login_provider2.dart';
 
 import 'package:surveyist/utils/app_constant.dart';
 import 'package:surveyist/utils/app_footer.dart';
+import 'package:surveyist/utils/percentage_indicator.dart';
 
 import 'package:surveyist/utils/text_style.dart';
 
@@ -21,15 +23,17 @@ class AdminDashboardPage extends StatefulWidget {
 }
 
 class _AdminDashboardPageState extends State<AdminDashboardPage> {
-  
   @override
   Widget build(BuildContext context) {
-
     final commanprovide =
         Provider.of<CommanproviderAdmin>(context, listen: false);
-       // bool isDarkmode=Theme.of(context).brightness == Brightness.dark;
-        bool isDarkMode = Provider.of<CommanproviderAdmin>(context,listen: true).themeMode == ThemeMode.dark;
-       
+    Provider.of<LoginProvider2>(context, listen: false);
+
+    // bool isDarkmode=Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode =
+        Provider.of<CommanproviderAdmin>(context, listen: true).themeMode ==
+            ThemeMode.dark;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -40,7 +44,8 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 5 / 100,
             ),
-            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 4 / 100,
@@ -48,22 +53,30 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                   decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 228, 153, 41),
                       borderRadius: BorderRadius.all(Radius.circular(80))),
-                  child: TextButton(
-                      onPressed: () {
-                        //  loginpro.userLogOut();
-                
-                        // Consumer<CommanproviderAdmin>(builder:(context,commanproviderAdmin,child){
-                        //   return
-                        // },);
-                        commanprovide.adminLogOut(context);
-                      },
-                      child: const Center(child: Text("Log_out"))),
+                  child: Consumer<LoginProvider2>(builder:(context, loginpro2, child) {
+                    
+                    
+                  
+                    return TextButton(
+                        onPressed: () {
+                          //  loginpro.userLogOut();
+                    
+                          // Consumer<CommanproviderAdmin>(builder:(context,commanproviderAdmin,child){
+                          //   return
+                          // },);
+                          // right now we comment this code because we are not using this funcationality
+                          // commanprovide.adminLogOut(context);
+                          loginpro2.logOutUserAndAdmin(context);
+                        },
+                        child: const Center(child: Text("Log_out")));
+                  }
+                  ),
                 ),
-                Switch(value:isDarkMode, onChanged: (isOn) {
-                
-                 // isOn?commanprovide.themeSwitchMode(ThemeMode.dark):commanprovide.themeSwitchMode(ThemeMode.light);
-                 commanprovide.themeSwitchMode(isOn?ThemeMode.dark:ThemeMode.light);
-                },)
+                // Switch(value:isDarkMode, onChanged: (isOn) {
+
+                //  // isOn?commanprovide.themeSwitchMode(ThemeMode.dark):commanprovide.themeSwitchMode(ThemeMode.light);
+                //  commanprovide.themeSwitchMode(isOn?ThemeMode.dark:ThemeMode.light);
+                // },)
               ],
             ),
             SizedBox(
@@ -85,7 +98,8 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                     children: [
                       buildBoxContainer(
                           context, "new_users", const CreateNewUs()),
-                      buildBoxContainer(context, "B"),
+                      buildBoxContainer(
+                          context, "perce", const PecentageIndi()),
                     ],
                   ),
                   SizedBox(
@@ -114,7 +128,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                 ),
                 InkWell(
                     onTap: () {
-                      commanprovide.selectDateforLoginFiltering(context);
+                      //commanprovide.selectDateforLoginFiltering(context);
                     },
                     child: const SizedBox(
                       child: Column(
@@ -148,8 +162,9 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
             Consumer<CommanproviderAdmin>(
                 builder: (context, commanprovide, child) {
               return StreamBuilder<List<QuerySnapshot<Map<String, dynamic>>>>(
-                  stream: commanprovide.allLoginUser(commanprovide.dateKey =
-                      commanprovide.selectfilterDateController.text.trim()),
+                  // stream: commanprovide.allLoginUser(commanprovide.dateKey =
+                  //     commanprovide.selectfilterDateController.text.trim()),
+                  stream: commanprovide.allLoginUser(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
@@ -178,8 +193,8 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                           final data = users[index].data();
                           // final loginTime = data['login_time'] ?? 'no data';
                           List<dynamic> loc = data["location"] ?? [];
-                         
-                         String add = loc[0]["address"]??"";
+
+                          String add = loc[0]["address"] ?? "";
                           //String addtrim = add!.substring(0, 5);
                           // int len = (users.length);
 

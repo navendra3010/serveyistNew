@@ -36,9 +36,9 @@ class CommanproviderAdmin extends ChangeNotifier {
   String? dateKey;
 //notifyListeners();
 
-  Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser(String s) {
+  Stream<List<QuerySnapshot<Map<String, dynamic>>>> allLoginUser() {
     //dateKey = DateFormat('dd-MM-yyyy').format(now);
-    return frstr.getAllLoginUser(s);
+    return frstr.getAllLoginUser();
   }
 
   // admin logout------------------------------------------------------------------------------------
