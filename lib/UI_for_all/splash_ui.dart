@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surveyist/UI_for_all/location_check_screen.dart';
 
-import 'package:surveyist/userProviders/login_provider.dart';
 import 'package:surveyist/userProviders/login_provider2.dart';
 import 'package:surveyist/utils/app_image.dart';
 
@@ -33,8 +29,9 @@ class _SplashState extends State<Splash> {
     // Provider.of<LoginProvider2>(context, listen: false)
     //     .autoLoginForBoth(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-  Provider.of<LoginProvider2>(context, listen: false).autoLoginForBoth(context);
-});
+      Provider.of<LoginProvider2>(context, listen: false)
+          .autoLoginForBoth(context);
+    });
   }
 
   //future funtion for autologin...................

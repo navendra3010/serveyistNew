@@ -32,7 +32,6 @@ void main() async {
       ChangeNotifierProvider(create: (context) => CommanproviderAdmin()),
       ChangeNotifierProvider(create: (context) => Projectprovider()),
       ChangeNotifierProvider(create: (context) => UserProjectProviderClass()),
-          
     ],
     child: const MyApp(),
   ));
@@ -61,14 +60,15 @@ class MyApp extends StatelessWidget {
     //   home: const Splash(),
     // );
     return ChangeNotifierProvider(
-      create: (_) => CommanproviderAdmin(),  // Provide the ThemeProvider to the widget tree
+      create: (_) =>
+          CommanproviderAdmin(), // Provide the ThemeProvider to the widget tree
       child: Consumer<CommanproviderAdmin>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             navigatorKey: navigatorKey,
             title: 'Flutter Dark Mode',
-            theme: MyAppTheme.lightTheme,  // Your light theme
+            theme: MyAppTheme.lightTheme, // Your light theme
             darkTheme: MyAppTheme.darkTheme, // Your dark theme
             themeMode: themeProvider.themeMode, // Set the themeMode dynamically
             home: const Splash(),

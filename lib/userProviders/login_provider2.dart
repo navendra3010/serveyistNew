@@ -321,6 +321,9 @@ class LoginProvider2 extends ChangeNotifier {
       notifyListeners();
       return;
     } else if (role == "user") {
+
+
+      
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -381,7 +384,9 @@ class LoginProvider2 extends ChangeNotifier {
         });
         //print("User logout details updated successfully in Firestore.");
       }
-    } catch (e) {}
+    } catch (e) {
+      "{$e}";
+    }
 
     await prefs.clear();
     await firebaseAuth.signOut();
@@ -624,6 +629,7 @@ class LoginProvider2 extends ChangeNotifier {
   Future<void> forceLogoutPreviousDeviceSession(context) async {
     // Example if using Firebase Firestore
     // await FirebaseFirestore.instance
+
     //     .collection('users')
     //     .doc(userId)
     //     .update({'isLoggedIn': false});

@@ -17,14 +17,13 @@ import 'package:surveyist/utils/footer_for_users.dart';
 
 class UserDashBoardScreen extends StatefulWidget {
   final String? userId;
- const UserDashBoardScreen({super.key, this.userId});
+  const UserDashBoardScreen({super.key, this.userId});
 
   @override
   State<UserDashBoardScreen> createState() => _UserDashBoardScreenState();
 }
 
 class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
-  
   @override
   void initState() {
     super.initState();
@@ -34,10 +33,10 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-  Provider.of<CommanProviderForUser>(context, listen: false);
+    Provider.of<CommanProviderForUser>(context, listen: false);
     // Provider.of<LoginProviderForUser>(context,listen: false);
-      Provider.of<UserProjectProviderClass>(context, listen: false);
-        Provider.of<LoginProvider2>(context, listen: false);
+    Provider.of<UserProjectProviderClass>(context, listen: false);
+    final useforLogout = Provider.of<LoginProvider2>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -63,16 +62,18 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
               //      // login.userLogOut();
               //     },
               //     child: const Center(child: Text("Log_out"))),
-           // ),
-           //date 12--4-2025------------------------------------------- hide some changes
-            child:Consumer<LoginProvider2>(builder: (context,loginPro2, child) {
-              return TextButton(onPressed: () {
-                loginPro2.logOutUserAndAdmin(context);
-                
-              }, child: const Text("logout"));
-            },
+              // ),
+              //date 12--4-2025------------------------------------------- hide some changes
+              child: Consumer<LoginProvider2>(
+                builder: (context, loginPro2, child) {
+                  return TextButton(
+                      onPressed: () {
+                        loginPro2.logOutUserAndAdmin(context);
+                      },
+                      child: const Text("logout"));
+                },
+              ),
             ),
-             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 3 / 100,
             ),
@@ -90,35 +91,32 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 3 / 100,
                     ),
-                     Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () {
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
                             //  print("notification working");
-                            },
-                            child:  Image.asset(
-                                Appimage.notification,
-                                fit: BoxFit.fill,
-                                cacheHeight: 25,
-                              
-                            ),
+                          },
+                          child: Image.asset(
+                            Appimage.notification,
+                            fit: BoxFit.fill,
+                            cacheHeight: 25,
                           ),
-                        ],
-                      ),
-                    
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 1 / 100,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Text("Categories",
-                            style: TextStyle(
-                                fontFamily: AppFont.fontFamily,
-                                fontSize: 15,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w600)),
-                      
+                          style: TextStyle(
+                              fontFamily: AppFont.fontFamily,
+                              fontSize: 15,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w600)),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 1 / 100,
@@ -130,9 +128,9 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                           onTap: () {
                             // Consumer<UserProjectProviderClass>(builder: (context, data, child) {
                             //    return data.fatchnew();
-                               
+
                             // },);
-                           // data.fatchnew();
+                            // data.fatchnew();
                           },
                           child: Container(
                             height:
@@ -337,7 +335,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
 
             // }, child:Text("get value")),
 
-          //  date hide code 24-2-2025--------------------------------------------------------------hide---------------------------------------
+            //  date hide code 24-2-2025--------------------------------------------------------------hide---------------------------------------
 
             // userProjectPro.tolist.isEmpty
             //     ? Center(
@@ -418,8 +416,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             //           },
             //         ),
             //       ),
-                
-                 
+
             // TextButton(
             //     onPressed: () {
             //       loginpro.autoLogin(context);
@@ -427,11 +424,57 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             //     child: Text("check funtion current  time"))
 
             //date hide code 24-2-2025--------------------------------------------------------------hide--- end ------------------------------------
+
+            SizedBox(height: MediaQuery.of(context).size.height * 2 / 100),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    showAlertDialog(context,useforLogout);
+                  },
+                  child: const Icon(
+                    Icons.logout,
+                    color: Colors.red,
+                  )),
+            ),
+            const Center(
+              child: Text("Logout"),
+            )
           ],
         ),
       ),
       bottomNavigationBar: const FooterUiForUsers(
           notificationCount: 0, selectMenu2: ButtomMenu2.userHome),
+    );
+  }
+
+  showAlertDialog(BuildContext context, LoginProvider2 useforLogout) {
+    // set up the button
+    Widget yesButton = ElevatedButton(
+      child: const Text("yes"),
+      onPressed: () {
+        Navigator.pop(context);
+         useforLogout.logOutUserAndAdmin(context);
+        print("hello");
+      },
+    );
+    Widget noButton = ElevatedButton(
+      child: const Text("no"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text("Total_Login_Time"),
+      content: const Text("are you want to logout."),
+      actions: [yesButton, noButton],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
