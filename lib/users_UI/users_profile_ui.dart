@@ -110,7 +110,7 @@ class _UsersprofilePageState extends State<UsersprofilePage> {
       buildViewDetails("Email", userProfile.userEmail),
       buildViewDetails("EmployeId", userProfile.userEmployeId),
       buildViewDetails("LoginId", userProfile.userLoginId),
-      buildViewDetails("Date-of-Birth", userProfile.userEmail),
+      buildViewDetails("Date-of-Birth", userProfile.userDateOfBirth),
       buildViewDetails("Mobile-number", userProfile.userMobileNumber),
       buildViewDetails("Gender", userProfile.userGender),
     ]);

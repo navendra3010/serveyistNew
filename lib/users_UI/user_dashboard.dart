@@ -48,35 +48,35 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 6 / 100,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 4 / 100,
-              width: MediaQuery.of(context).size.width * 20 / 100,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 228, 153, 41),
-                  borderRadius: BorderRadius.all(Radius.circular(80))),
-              // child: TextButton(
-              //     onPressed: () {
-              //       Consumer<LoginProviderForUser>(builder: (context, loginpro, child) {
-              //         return loginpro.userLogOut();
-              //       },);
-              //      // login.userLogOut();
-              //     },
-              //     child: const Center(child: Text("Log_out"))),
-              // ),
-              //date 12--4-2025------------------------------------------- hide some changes
-              child: Consumer<LoginProvider2>(
-                builder: (context, loginPro2, child) {
-                  return TextButton(
-                      onPressed: () {
-                        loginPro2.logOutUserAndAdmin(context);
-                      },
-                      child: const Text("logout"));
-                },
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 3 / 100,
-            ),
+            // Container(
+            //   height: MediaQuery.of(context).size.height * 4 / 100,
+            //   width: MediaQuery.of(context).size.width * 20 / 100,
+            //   decoration: const BoxDecoration(
+            //       color: Color.fromARGB(255, 228, 153, 41),
+            //       borderRadius: BorderRadius.all(Radius.circular(80))),
+            //   // child: TextButton(
+            //   //     onPressed: () {
+            //   //       Consumer<LoginProviderForUser>(builder: (context, loginpro, child) {
+            //   //         return loginpro.userLogOut();
+            //   //       },);
+            //   //      // login.userLogOut();
+            //   //     },
+            //   //     child: const Center(child: Text("Log_out"))),
+            //   // ),
+            //   //date 12--4-2025------------------------------------------- hide some changes
+            //   child: Consumer<LoginProvider2>(
+            //     builder: (context, loginPro2, child) {
+            //       return TextButton(
+            //           onPressed: () {
+            //             loginPro2.logOutUserAndAdmin(context);
+            //           },
+            //           child: const Text("logout"));
+            //     },
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height * 3 / 100,
+            // ),
             Center(
               child: Container(
                 height: MediaQuery.of(context).size.height * 42 / 100,
@@ -89,25 +89,25 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 3 / 100,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            //  print("notification working");
-                          },
-                          child: Image.asset(
-                            Appimage.notification,
-                            fit: BoxFit.fill,
-                            cacheHeight: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
                       height: MediaQuery.of(context).size.height * 1 / 100,
+                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     InkWell(
+                    //       onTap: () {
+                    //         //  print("notification working");
+                    //       },
+                    //       child: Image.asset(
+                    //         Appimage.notification,
+                    //         fit: BoxFit.fill,
+                    //         cacheHeight: 25,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 2 / 100,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 20),
@@ -434,8 +434,12 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                   child: const Icon(
                     Icons.logout,
                     color: Colors.red,
-                  )),
+                    size: 50.0,
+                  ),
+                  
+                  ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 2 / 100),
             const Center(
               child: Text("Logout"),
             )
